@@ -1,0 +1,21 @@
+{
+  "extends": "expo/tsconfig.base",
+  "esModuleInterop": true,
+  "compilerOptions": {
+    "strict": true,
+    "jsx": "react",
+    "baseUrl": ".",
+    "paths": {
+      "*": ["src/*"],
+      "components/*": ["src/components/*"],
+      "lang/*": ["src/lang"],
+      "screens/*": ["src/screens/*"],
+      "context": ["src/contexts"],
+      "utils/*": ["src/utils"],
+      "nav/*": ["src/navigation/*"],
+      "assets/*": ["./assets/*"]
+    }
+  },
+  "exclude" : ["node_modules", "vscode"],
+  
+}
