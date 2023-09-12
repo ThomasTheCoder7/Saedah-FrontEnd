@@ -11,10 +11,18 @@ import {
   SettingsIcon,
 } from "components/tabIcons";
 import { useTheme } from "contexts/ThemeContexts";
+import { useTranslation } from "react-i18next";
 function HomeScreen() {
   const theme = useTheme();
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center", backgroundColor:theme.backgroundColor }}>
+    <View
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: theme.backgroundColor,
+      }}
+    >
       <Text>Home!</Text>
     </View>
   );
@@ -32,6 +40,7 @@ const Tab = createMaterialBottomTabNavigator();
 const BottomTab = () => {
   const paperTheme = usePaperTheme();
   const theme = useTheme();
+  const {t} = useTranslation();
   paperTheme.colors.secondaryContainer = "transperent";
   return (
     <Tab.Navigator
@@ -43,7 +52,7 @@ const BottomTab = () => {
         // marginBottom: 18,
         // marginHorizontal: 20,
         borderTopLeftRadius: 35,
-        borderTopRightRadius:35,
+        borderTopRightRadius: 35,
         overflow: "hidden",
       }}
     >
@@ -52,7 +61,7 @@ const BottomTab = () => {
         component={HomeScreen}
         options={{
           tabBarIcon: HomeIcon,
-          
+          tabBarLabel:t('Home')
         }}
       />
       <Tab.Screen
@@ -60,6 +69,7 @@ const BottomTab = () => {
         component={SettingsScreen}
         options={{
           tabBarIcon: SearchIcon,
+          tabBarLabel:t('Search')
         }}
       />
       <Tab.Screen
@@ -67,13 +77,7 @@ const BottomTab = () => {
         component={SettingsScreen}
         options={{
           tabBarIcon: FavoritesIcon,
-        }}
-      />
-      <Tab.Screen
-        name="Profile"
-        component={SettingsScreen}
-        options={{
-          tabBarIcon: ProfileIcon,
+          tabBarLabel:t('Favorites')
         }}
       />
 
@@ -82,6 +86,7 @@ const BottomTab = () => {
         component={Settings}
         options={{
           tabBarIcon: SettingsIcon,
+          tabBarLabel:t('Settings')
         }}
       />
     </Tab.Navigator>
@@ -89,4 +94,3 @@ const BottomTab = () => {
 };
 
 export default BottomTab;
-

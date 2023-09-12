@@ -1,19 +1,28 @@
-import { View, Text } from 'react-native'
-import React from 'react'
-import { useTranslation } from 'react-i18next'
+import { View, Text } from "react-native";
+import React from "react";
+import { useTranslation } from "react-i18next";
+
+type fontWeight = "Light" | "Regular" | "SemiBold" | "Bold";
 
 type props = {
-  style?:object
-  bold?:boolean
-  children:string
-}
+  style?: object
+  weight?: fontWeight
+  children: string
+};
 
-const StyledText = ({style={},bold=false,children}:props) => {
-  const {t, i18n} = useTranslation()
+const StyledText = ({ style = {}, weight = "Regular", children }: props) => {
+  const { t, i18n } = useTranslation();
   const lang = i18n.language;
   return (
-      <Text style={[style, {fontFamily:`${lang ==='en'?'Poppins':'Cairo'}-${bold?'SemiBold':'Regular'}`}]}>{children}</Text>
-  )
-}
+    <Text
+      style={[
+        style,
+        { fontFamily: `${lang === "en" ? "Poppins" : "Cairo"}-${weight}`, },
+      ]}
+    >
+      {children}
+    </Text>
+  );
+};
 
-export default StyledText
+export default StyledText;

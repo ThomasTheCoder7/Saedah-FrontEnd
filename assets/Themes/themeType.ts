@@ -6,6 +6,8 @@ type themeType = {
     bottomTabInactiveIcon:string
     backgroundColor:string
     header:string
+    body:string
+    hr:string
 }
 
 export default themeType

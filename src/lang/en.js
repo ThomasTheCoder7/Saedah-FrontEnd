@@ -1,4 +1,7 @@
 export default [
-    "Hello",
-    "Bye"
+    "Home",
+    "Search",
+    "Favorites",
+    "Settings",
+    "Appearance"
 ]

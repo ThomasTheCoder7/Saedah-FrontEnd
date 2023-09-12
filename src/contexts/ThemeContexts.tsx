@@ -7,7 +7,7 @@ import React from 'react'
 
 
 const ThemeContext = createContext<themeType|null>(null);
-const SetThemeContext = createContext({});
+const SetThemeContext = createContext<Function>(()=>{});
 
 type Props = {
     children: ReactNode
