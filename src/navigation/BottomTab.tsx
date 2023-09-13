@@ -6,12 +6,12 @@ import { useTheme as usePaperTheme } from "react-native-paper";
 import {
   HomeIcon,
   FavoritesIcon,
-  ProfileIcon,
   SearchIcon,
   SettingsIcon,
 } from "components/tabIcons";
 import { useTheme } from "contexts/ThemeContexts";
 import { useTranslation } from "react-i18next";
+import HomeStack from "./HomeStack";
 function HomeScreen() {
   const theme = useTheme();
   return (
@@ -58,7 +58,7 @@ const BottomTab = () => {
     >
       <Tab.Screen
         name="Home"
-        component={HomeScreen}
+        component={HomeStack}
         options={{
           tabBarIcon: HomeIcon,
           tabBarLabel:t('Home')
