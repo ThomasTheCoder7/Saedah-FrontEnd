@@ -9,7 +9,8 @@ const DarkTheme:themeType = {
     bottomTabInactiveIcon: "#676a75",
     header:'#fbfbfb',
     body:"#c4c4c4",
-    hr:"#646464"
+    hr:"#646464",
+    secondary:"#00949b",
 }
 
 

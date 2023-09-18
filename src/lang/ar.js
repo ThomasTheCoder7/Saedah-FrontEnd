@@ -10,4 +10,6 @@ export default {
   Language: "اللغة",
   English: "الانجليزية",
   Arabic: "العربية",
+  "Sign in":"دخول",
+  "Register":"تسجيل"
 };

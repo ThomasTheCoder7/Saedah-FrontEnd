@@ -8,6 +8,7 @@ type themeType = {
     header:string
     body:string
     hr:string
+    secondary:string
 }
 
 export default themeType
