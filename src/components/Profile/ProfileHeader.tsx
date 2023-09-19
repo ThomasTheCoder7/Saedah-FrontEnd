@@ -10,7 +10,7 @@ const ProfileHeader = () => {
   return (
     <>
       <View>
-          <SettingLink/>    
+          <SettingLink/>  
       </View>
     </>
   );  
