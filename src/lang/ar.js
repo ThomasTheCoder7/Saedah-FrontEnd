@@ -14,5 +14,6 @@ export default {
   "Sign in":"دخول",
   "Register":"تسجيل",
   All:"الكل",
-  Entertainment:"ترفيه"
+  Entertainment:"ترفيه",
+  Deals:"منشوراتي"
 };
