@@ -7,6 +7,7 @@ import {
   heightPercentageToDP as htdp,
 } from "react-native-responsive-screen";
 import Icon from "@expo/vector-icons"
+import { useTranslation } from "react-i18next";
 
 type props = {
   children: ReactNode;
@@ -18,14 +19,14 @@ type props = {
 
 const FilterBubble = ({ children, active = false, label="",index, setActive }: props) => {
   const theme = useTheme();
-
+  const {t} = useTranslation()
   return (
     <TouchableOpacity
     onPress={()=>{setActive(index)}}
       style={[
         {
           borderWidth: 3,
-          borderRadius: 15,
+          borderRadius: 10,
           borderColor: !active ? theme.secondary : "transparent",
           backgroundColor: active ? theme.secondary : "transparent",
           padding: 10,
@@ -40,7 +41,7 @@ const FilterBubble = ({ children, active = false, label="",index, setActive }: p
         weight="Bold"
         style={{ color: theme.body, fontSize: htdp("2%") }}
       >
-        {label}
+        {t(label)}
       </StyledText>
     </TouchableOpacity>
   );

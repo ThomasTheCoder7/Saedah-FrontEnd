@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, SafeAreaView, Platform } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import BottomTab from "navigation/BottomTab";
 import Providers from "contexts/Providers";
-import { NavigationContainer } from "@react-navigation/native";
+import { DarkTheme, NavigationContainer } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import Main from "screens/Main";
@@ -34,7 +34,7 @@ export default function App() {
   }
   
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={{colors:{background:'transparent',border:'transparent',notification:'transparent'}}}>
       <SafeAreaProvider onLayout={onLayoutRootView}>
         <Providers >
         <Main/>

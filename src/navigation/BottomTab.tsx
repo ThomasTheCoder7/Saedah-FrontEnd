@@ -7,27 +7,14 @@ import {
   HomeIcon,
   FavoritesIcon,
   SearchIcon,
-  SettingsIcon,
+  ProfileIcon
 } from "components/tabIcons";
 import { useTheme } from "contexts/ThemeContexts";
 import { useTranslation } from "react-i18next";
 import HomeStack from "./HomeStack";
-function HomeScreen() {
-  const theme = useTheme();
-  return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: theme.backgroundColor,
-      }}
-    >
-      <Text>Home!</Text>
-    </View>
-  );
-}
-
+import Profile from "screens/profile/Profile";
+import ProfileStack from "./ProfileStack";
+import { DarkTheme } from "@react-navigation/native";
 function SettingsScreen() {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
@@ -44,6 +31,7 @@ const BottomTab = () => {
   paperTheme.colors.secondaryContainer = "transperent";
   return (
     <Tab.Navigator
+    theme={DarkTheme}
       shifting={true}
       activeColor={theme.bottomTabActiveIcon}
       barStyle={{
@@ -55,6 +43,7 @@ const BottomTab = () => {
         borderTopRightRadius: 35,
         overflow: "hidden",
       }}
+
     >
       <Tab.Screen
         name="Home"
@@ -72,21 +61,14 @@ const BottomTab = () => {
           tabBarLabel:t('Search')
         }}
       />
-      <Tab.Screen
-        name="Favorites"
-        component={SettingsScreen}
-        options={{
-          tabBarIcon: FavoritesIcon,
-          tabBarLabel:t('Favorites')
-        }}
-      />
+
 
       <Tab.Screen
-        name="Settings"
-        component={Settings}
+        name="Profile"
+        component={ProfileStack}
         options={{
-          tabBarIcon: SettingsIcon,
-          tabBarLabel:t('Settings')
+          tabBarIcon: ProfileIcon,
+          tabBarLabel:t('Profile')
         }}
       />
     </Tab.Navigator>

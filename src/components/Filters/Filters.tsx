@@ -12,8 +12,6 @@ import {
 } from "@expo/vector-icons";
 import { useTheme } from "contexts/ThemeContexts";
 
-
-
 const Filters = () => {
   const scrollRef = useRef();
   const [active, setStateActive]: [boolean[], Function] = useState([
@@ -22,21 +20,15 @@ const Filters = () => {
     false,
     false,
     false,
+    false
   ]);
-  const setActive = (index:number)=>{
-    const temp = [false,false,false,false,false]
-    temp[index] = true
-    setStateActive(temp)
-
-  }
+  const setActive = (index: number) => {
+    const temp = [false, false, false, false, false,false];
+    temp[index] = true;
+    setStateActive(temp);
+  };
   const theme = useTheme();
-  useEffect(() => {
-    setTimeout(() => {
-      if(scrollRef.current){
-        scrollRef.current.scrollTo(4)
-      }
-    }, 100);
-  }, []);
+
   return (
     <View style={{ marginTop: "10%" }}>
       <ScrollView
@@ -46,28 +38,59 @@ const Filters = () => {
         style={{
           flexDirection: "row",
           height: htdp("8%"),
-          width: wtdp('100%'),
+          width: wtdp("100%"),
         }}
         contentContainerStyle={{ alignItems: "center", gap: 20 }}
-        ref={scrollRef}
       >
-        <FilterBubble active={active[0]} label="Clothes" setActive={setActive} index={0}>
+        <FilterBubble
+          active={active[0]}
+          label="All"
+          setActive={setActive}
+          index={0}
+        >
+        </FilterBubble>
+        <FilterBubble
+          active={active[1]}
+          label="Clothes"
+          setActive={setActive}
+          index={1}
+        >
           <FontAwesome5 name="tshirt" size={24} color={theme.body} />
         </FilterBubble>
-        <FilterBubble active={active[1]} label="Entertainment" setActive={setActive} index={1}>
+        <FilterBubble
+          active={active[2]}
+          label="Entertainment"
+          setActive={setActive}
+          index={2}
+        >
           <Entypo name="game-controller" size={24} color={theme.body} />
         </FilterBubble>
-        <FilterBubble active={active[2]} label="Restaurants" setActive={setActive} index={2}>
+        <FilterBubble
+          active={active[3]}
+          label="Restaurants"
+          setActive={setActive}
+          index={3}
+        >
           <MaterialCommunityIcons
             name="silverware-fork-knife"
             size={24}
             color={theme.body}
           />
         </FilterBubble>
-        <FilterBubble active={active[3]} label="Vouchers" setActive={setActive} index={3}>
+        <FilterBubble
+          active={active[4]}
+          label="Vouchers"
+          setActive={setActive}
+          index={4}
+        >
           <MaterialCommunityIcons name="ticket" size={24} color={theme.body} />
         </FilterBubble>
-        <FilterBubble active={active[4]} label="Groceries" setActive={setActive} index={4}>
+        <FilterBubble
+          active={active[5]}
+          label="Groceries"
+          setActive={setActive}
+          index={5}
+        >
           <Entypo name="shopping-basket" size={24} color={theme.body} />
         </FilterBubble>
       </ScrollView>

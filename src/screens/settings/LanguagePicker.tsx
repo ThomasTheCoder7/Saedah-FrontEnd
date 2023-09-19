@@ -12,11 +12,14 @@ import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import { useTranslation } from "react-i18next";
 import { getLocales } from "expo-localization";
 
-
+const langs:Record<string,number>= {
+  'en':1,
+  'ar':0,
+}
 const LanguagePicker = () => {
   const theme = useTheme();
   const {t, i18n} = useTranslation()
-  const [selectedIndex, setIndex] = useState(2);
+  const [selectedIndex, setIndex] = useState(getLocales()[0].languageCode == i18n.language ? 2:langs[i18n.language]);
   const languages = ['Arabic', 'English', 'Default'];
   let checkBoxes = [];
   for (let i = 0; i < 3; i++) {

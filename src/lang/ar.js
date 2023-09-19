@@ -3,6 +3,7 @@ export default {
   Search:"البحث",
   Favorites:"المفضلة",
   Settings:"الاعدادات",
+  Profile:"الملف الشخصي",
   Appearance:"المظهر",
   Light: "ساطع",
   Dark: "داكن",
@@ -11,5 +12,7 @@ export default {
   English: "الانجليزية",
   Arabic: "العربية",
   "Sign in":"دخول",
-  "Register":"تسجيل"
+  "Register":"تسجيل",
+  All:"الكل",
+  Entertainment:"ترفيه"
 };

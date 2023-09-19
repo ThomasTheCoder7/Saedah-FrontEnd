@@ -33,3 +33,13 @@ export const SettingsIcon = ({ focused }: IconProps) => {
   const theme = useTheme()
   return <MaterialIcons name="settings" size={25} color={isFocused(focused,theme.bottomTabActiveIcon,theme.bottomTabInactiveIcon)} />;
 };
+
+export const ProfileIcon = ({ focused }: IconProps) => {
+  const theme = useTheme()
+  return <AntDesign name="user" size={25} color={isFocused(focused,theme.bottomTabActiveIcon,theme.bottomTabInactiveIcon)} />;
+};
+
+export const AddPostIcon = ({ focused }: IconProps) => {
+  const theme = useTheme()
+  return <AntDesign name="plus" size={25} color={isFocused(focused,theme.bottomTabActiveIcon,theme.bottomTabInactiveIcon)} />;
+};
