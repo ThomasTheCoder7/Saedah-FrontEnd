@@ -13,6 +13,7 @@ import { useTranslation } from "react-i18next";
 import { getLocales } from "expo-localization";
 import { changeLanguage } from "utils/LanguageHandler";
 import { load } from "utils/storageHandler";
+import { useNavigation } from '@react-navigation/native';
 
 const langs: Record<number, string> = {
   1: "en",

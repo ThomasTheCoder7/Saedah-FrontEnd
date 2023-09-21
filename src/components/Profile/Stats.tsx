@@ -11,13 +11,13 @@ const Stats = () => {
     <View style={{width:'100%', gap:0}}>
 
     <View style={{flexDirection:'row', justifyContent:'center', gap:10, width:'100%'}}>
-      <Label label='Followers' justifyContent='flex-start'>
+      <Label label='Followers' justifyContent='center'>
         <FontAwesome5 name='users' size={20} color={theme.body} />
       </Label>
-      <Label label='Deals' justifyContent='center' style={{borderLeftWidth:1, borderRightWidth:1,borderColor:theme.hr, backgroundColor:'transparent', width:wtdp('33%')}}>
+      <Label label='Deals' justifyContent='center'>
         <AntDesign name='tag' size={20} color={theme.body} />
       </Label>
-      <Label label='Following' justifyContent='flex-end'>
+      <Label label='Following' justifyContent='center'>
       <FontAwesome5 name='plus' size={20} color={theme.body} />
       </Label>
       

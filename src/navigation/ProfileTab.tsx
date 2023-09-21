@@ -1,6 +1,9 @@
 import { View, Text, Platform } from "react-native";
 import React from "react";
-import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import {
+  MaterialTopTabNavigationOptions,
+  createMaterialTopTabNavigator,
+} from "@react-navigation/material-top-tabs";
 import Posts from "screens/profile/Posts";
 import Favorites from "screens/profile/Favorites";
 import { useTheme } from "contexts/ThemeContexts";
@@ -8,26 +11,29 @@ import { useTranslation } from "react-i18next";
 
 const Tab = createMaterialTopTabNavigator();
 
-
 const ProfileTab = () => {
   const theme = useTheme();
   const { t, i18n } = useTranslation();
-  const reverse =
-    i18n.language == "ar" && Platform.OS == "android"
-      ? { scaleX: -1 }
-      : { scaleX: 1 };
+  const isArabic = i18n.language == "ar";
+  const isAndroid = Platform.OS == "android";
 
+  const screenOptions: MaterialTopTabNavigationOptions = {
+    tabBarInactiveTintColor: theme.bottomTabInactiveIcon,
+    tabBarAndroidRipple: {},
+  };
+
+  if (isAndroid && isArabic) {
+    console.log("arabic");
+    screenOptions.tabBarLabelStyle = { transform: [{ scaleX: -1 }] };
+    screenOptions.tabBarContentContainerStyle = { transform: [{ scaleX: -1 }] };
+  }
   return (
     <Tab.Navigator
-      screenOptions={{
-        tabBarInactiveTintColor: theme.bottomTabInactiveIcon,
-        tabBarAndroidRipple: {},
-        tabBarLabelStyle: { transform: [reverse] },
-        tabBarContentContainerStyle: { transform: [reverse] },
-      }}
+      screenOptions={screenOptions}
+      initialRouteName="UserPosts"
       style={{ direction: "ltr" }}
     >
-      {i18n.language == 'ar' ? (
+      {isArabic ? (
         <>
           <Tab.Screen
             name="Favorites"

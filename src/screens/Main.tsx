@@ -39,7 +39,10 @@ const Main = () => {
   useEffect(() => {
     const loadData = async () => {
       const language = await load("language");
-      if (!language) return;
+      if (!language) {
+        setLoading(false)  
+        return
+      }
 
       const languageCode = parseInt(language);
 
