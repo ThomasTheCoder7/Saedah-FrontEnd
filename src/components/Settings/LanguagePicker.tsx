@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View } from "react-native";
 import StyledText from "components/StyledText";
 import { CheckBox } from "@rneui/themed";
@@ -11,17 +11,29 @@ import {
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import { useTranslation } from "react-i18next";
 import { getLocales } from "expo-localization";
+import { changeLanguage } from "utils/LanguageHandler";
+import { load } from "utils/storageHandler";
 
-const langs:Record<string,number>= {
-  'en':1,
-  'ar':0,
-}
+const langs: Record<number, string> = {
+  1: "en",
+  0: "ar",
+};
 const LanguagePicker = () => {
   const theme = useTheme();
-  const {t, i18n} = useTranslation()
-  const [selectedIndex, setIndex] = useState(getLocales()[0].languageCode == i18n.language ? 2:langs[i18n.language]);
-  const languages = ['Arabic', 'English', 'Default'];
+  const { t, i18n } = useTranslation();
+  const [selectedIndex, setIndex] = useState(0);
+  const languages = ["Arabic", "English", "Default"];
   let checkBoxes = [];
+  const [loading, setLoading] = useState(true)
+  useEffect(()=>{
+    const loadData = async()=>{
+      const data = await load('language')
+      setIndex(data)
+      setLoading(false)
+    }
+    loadData()
+  },[])
+
   for (let i = 0; i < 3; i++) {
     checkBoxes.push(
       <CheckBox
@@ -39,33 +51,27 @@ const LanguagePicker = () => {
         textStyle={{ fontFamily: "Poppins-Light", color: theme.body }}
         onPress={() => {
           setIndex(i);
-          if(languages[i] === 'Arabic') {
-            i18n.changeLanguage('ar');
-            return
-        }
-          if(languages[i] === 'English') {
-            i18n.changeLanguage('en')
-        }
-          if(languages[i] === 'Default') {
-            i18n.changeLanguage(getLocales()[0].languageCode);
-        }
-
-
-
+          changeLanguage(
+            i18n,
+            i != 2 ? langs[i] : getLocales()[0].languageCode,
+            i == 2
+          );
         }}
       />
     );
   }
 
+  if(loading) return
+
   return (
     <View>
-      <View style={{ flexDirection: "row", gap: 10, alignItems:'center'}}>
+      <View style={{ flexDirection: "row", gap: 10, alignItems: "center" }}>
         <FontAwesome5 name="language" size={24} color={theme.header} />
         <StyledText
           style={{ color: theme.header, fontSize: htdp("3%") }}
           weight={"Regular"}
         >
-          {t('Language')}
+          {t("Language")}
         </StyledText>
       </View>
       {checkBoxes}

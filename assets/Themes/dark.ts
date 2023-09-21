@@ -11,6 +11,8 @@ const DarkTheme:themeType = {
     body:"#c4c4c4",
     hr:"#646464",
     secondary:"#00949b",
+    danger:'#dc2626',
+    warning:'#d97706'
 }
 
 

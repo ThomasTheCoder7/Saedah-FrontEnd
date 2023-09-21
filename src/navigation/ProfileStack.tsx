@@ -42,7 +42,6 @@ const ProfileStack = () => {
             headerTitleStyle: { fontSize: 23, fontFamily: `${lang === "en" ? "Poppins" : "Cairo"}-SemiBold` },
             headerTintColor:theme.header,
             headerShadowVisible: false,
-
           }}
         />
       </Stack.Navigator>

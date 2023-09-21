@@ -9,6 +9,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "1.18.2",
     "@react-navigation/bottom-tabs": "^6.5.8",
     "@react-navigation/material-bottom-tabs": "^6.2.16",
     "@react-navigation/material-top-tabs": "^6.6.3",
@@ -27,7 +28,9 @@
     "react": "18.2.0",
     "react-i18next": "^13.2.2",
     "react-native": "0.72.4",
+    "react-native-flash-message": "^0.4.2",
     "react-native-i18n": "^2.0.15",
+    "react-native-pager-view": "6.2.0",
     "react-native-paper": "^5.10.4",
     "react-native-reanimated": "^3.4.2",
     "react-native-responsive-screen": "^1.4.2",
@@ -35,8 +38,7 @@
     "react-native-screens": "~3.22.0",
     "react-native-svg": "13.9.0",
     "react-native-tab-view": "^3.5.2",
-    "react-native-vector-icons": "^10.0.0",
-    "react-native-pager-view": "6.2.0"
+    "react-native-vector-icons": "^10.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

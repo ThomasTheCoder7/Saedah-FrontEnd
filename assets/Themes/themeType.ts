@@ -9,6 +9,8 @@ type themeType = {
     body:string
     hr:string
     secondary:string
+    danger:string
+    warning:string
 }
 
 export default themeType

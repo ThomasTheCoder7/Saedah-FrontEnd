@@ -1,7 +1,4 @@
-export default [
-    "Home",
-    "Search",
-    "Favorites",
-    "Settings",
-    "Appearance"
-]
+export default {
+    "signOutMessage1":"You are about to sign out",
+    "signOutMessage2":"Are you sure ?",
+}

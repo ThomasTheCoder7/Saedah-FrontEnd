@@ -8,8 +8,9 @@ import {
   heightPercentageToDP as htdp,
 } from "react-native-responsive-screen";
 import { Ionicons } from "@expo/vector-icons";
-import ThemePicker from "./ThemePicker";
-import LanguagePicker from './LanguagePicker';
+import ThemePicker from "components/Settings/ThemePicker";
+import LanguagePicker from 'components/Settings/LanguagePicker';
+import LogoutBtn from "components/Settings/LogoutBtn";
 
 const Settings = () => {
   const theme = useTheme();
@@ -25,6 +26,7 @@ const Settings = () => {
       <ThemePicker />
       <Hr width="98%" />
       <LanguagePicker/>
+
     </View>
   );
 };

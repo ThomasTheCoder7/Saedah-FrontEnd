@@ -1,14 +1,13 @@
 import "i18n";
-import React, { useCallback, useEffect } from "react";
-import { StyleSheet, Text, View, SafeAreaView, Platform } from "react-native";
+import React, { useCallback } from "react";
+import { StyleSheet } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import BottomTab from "navigation/BottomTab";
 import Providers from "contexts/Providers";
-import { DarkTheme, NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import Main from "screens/Main";
-
+import { useTranslation } from "react-i18next";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -32,22 +31,22 @@ export default function App() {
   if (!fontsLoaded) {
     return null;
   }
-  
+
   return (
-    <NavigationContainer theme={{colors:{background:'transparent',border:'transparent',notification:'transparent'}}}>
+    <NavigationContainer
+      theme={{
+        colors: {
+          background: "transparent",
+          border: "transparent",
+          notification: "transparent",
+        },
+      }}
+    >
       <SafeAreaProvider onLayout={onLayoutRootView}>
-        <Providers >
-        <Main/>
+        <Providers>
+          <Main />
         </Providers>
       </SafeAreaProvider>
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "red",
-    justifyContent: "center",
-  },
-});

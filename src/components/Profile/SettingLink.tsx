@@ -13,12 +13,11 @@ const SettingLink = () => {
   return (
     <TouchableOpacity
     style={{
-        padding:10,
+        padding:5,
         width:70,
         height:70,
         alignItems:'center',
         justifyContent:'center',
-        alignSelf:position
     }}
       onPress={() => {
         navigation.navigate("Settings");

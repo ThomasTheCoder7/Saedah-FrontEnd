@@ -15,5 +15,9 @@ export default {
   "Register":"تسجيل",
   All:"الكل",
   Entertainment:"ترفيه",
-  Deals:"منشوراتي"
+  Deals:"منشوراتي",
+  signOutMessage1:"انت على وشك تسجيل الخروج من الحساب",
+  signOutMessage2:"هل انت متأكد ؟",
+  "Sign Out":"تسجيل الخروج",
+  Cancel:"الغاء",
 };

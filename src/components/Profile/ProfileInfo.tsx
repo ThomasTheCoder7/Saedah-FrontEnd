@@ -13,10 +13,10 @@ const ProfileInfo = () => {
   return (
     <View style={{alignItems:'center', gap:20}}>
       <Avatar
-        icon={{ type: "FontAwesome5", size: htdp("20%"), name: "home" }}
+        icon={{ type: "FontAwesome5", size: htdp("15%"), name: "person" }}
         size={htdp("20%")}
         rounded
-        containerStyle={{ backgroundColor: "red" }}
+        containerStyle={{ backgroundColor: theme.secondary}}
       />
       <StyledText weight="SemiBold" style={{fontSize:htdp('3%'), color:theme.header}}>
         Jawad

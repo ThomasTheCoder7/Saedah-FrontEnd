@@ -11,7 +11,7 @@
       "lang/*": ["src/lang"],
       "screens/*": ["src/screens/*"],
       "context": ["src/contexts"],
-      "utils/*": ["src/utils"],
+      "utils/*": ["src/utils/*"],
       "nav/*": ["src/navigation/*"],
       "assets/*": ["./assets/*"]
     }
