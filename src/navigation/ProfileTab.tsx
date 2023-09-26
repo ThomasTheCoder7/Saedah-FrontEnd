@@ -8,7 +8,7 @@ import Posts from "screens/profile/Posts";
 import Favorites from "screens/profile/Favorites";
 import { useTheme } from "contexts/ThemeContexts";
 import { useTranslation } from "react-i18next";
-
+import { widthPercentageToDP as wtdp ,heightPercentageToDP as htdp } from 'react-native-responsive-screen'
 const Tab = createMaterialTopTabNavigator();
 
 const ProfileTab = () => {
@@ -31,7 +31,7 @@ const ProfileTab = () => {
     <Tab.Navigator
       screenOptions={screenOptions}
       initialRouteName="UserPosts"
-      style={{ direction: "ltr" }}
+      style={{ direction: "ltr", height:htdp('97%')}}
     >
       {isArabic ? (
         <>

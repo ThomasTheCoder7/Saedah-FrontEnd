@@ -19,7 +19,7 @@ const ProfileInfo = () => {
         containerStyle={{ backgroundColor: theme.secondary}}
       />
       <StyledText weight="SemiBold" style={{fontSize:htdp('3%'), color:theme.header}}>
-        Jawad
+        Havel
       </StyledText>
       <Stats/>
     </View>

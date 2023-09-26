@@ -38,13 +38,9 @@ const Main = () => {
 
   useEffect(() => {
     const loadData = async () => {
-      const language = await load("language");
-      if (!language) {
-        setLoading(false)  
-        return
-      }
+      let language = await load("language");
 
-      const languageCode = parseInt(language);
+      const languageCode = language == null ? 2 : parseInt(language);
 
       i18n.changeLanguage(
         languageCode == 2
@@ -68,14 +64,15 @@ const Main = () => {
             borderRadius: 20,
             marginHorizontal: wtdp("5%"),
             marginTop: htdp("4%"),
-            alignItems:'center',
-            justifyContent:'center',
+            alignItems: "center",
+            justifyContent: "center",
           }}
           titleStyle={{
             fontFamily: `${
               i18n.language === "en" ? "Poppins" : "Cairo"
             }-SemiBold`,
-          paddingVertical:5}}
+            paddingVertical: 5,
+          }}
           textStyle={{
             fontFamily: `${
               i18n.language === "en" ? "Poppins" : "Cairo"
