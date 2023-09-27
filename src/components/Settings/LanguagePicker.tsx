@@ -29,7 +29,7 @@ const LanguagePicker = () => {
   useEffect(()=>{
     const loadData = async()=>{
       const data = await load('language')
-      setIndex(data)
+      setIndex(data==null?2:Number(data))
       setLoading(false)
     }
     loadData()

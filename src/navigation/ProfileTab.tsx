@@ -32,6 +32,7 @@ const ProfileTab = () => {
       screenOptions={screenOptions}
       initialRouteName="UserPosts"
       style={{ direction: "ltr", height:htdp('97%')}}
+      
     >
       {isArabic ? (
         <>
