@@ -4,8 +4,6 @@ import {
   widthPercentageToDP as wtdp,
   heightPercentageToDP as htdp,
 } from "react-native-responsive-screen";
-import { ScrollContext } from "./Profile";
-import { useScrollable } from "contexts/ScrollContext";
 const Posts = () => {
   return (
     <ScrollView showsVerticalScrollIndicator={false}  >

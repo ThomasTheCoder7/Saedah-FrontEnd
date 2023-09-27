@@ -9,7 +9,6 @@ import {
   heightPercentageToDP as htdp,
 } from "react-native-responsive-screen";
 import ProfileTab2 from "navigation/ProfileTab2";
-import { useScrollable } from "../../contexts/ScrollContext";
 
 const Header = () => {
   return (
@@ -22,9 +21,7 @@ const Header = () => {
 
 const Profile = () => {
   const theme = useTheme();
-  const { setParentScrollable, parentScrollable } = useScrollable();
-  return(<ProfileTab2 />);
-
+  return <ProfileTab2 />;
 };
 
 export default Profile;
