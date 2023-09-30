@@ -31,7 +31,7 @@ export const FavoritesIcon = ({ focused }: IconProps) => {
 
 export const SettingsIcon = ({ focused }: IconProps) => {
   const theme = useTheme()
-  return <MaterialIcons name="settings" size={25} color={isFocused(focused,theme.bottomTabActiveIcon,theme.bottomTabInactiveIcon)} />;
+  return <AntDesign name="setting" size={25} color={isFocused(focused,theme.bottomTabActiveIcon,theme.bottomTabInactiveIcon)} />;
 };
 
 export const ProfileIcon = ({ focused }: IconProps) => {

@@ -11,6 +11,7 @@ type themeType = {
     secondary:string
     danger:string
     warning:string
+    fieldBackground:string
 }
 
 export default themeType

@@ -12,7 +12,8 @@ const DarkTheme:themeType = {
     hr:"#646464",
     secondary:"#00949b",
     danger:'#dc2626',
-    warning:'#d97706'
+    warning:'#d97706',
+    fieldBackground:'#c8c9ce',
 }
 
 

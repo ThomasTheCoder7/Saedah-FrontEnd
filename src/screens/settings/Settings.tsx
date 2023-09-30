@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { View, ScrollView } from "react-native";
 import React from "react";
 import { useTheme } from "contexts/ThemeContexts";
 import StyledText from "components/StyledText";
@@ -15,7 +15,7 @@ import LogoutBtn from "components/Settings/LogoutBtn";
 const Settings = () => {
   const theme = useTheme();
   return (
-    <View
+    <ScrollView
       style={{
         backgroundColor: theme.backgroundColor,
         flex: 1,
@@ -27,7 +27,7 @@ const Settings = () => {
       <Hr width="98%" />
       <LanguagePicker/>
 
-    </View>
+    </ScrollView>
   );
 };
 
