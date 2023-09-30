@@ -54,7 +54,7 @@ const Main = () => {
   if (loading) return;
 
   return (
-    <View style={{ flex: 1, direction: i18n.dir(i18n.language) }}>
+    <View style={{ flex: 1, direction: i18n.dir(i18n.language), backgroundColor:theme.backgroundColor }}>
       <CustomStatusBar backgroundColor={theme.backgroundColor} />
       <SafeAreaView style={{ flex: 1 }}>
         <BottomTab />
