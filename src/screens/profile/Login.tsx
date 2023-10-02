@@ -19,6 +19,7 @@ import { useTranslation } from "react-i18next";
 import TextField from "components/Fields/TextField";
 import PasswordField from "components/Fields/PasswordField";
 import { useNavigation } from "@react-navigation/native";
+import Submit from "components/Fields/Submit";
 
 const Login = () => {
   const theme = useTheme();
@@ -74,15 +75,12 @@ const Login = () => {
               color={theme.bottomTabActiveIcon}
             />
           </View>
-          {/* TODO ADD TRANSLATION */}
-          <StyledText style={styles.errorText} weight="SemiBold">
-            Invalid Username or Password
-          </StyledText>
           <TextField label="Username" />
           <PasswordField label="Password" />
           <View
             style={{ flexDirection: "row", justifyContent: "center", gap: 5 }}
-          >
+            >
+            {/* TODO ADD TRANSLATION */}
             <StyledText style={{ color: theme.body }}>
               Don't have an account ?
             </StyledText>
@@ -92,6 +90,7 @@ const Login = () => {
             </StyledText>
             </TouchableOpacity>
           </View>
+          <Submit/>
         </View>
       </ScrollView>
     </KeyboardAvoidingView>

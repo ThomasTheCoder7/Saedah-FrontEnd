@@ -20,12 +20,15 @@ const Settings = () => {
         backgroundColor: theme.backgroundColor,
         flex: 1,
         paddingTop: 25,
-        paddingHorizontal: 15,
+        marginHorizontal: 15,
       }}
     >
+      <View style={{backgroundColor:theme.bottomTabBackground, padding:20, borderRadius:15, marginVertical:15}}>
       <ThemePicker />
-      <Hr width="98%" />
+      </View>
+      <View style={{backgroundColor:theme.bottomTabBackground, padding:20, borderRadius:15, marginVertical:15}}>
       <LanguagePicker/>
+      </View>
 
     </ScrollView>
   );
