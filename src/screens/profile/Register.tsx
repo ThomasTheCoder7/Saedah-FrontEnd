@@ -5,7 +5,6 @@ import {
   ScrollView,
   Platform,
   StyleSheet,
-  TouchableOpacity,
 } from "react-native";
 import React from "react";
 import { useTheme } from "contexts/ThemeContexts";
@@ -18,13 +17,14 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useTranslation } from "react-i18next";
 import TextField from "components/Fields/TextField";
 import PasswordField from "components/Fields/PasswordField";
-import { useNavigation } from "@react-navigation/native";
+import RNDateTimePicker from "@react-native-community/datetimepicker";
+import DateTimePicker from "components/Fields/DateTimePicker";
 
-const Login = () => {
+const Register = () => {
   const theme = useTheme();
   const { t } = useTranslation();
-  const keyboardVerticalOffset = Platform.OS === "ios" ? 40 : 0;
-  const navigation = useNavigation()
+  const keyboardVerticalOffset = Platform.OS === "ios" ? 70 : 0;
+
   const styles = StyleSheet.create({
     mainContainer: {
       backgroundColor: theme.backgroundColor,
@@ -78,19 +78,19 @@ const Login = () => {
           <StyledText style={styles.errorText} weight="SemiBold">
             Invalid Username or Password
           </StyledText>
+          <TextField label="Email" />
           <TextField label="Username" />
+          <DateTimePicker/>
           <PasswordField label="Password" />
           <View
             style={{ flexDirection: "row", justifyContent: "center", gap: 5 }}
           >
             <StyledText style={{ color: theme.body }}>
-              Don't have an account ?
+              Already have an account ?
             </StyledText>
-            <TouchableOpacity onPress={()=>{navigation.navigate('Register')}}>
-            <StyledText style={{ color: theme.bottomTabActiveIcon }} weight="Bold">
-              Sign up
+            <StyledText style={{ color: theme.bottomTabActiveIcon }}>
+              Log in
             </StyledText>
-            </TouchableOpacity>
           </View>
         </View>
       </ScrollView>
@@ -98,4 +98,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
