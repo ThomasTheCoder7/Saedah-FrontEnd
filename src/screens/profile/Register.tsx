@@ -86,7 +86,7 @@ const Register = () => {
             {/* TODO ADD TRANSLATION */}
               Already have an account ?
             </StyledText>
-            <TouchableOpacity onPress={()=>{navigation.goBack()}}>
+            <TouchableOpacity onPress={()=>{navigation.navigate('Login')}}>
               <StyledText style={{ color: theme.bottomTabActiveIcon }} weight="Bold">
                 Log in
               </StyledText>

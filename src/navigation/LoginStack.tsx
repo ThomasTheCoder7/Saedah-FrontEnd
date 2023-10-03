@@ -13,20 +13,20 @@ const LoginStack = () => {
   return (
     <Stack.Navigator
       initialRouteName="Initial"
-      screenOptions={{ headerShown: false }}
+      screenOptions={{
+        headerShown: true,
+        headerStyle: { backgroundColor: theme.backgroundColor },
+        headerShadowVisible: false,
+        headerTintColor: theme.header,
+        headerTitleAlign: "center",
+      }}
     >
-      <Stack.Screen name="Initial" component={Auth}/>
+      <Stack.Screen name="Initial" component={Auth} options={{headerShown:false, title:''}}/>
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen
         name="Register"
         component={Register}
-        options={{
-          headerShown: true,
-          headerStyle: { backgroundColor: theme.backgroundColor },
-          headerShadowVisible: false,
-          headerTintColor: theme.header,
-          headerTitleAlign: "center",
-        }}
+
       />
     </Stack.Navigator>
   );

@@ -6,7 +6,9 @@ import {
   heightPercentageToDP as htdp,
 } from "react-native-responsive-screen";
 import AuthButton from "components/Fields/AuthButton";
+import { useNavigation } from "@react-navigation/native";
 const Auth = () => {
+  const navigation = useNavigation()
   return (
     <View
       style={{
@@ -23,7 +25,8 @@ const Auth = () => {
         resizeMode="contain"
       />
       <View style={{ height:'40%', justifyContent:'center', width:'80%', gap:40}}>
-        <AuthButton/>
+        <AuthButton label="Login" onPress={()=> navigation.navigate('Login')}/>
+        <AuthButton secondary label="Register" onPress={()=> navigation.navigate('Register')}/>
       </View>
     </View>
   );
