@@ -22,7 +22,7 @@ const Stats = () => {
       </Label>
       
     </View>
-    <Hr width='90%' />
+    {/* <Hr width='90%' /> */}
     </View>
   )
 }

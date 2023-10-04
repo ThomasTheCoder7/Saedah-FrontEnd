@@ -21,12 +21,16 @@ import PasswordField from "components/Fields/PasswordField";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
 import DateTimePicker from "components/Fields/DateTimePicker";
 import { useNavigation } from "@react-navigation/native";
+import AuthButton from "components/Fields/AuthButton";
+import { store } from "utils/storageHandler";
+import { useAuth } from "contexts/AuthContext";
 
 const Register = () => {
   const theme = useTheme();
   const { t } = useTranslation();
   const keyboardVerticalOffset = Platform.OS === "ios" ? 70 : 0;
-  const navigation = useNavigation()
+  const {setAuth} = useAuth();
+  const navigation = useNavigation();
   const styles = StyleSheet.create({
     mainContainer: {
       backgroundColor: theme.backgroundColor,
@@ -36,20 +40,20 @@ const Register = () => {
     scrollView: {},
     content: {
       marginBottom: htdp("5%"),
-      gap: 20,
+      gap: 15,
       paddingHorizontal: wtdp("5%"),
     },
     header: {
       flexDirection: "row",
       justifyContent: "center",
-      gap: 20,
-      paddingTop: htdp("10%"),
+      gap: 15,
+      paddingTop: htdp("5%"),
       alignItems: "center",
     },
     headerText: {
       color: theme.header,
       textAlign: "center",
-      fontSize: htdp("4%"),
+      fontSize: htdp("3%"),
     },
     errorText: {
       color: theme.danger,
@@ -64,15 +68,15 @@ const Register = () => {
       behavior={Platform.OS === "ios" ? "padding" : null!}
       keyboardVerticalOffset={keyboardVerticalOffset}
     >
-      <ScrollView style={styles.scrollView}>
+      <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
         <View style={styles.content}>
           <View style={styles.header}>
             <StyledText style={styles.headerText}>
-              {t("Welcome Back")}
+              {t("RegisterHeaderMessage")}
             </StyledText>
             <MaterialCommunityIcons
               name="hand-wave"
-              size={htdp("8%")}
+              size={htdp("7%")}
               color={theme.bottomTabActiveIcon}
             />
           </View>
@@ -84,14 +88,18 @@ const Register = () => {
             >
             <StyledText style={{ color: theme.body }}>
             {/* TODO ADD TRANSLATION */}
-              Already have an account ?
+              {t("Already have an account ?")}
             </StyledText>
             <TouchableOpacity onPress={()=>{navigation.navigate('Login')}}>
               <StyledText style={{ color: theme.bottomTabActiveIcon }} weight="Bold">
-                Log in
+                {t('Login')}
               </StyledText>
             </TouchableOpacity>
           </View>
+          <AuthButton label="Register" onPress={()=>{
+            setAuth(true)
+
+          }}/>
         </View>
       </ScrollView>
     </KeyboardAvoidingView>

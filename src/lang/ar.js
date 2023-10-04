@@ -20,4 +20,11 @@ export default {
   signOutMessage2:"هل انت متأكد ؟",
   "Sign Out":"تسجيل الخروج",
   Cancel:"الغاء",
+  Register:"تسجيل مستخدم جديد",
+  RegisterHeaderMessage:"نورت تطبيقنا",
+  Login:"تسجيل الدخول",
+  LoginHeaderMessage:"اهلا بعودتك",
+  "Don't have an account ?":"ليس لديك حساب ؟",
+  "Already have an account ?":"لديك حساب بالفعل ؟",
+  "Getting Started":"لنبدأ"
 };

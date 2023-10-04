@@ -38,6 +38,7 @@ const BottomTab = () => {
       theme={DarkTheme}
       shifting={true}
       activeColor={theme.bottomTabActiveIcon}
+    
       barStyle={{
         backgroundColor: theme.bottomTabBackground,
         position: "relative",
@@ -47,6 +48,7 @@ const BottomTab = () => {
         // borderTopRightRadius: 35,
         overflow: "hidden",
       }}
+      
     >
       <Tab.Screen
         name="Home"

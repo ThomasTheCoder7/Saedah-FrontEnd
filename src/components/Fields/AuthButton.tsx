@@ -4,18 +4,19 @@ import { LinearGradient } from "expo-linear-gradient";
 import { useTheme } from "contexts/ThemeContexts";
 import StyledText from "components/StyledText";
 import { BlurView } from "expo-blur";
+import { useTranslation } from "react-i18next";
 
 type props = {
   label: string;
   secondary?: boolean;
-  onPress: Function
+  onPress: Function;
 };
 
 const AuthButton = ({ label, secondary = false, onPress }: props) => {
   const theme = useTheme();
-
+  const { t } = useTranslation();
   return (
-    <TouchableOpacity onPress={()=> onPress()}>
+    <TouchableOpacity onPress={() => onPress()}>
       <LinearGradient
         style={{ padding: 2, borderRadius: 12 }}
         locations={[0.1, 0.9]}
@@ -35,7 +36,7 @@ const AuthButton = ({ label, secondary = false, onPress }: props) => {
             style={{ color: theme.header, fontSize: 18, letterSpacing: 1 }}
             weight="SemiBold"
           >
-            {label}
+            {t(label)}
           </StyledText>
         </View>
       </LinearGradient>

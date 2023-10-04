@@ -20,10 +20,11 @@ import TextField from "components/Fields/TextField";
 import PasswordField from "components/Fields/PasswordField";
 import { useNavigation } from "@react-navigation/native";
 import Submit from "components/Fields/Submit";
+import AuthButton from "components/Fields/AuthButton";
 
 const Login = () => {
   const theme = useTheme();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const keyboardVerticalOffset = Platform.OS === "ios" ? 40 : 0;
   const navigation = useNavigation()
   const styles = StyleSheet.create({
@@ -35,20 +36,20 @@ const Login = () => {
     scrollView: {},
     content: {
       marginBottom: htdp("5%"),
-      gap: 20,
+      gap: 15,
       paddingHorizontal: wtdp("5%"),
     },
     header: {
       flexDirection: "row",
       justifyContent: "center",
-      gap: 20,
-      paddingTop: htdp("10%"),
+      gap: 15,
+      paddingTop: htdp("5%"),
       alignItems: "center",
     },
     headerText: {
       color: theme.header,
       textAlign: "center",
-      fontSize: htdp("4%"),
+      fontSize: htdp("3%"),
     },
     errorText: {
       color: theme.danger,
@@ -67,7 +68,7 @@ const Login = () => {
         <View style={styles.content}>
           <View style={styles.header}>
             <StyledText style={styles.headerText}>
-              {t("Welcome Back")}
+              {t("LoginHeaderMessage")}
             </StyledText>
             <MaterialCommunityIcons
               name="hand-wave"
@@ -82,15 +83,15 @@ const Login = () => {
             >
             {/* TODO ADD TRANSLATION */}
             <StyledText style={{ color: theme.body }}>
-              Don't have an account ?
+              {t("Don't have an account ?")}
             </StyledText>
             <TouchableOpacity onPress={()=>{navigation.navigate('Register')}}>
             <StyledText style={{ color: theme.bottomTabActiveIcon }} weight="Bold">
-              Sign up
+              {t('Register')}
             </StyledText>
             </TouchableOpacity>
           </View>
-          <Submit/>
+          <AuthButton label="Login"/>
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
