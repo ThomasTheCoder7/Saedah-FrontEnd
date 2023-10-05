@@ -26,5 +26,8 @@ export default {
   LoginHeaderMessage:"اهلا بعودتك",
   "Don't have an account ?":"ليس لديك حساب ؟",
   "Already have an account ?":"لديك حساب بالفعل ؟",
-  "Getting Started":"لنبدأ"
+  "Let's Get Started":"لنبدأ",
+  "Username":"اسم المستخدم",
+  "Password":"كلمة المرور",
+  "Email":"البريد الالكتروني"
 };

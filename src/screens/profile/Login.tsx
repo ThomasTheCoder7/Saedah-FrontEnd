@@ -76,7 +76,7 @@ const Login = () => {
               color={theme.bottomTabActiveIcon}
             />
           </View>
-          <TextField label="Username" />
+          <TextField label="Username"/>
           <PasswordField label="Password" />
           <View
             style={{ flexDirection: "row", justifyContent: "center", gap: 5 }}
@@ -91,7 +91,7 @@ const Login = () => {
             </StyledText>
             </TouchableOpacity>
           </View>
-          <AuthButton label="Login"/>
+          <AuthButton label="Login" />
         </View>
       </ScrollView>
     </KeyboardAvoidingView>

@@ -30,7 +30,7 @@ const Auth = () => {
         resizeMode="contain"
       />
       <StyledText style={{color:theme.header, fontSize:htdp('4%') }} weight="Bold">
-        {t('Getting Started')}
+        {t("Let's Get Started")}
       </StyledText>
       <View style={{ height:'40%', justifyContent:'center', width:'80%', gap:40}}>
         <AuthButton label="Login" onPress={()=> navigation.navigate('Login')}/>

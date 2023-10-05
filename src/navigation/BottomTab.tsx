@@ -15,7 +15,7 @@ import { useTranslation } from "react-i18next";
 import HomeStack from "./HomeStack";
 import Profile from "screens/profile/Profile";
 import ProfileStack from "./ProfileStack";
-import { DarkTheme } from "@react-navigation/native";
+import { DarkTheme, useNavigation } from "@react-navigation/native";
 import { useAuth } from "contexts/AuthContext";
 
 function SettingsScreen() {
@@ -32,67 +32,71 @@ const BottomTab = () => {
   const theme = useTheme();
   const { t } = useTranslation();
   const { isAuth } = useAuth();
-  paperTheme.colors.secondaryContainer = "transperent";
+
+  paperTheme.colors.secondaryContainer = "transparent";
+  const tabScreens = [
+    {
+      name: "Home",
+      component: HomeStack,
+      options: {
+        tabBarIcon: HomeIcon,
+        tabBarLabel: t("Home"),
+      },
+    },
+    {
+      name: "Search",
+      component: SettingsScreen,
+      options: {
+        tabBarIcon: SearchIcon,
+        tabBarLabel: t("Search"),
+      },
+    },
+
+    {
+      name: "Create",
+      component: SettingsScreen,
+      options: {
+        tabBarIcon: AddPostIcon,
+        tabBarLabel: "",
+      },
+    },
+    {
+      name: "Profile",
+      component: Profile,
+      options: {
+        tabBarIcon: ProfileIcon,
+        tabBarLabel: t("Profile"),
+      },
+    },
+    {
+      name: "Settings",
+      component: Settings,
+      options: {
+        tabBarIcon: SettingsIcon,
+        tabBarLabel: t("Settings"),
+      },
+    },
+  ];
+
   return (
     <Tab.Navigator
       theme={DarkTheme}
       shifting={true}
       activeColor={theme.bottomTabActiveIcon}
-    
       barStyle={{
         backgroundColor: theme.bottomTabBackground,
         position: "relative",
-        // marginBottom: 18,
-        // marginHorizontal: 20,
-        // borderTopLeftRadius: 35,
-        // borderTopRightRadius: 35,
         overflow: "hidden",
       }}
-      
     >
-      <Tab.Screen
-        name="Home"
-        component={HomeStack}
-        options={{
-          tabBarIcon: HomeIcon,
-          tabBarLabel: t("Home"),
-        }}
-      />
-      <Tab.Screen
-        name="Search"
-        component={SettingsScreen}
-        options={{
-          tabBarIcon: SearchIcon,
-          tabBarLabel: t("Search"),
-        }}
-      />
-      {isAuth ?? (
+      {tabScreens.map((screen, index) => (
         <Tab.Screen
-          name="Create"
-          component={SettingsScreen}
-          options={{
-            tabBarIcon: AddPostIcon,
-            tabBarLabel: "",
-          }}
+          key={index}
+          name={screen.name}
+          component={screen.component}
+          options={screen.options}
         />
-      )}
-
-      <Tab.Screen
-        name="Profile"
-        component={Profile}
-        options={{
-          tabBarIcon: ProfileIcon,
-          tabBarLabel: t("Profile"),
-        }}
-      />
-      <Tab.Screen
-        name="Settings"
-        component={Settings}
-        options={{
-          tabBarIcon: SettingsIcon,
-          tabBarLabel: t("Settings"),
-        }}
-      />
+      ))}
     </Tab.Navigator>
   );
 };
