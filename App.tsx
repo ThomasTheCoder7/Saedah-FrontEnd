@@ -8,6 +8,7 @@ import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import Main from "screens/Main";
 import { useTranslation } from "react-i18next";
+import Welcome from "screens/onBoarding/Welcome";
 
 SplashScreen.preventAutoHideAsync();
 

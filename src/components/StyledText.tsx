@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, StyleProp,TextStyle } from "react-native";
-import React from "react";
+import React, { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 
 type fontWeight = "Light" | "Regular" | "SemiBold" | "Bold";
@@ -7,7 +7,7 @@ type fontWeight = "Light" | "Regular" | "SemiBold" | "Bold";
 type props = {
   style?: TextStyle
   weight?: fontWeight
-  children: string
+  children: string | ReactNode
 };
 
 const StyledText = ({ style = {}, weight = "Regular", children }: props) => {
@@ -17,7 +17,7 @@ const StyledText = ({ style = {}, weight = "Regular", children }: props) => {
     <Text
       style={[
         style,
-        { fontFamily: `${lang === "en" ? "Poppins" : "Cairo"}-${weight}`, fontSize:style.fontSize},
+        { fontFamily: `${lang === "en" ? "Poppins" : "Cairo"}-${weight}`, fontSize:style.fontSize, padding:0},
       ]}
     >
       {children}

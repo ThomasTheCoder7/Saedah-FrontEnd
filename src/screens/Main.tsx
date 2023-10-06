@@ -13,6 +13,8 @@ import {
   widthPercentageToDP as wtdp,
   heightPercentageToDP as htdp,
 } from "react-native-responsive-screen";
+import Welcome from "./onBoarding/Welcome";
+import OnBoardingScreen from "./onBoarding/OnBoardingScreen";
 // import * as Updates from 'expo-updates';
 const Main = () => {
   const theme: themeType = useTheme();
@@ -52,7 +54,7 @@ const Main = () => {
     loadData();
   }, []);
   if (loading) return;
-
+  return <OnBoardingScreen/>
   return (
     <View style={{ flex: 1, direction: i18n.dir(i18n.language), backgroundColor:theme.backgroundColor }}>
       <CustomStatusBar backgroundColor={theme.backgroundColor} />

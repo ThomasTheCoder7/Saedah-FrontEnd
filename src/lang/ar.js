@@ -29,5 +29,9 @@ export default {
   "Let's Get Started":"لنبدأ",
   "Username":"اسم المستخدم",
   "Password":"كلمة المرور",
-  "Email":"البريد الالكتروني"
+  "Email":"البريد الالكتروني",
+  "WelcomeOnBoarding":"",
+  "MoneyOnBoarding":"يساعدك على توفير اموالك عن طريق تزويدك بافضل العروض",
+  "Saedah":"صيدة",
+  "Next":"التالي"
 };
