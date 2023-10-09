@@ -9,6 +9,7 @@ import * as SplashScreen from "expo-splash-screen";
 import Main from "screens/Main";
 import { useTranslation } from "react-i18next";
 import Welcome from "screens/onBoarding/Welcome";
+import { heightPercentageToDP } from "react-native-responsive-screen";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -43,7 +44,7 @@ export default function App() {
         },
       }}
     >
-      <SafeAreaProvider onLayout={onLayoutRootView}>
+      <SafeAreaProvider onLayout={onLayoutRootView} style={{}}>
         <Providers>
           <Main />
         </Providers>

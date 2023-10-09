@@ -6,6 +6,7 @@ import React, { Ref, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { View } from "react-native";
 import { heightPercentageToDP as htdp } from "react-native-responsive-screen";
+import LottieView from "lottie-react-native";
 type props = {
   index: number;
 };
@@ -16,9 +17,15 @@ const Money = ({ index }: props) => {
   if (!refs) return;
   return (
     <OnBoardingScreen
-      animationPath="assets/Money.json"
       buttonText="Next"
-      animationRef={refs[index]}
+      headerIcon={
+        <LottieView
+          autoPlay={true}
+          loop={false}
+          ref={refs[index]}
+          source={require("assets/Money.json")}
+        />
+      }
     >
       <View>
         <StyledText

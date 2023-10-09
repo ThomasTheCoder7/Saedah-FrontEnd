@@ -11,19 +11,25 @@ import StyledText from "components/StyledText";
 import { useTranslation } from "react-i18next";
 import OnBoardingScreen from "components/onBoarding/OnBoardingScreen";
 import { useOnBoarding } from "contexts/OnBoardingContext";
+import { Image } from "react-native";
 type props = {
-  index:number
+  index: number;
 };
 const Welcome = ({ index }: props) => {
   const theme = useTheme();
   const { t } = useTranslation();
-  const {refs} = useOnBoarding()
-  if(!refs) return
+  const { refs } = useOnBoarding();
+  if (!refs) return;
   return (
     <OnBoardingScreen
-      animationPath="assets/Money.json"
       buttonText="Next"
-      animationRef={refs[index]}
+      headerIcon={
+        <Image
+          source={require("assets/logo-no-background.png")}
+          style={{ width: htdp("38%"), height: htdp("38%") }}
+          resizeMode="contain"
+        />
+      }
       isFirst
     >
       <View>

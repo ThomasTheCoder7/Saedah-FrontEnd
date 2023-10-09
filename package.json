@@ -36,6 +36,7 @@
     "react-native-collapsible-tab-view": "^6.2.1",
     "react-native-flash-message": "^0.4.2",
     "react-native-i18n": "^2.0.15",
+    "react-native-onboarding-swiper": "^1.2.0",
     "react-native-pager-view": "6.2.0",
     "react-native-paper": "^5.10.4",
     "react-native-reanimated": "~3.3.0",

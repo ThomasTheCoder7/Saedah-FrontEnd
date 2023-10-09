@@ -1,4 +1,4 @@
-import { View, Text, Button, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, Button, StyleSheet, TouchableOpacity, Platform } from "react-native";
 import { ReactNode, Ref, useEffect, useRef } from "react";
 import LottieView from "lottie-react-native";
 import React from "react";
@@ -10,29 +10,28 @@ import { useTheme } from "contexts/ThemeContexts";
 import StyledText from "components/StyledText";
 import { useTranslation } from "react-i18next";
 import { LinearGradient } from "expo-linear-gradient";
-import NextButton from "./NextButton";
 import { useOnBoarding } from "contexts/OnBoardingContext";
+import OnBoardingButton from "./OnBoardingButton";
 
 type props = {
   animationPath: string;
   buttonText: string;
   isLast?: boolean;
-  isFirst?:boolean
+  isFirst?: boolean;
   children: ReactNode;
   animationRef: Ref<any>;
+  headerIcon: ReactNode;
 };
 
 const onBoardingScreen = ({
-  animationPath,
-  buttonText,
   children,
-  animationRef,
+  headerIcon,
   isLast = false,
   isFirst = false,
 }: props) => {
   const theme = useTheme();
-  const { t } = useTranslation();
-  const {scrollTo} = useOnBoarding()
+  const { i18n } = useTranslation();
+  const { scrollTo } = useOnBoarding();
   return (
     <View
       style={[
@@ -41,25 +40,33 @@ const onBoardingScreen = ({
           backgroundColor: theme.backgroundColor,
           width: wtdp("100%"),
           height: htdp("100%"),
+          padding:0
         },
       ]}
     >
-      <LottieView
-        autoPlay={isFirst}
-        loop={false}
-        ref={animationRef}
+      <View
         style={{
           width: htdp("38%"),
           height: htdp("38%"),
-          paddingTop: htdp("3%"),
+          marginTop: htdp("5%"),
         }}
-
-        source={require("assets/Money.json")}
-      />
+      >
+        {headerIcon}
+      </View>
       <View style={styles.textContainer}>{children}</View>
-      <View style={{ marginTop: htdp("20%") }}>
-        <NextButton label="Next"/>
-        <Button title="Hello" onPress={()=>{scrollTo(0)}}/>
+      <View
+        style={{
+          position: "absolute",
+          bottom: 0,
+          flexDirection:'row',
+          direction:i18n.language == 'ar'?'rtl':'ltr',
+          justifyContent: "space-between",
+          width: "95%",
+          alignItems: "center",
+        }}
+      >
+        <OnBoardingButton label={i18n.language=='ar'&&Platform.OS=='android'? 'previous':'Next'}/>
+        <OnBoardingButton label={i18n.language=='ar'&&Platform.OS=='android'? 'Next':'previous'} />
       </View>
     </View>
   );

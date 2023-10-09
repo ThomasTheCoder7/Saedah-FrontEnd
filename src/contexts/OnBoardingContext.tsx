@@ -33,7 +33,6 @@ export default ({ children }: props) => {
     if (scrollViewRef) {
       scrollViewRef.scrollTo({
         x: Math.round(index * wtdp("100%")),
-        y: 0,
         animated: true,
       });
       refs.forEach((val, i) => {
@@ -41,7 +40,6 @@ export default ({ children }: props) => {
           val.current.reset();
         }
       });
-      // refs[index].current.reset();
       refs[index].current.play();
       setCurrentIndex(index);
     }
