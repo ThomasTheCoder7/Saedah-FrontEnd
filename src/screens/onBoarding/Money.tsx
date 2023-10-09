@@ -1,23 +1,25 @@
-import { View, Text, Button, StyleSheet } from "react-native";
-import { useEffect, useRef } from "react";
-import LottieView from "lottie-react-native";
-import React from "react";
-import {
-  widthPercentageToDP as wtdp,
-  heightPercentageToDP as htdp,
-} from "react-native-responsive-screen";
-import { useTheme } from "contexts/ThemeContexts";
 import StyledText from "components/StyledText";
+import OnBoardingScreen from "components/onBoarding/OnBoardingScreen";
+import { useOnBoarding } from "contexts/OnBoardingContext";
+import { useTheme } from "contexts/ThemeContexts";
+import React, { Ref, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import OnBoardingScreen from "../../components/onBoarding/OnBoardingScreen";
-import onBoardingScreen from "../../components/onBoarding/OnBoardingScreen";
-const Money = () => {
-  const animation = useRef(null);
+import { View } from "react-native";
+import { heightPercentageToDP as htdp } from "react-native-responsive-screen";
+type props = {
+  index: number;
+};
+const Money = ({ index }: props) => {
   const theme = useTheme();
   const { t } = useTranslation();
-
+  const { refs } = useOnBoarding();
+  if (!refs) return;
   return (
-    <OnBoardingScreen animationPath="assets/Money.json" buttonText="Next">
+    <OnBoardingScreen
+      animationPath="assets/Money.json"
+      buttonText="Next"
+      animationRef={refs[index]}
+    >
       <View>
         <StyledText
           style={{

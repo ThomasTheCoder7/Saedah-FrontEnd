@@ -6,6 +6,7 @@ import { useTheme } from 'contexts/ThemeContexts'
 import { useTranslation } from 'react-i18next'
 import { widthPercentageToDP as wtdp ,heightPercentageToDP as htdp } from 'react-native-responsive-screen'
 import { useNavigation } from '@react-navigation/native'
+import { useOnBoarding } from 'contexts/OnBoardingContext'
 type props = {
 label:string;
 }
@@ -14,8 +15,9 @@ const NextButton = ({label}:props) => {
   const theme = useTheme()
   const {t} = useTranslation()
   const navigation = useNavigation()
+  const {scrollTo, refs} = useOnBoarding()
   return (
-    <TouchableOpacity onPress={() => {navigation.navigate('Money')}}>
+    <TouchableOpacity onPress={() => {scrollTo(1)}}>
       <LinearGradient
         style={{ width:wtdp('80%'), borderRadius: 12 }}
         locations={[0.1, 0.9]}

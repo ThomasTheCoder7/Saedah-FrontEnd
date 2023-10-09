@@ -1,5 +1,5 @@
 import { View, Text, Button, StyleSheet } from "react-native";
-import { useEffect, useRef } from "react";
+import { Ref, useEffect, useRef } from "react";
 import LottieView from "lottie-react-native";
 import React from "react";
 import {
@@ -10,13 +10,22 @@ import { useTheme } from "contexts/ThemeContexts";
 import StyledText from "components/StyledText";
 import { useTranslation } from "react-i18next";
 import OnBoardingScreen from "components/onBoarding/OnBoardingScreen";
-const Welcome = () => {
-  const animation = useRef(null);
+import { useOnBoarding } from "contexts/OnBoardingContext";
+type props = {
+  index:number
+};
+const Welcome = ({ index }: props) => {
   const theme = useTheme();
   const { t } = useTranslation();
-
+  const {refs} = useOnBoarding()
+  if(!refs) return
   return (
-    <OnBoardingScreen animationPath="assets/Money.json" buttonText="Next">
+    <OnBoardingScreen
+      animationPath="assets/Money.json"
+      buttonText="Next"
+      animationRef={refs[index]}
+      isFirst
+    >
       <View>
         <StyledText
           style={{
