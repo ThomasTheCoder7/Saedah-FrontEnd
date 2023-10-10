@@ -54,7 +54,9 @@ const Main = () => {
     loadData();
   }, []);
   if (loading) return;
-  return <OnBoardingScreen/>
+  return <View style={{ flex: 1, direction: i18n.dir(i18n.language), backgroundColor:theme.backgroundColor }}>
+    <OnBoardingScreen/>
+  </View>
   return (
     <View style={{ flex: 1, direction: i18n.dir(i18n.language), backgroundColor:theme.backgroundColor }}>
       <CustomStatusBar backgroundColor={theme.backgroundColor} />

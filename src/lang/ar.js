@@ -33,5 +33,6 @@ export default {
   "WelcomeOnBoarding":"",
   "MoneyOnBoarding":"يساعدك على توفير اموالك عن طريق تزويدك بافضل العروض",
   "Saedah":"صيدة",
-  "Next":"التالي"
+  "Next":"التالي",
+  "Previous":"عودة"
 };

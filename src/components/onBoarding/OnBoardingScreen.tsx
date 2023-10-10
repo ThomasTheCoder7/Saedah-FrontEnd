@@ -65,8 +65,8 @@ const onBoardingScreen = ({
           alignItems: "center",
         }}
       >
-        <OnBoardingButton label={i18n.language=='ar'&&Platform.OS=='android'? 'previous':'Next'}/>
-        <OnBoardingButton label={i18n.language=='ar'&&Platform.OS=='android'? 'Next':'previous'} />
+        <OnBoardingButton type='previous' />
+        <OnBoardingButton type='next'/>
       </View>
     </View>
   );

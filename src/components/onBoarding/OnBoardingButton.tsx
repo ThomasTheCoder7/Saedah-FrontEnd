@@ -10,25 +10,32 @@ import {
 } from "react-native-responsive-screen";
 import { useNavigation } from "@react-navigation/native";
 import { useOnBoarding } from "contexts/OnBoardingContext";
+import { Platform } from "react-native";
 type props = {
-  label: string;
   type: "next" | "previous";
 };
 
-const OnBoardingButton = ({ label, type }: props) => {
+const OnBoardingButton = ({ type }: props) => {
+  //Capitalize
+  const label = type.charAt(0).toUpperCase() + type.slice(1);
   const theme = useTheme();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { scrollTo, currentIndex, refs } = useOnBoarding();
-  const nextDisabled = currentIndex+1 >= refs.length && type === 'next'
-  const prevDisabled = currentIndex-1 < 0 && type === 'previous'
-  const disabled = prevDisabled || nextDisabled
+  const isEnglish = i18n.language == "en";
+  const nextDisabled = 
+    currentIndex + 1 >= refs.length && type === "next"
+    // : currentIndex - 1 < 0 && type === "next";
+  const prevDisabled = 
+     currentIndex - 1 < 0 && type === "previous"
+    // : currentIndex + 1 >= refs.length && type === "previous";
+  const disabled = prevDisabled || nextDisabled;
 
-  const scrollToNext = () => (scrollTo(currentIndex + 1));
-  const scrollToPrevious = () => (!disabled ? scrollTo(currentIndex - 1) : false);
+  const scrollToNext = () => scrollTo(currentIndex + 1);
+  const scrollToPrevious = () => scrollTo(currentIndex - 1);
   return (
     <TouchableOpacity
       onPress={() => {
-        type == "next" ? scrollToNext() : scrollToPrevious();
+        type == "next" && isEnglish ? scrollToNext() : scrollToPrevious();
       }}
       disabled={disabled}
     >
