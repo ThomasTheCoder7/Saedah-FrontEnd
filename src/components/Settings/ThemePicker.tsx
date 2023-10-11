@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text } from "react-native";
 import StyledText from "components/StyledText";
 import { CheckBox } from "@rneui/themed";
@@ -10,14 +10,28 @@ import {
 } from "react-native-responsive-screen";
 import { FontAwesome } from "@expo/vector-icons";
 import { useTranslation } from "react-i18next";
+import { load, store } from "utils/storageHandler";
 
 const ThemePicker = () => {
   const theme = useTheme();
   const setTheme = useSetTheme()
   const [selectedIndex, setIndex] = useState(2);
+  const [loading, setLoading] = useState(true)
+  useEffect(()=>{
+    const loadData = async()=>{
+      const data = await load('theme')
+      setIndex(data==null?2:Number(data))
+      setLoading(false)
+    }
+    loadData()
+  },[])
+
+  
+
   const themes = ["Dark", "Light", "Default"];
   let checkBoxes = [];
   const {t} = useTranslation()
+  if (loading) {return}
   for (let i = 0; i < 3; i++) {
     checkBoxes.push(
       <CheckBox
@@ -36,6 +50,7 @@ const ThemePicker = () => {
         onPress={() => {
           setIndex(i);
           setTheme(themes[i].toLowerCase());
+          store('theme',String(i))
         }}
       />
     );

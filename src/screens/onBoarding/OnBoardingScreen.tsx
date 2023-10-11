@@ -1,31 +1,26 @@
 import { useOnBoarding } from "contexts/OnBoardingContext";
-import React, { useEffect, useRef, useState } from "react";
-import { Dimensions, ScrollView, View, Platform, Image } from "react-native";
-import Money from "./Money";
-import Welcome from "./Welcome";
-import {
-  widthPercentageToDP as wtdp,
-  heightPercentageToDP as htdp,
-} from "react-native-responsive-screen";
+import React, { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import Onboarding from "react-native-onboarding-swiper";
-import { useTheme } from "contexts/ThemeContexts";
+import { ScrollView, View } from "react-native";
+import {
+  heightPercentageToDP as htdp
+} from "react-native-responsive-screen";
+import Money from "./Money";
+import Page2 from "./Page2";
+import Welcome from "./Welcome";
 
 const OnBoardingScreen = () => {
-  const { refs, setScrollTo,scrollTo } = useOnBoarding();
-  const [scrollIndex, setScrollIndex] = useState(0);
-  const theme = useTheme();
+  const { setScrollTo, setNumOfSlides} = useOnBoarding();
   const scrollViewRef = useRef(null);
   useEffect(() => {
-    if (scrollViewRef) {
-      setScrollTo(scrollViewRef.current);
-      
-    }
-  }, []);
+    setScrollTo(scrollViewRef);
+    setNumOfSlides(3);
+  }, [scrollViewRef]);
+
   const { i18n } = useTranslation();
 
   return (
-    <View style={{ padding: 0, margin: 0, flex: 1, height:htdp('100%') }}>
+    <View style={{ padding: 0, margin: 0, flex: 1, height: htdp("100%") }}>
       <ScrollView
         style={{
           padding: 0,
@@ -39,6 +34,7 @@ const OnBoardingScreen = () => {
       >
         <Welcome index={0} />
         <Money index={1} />
+        <Money index={2} />
       </ScrollView>
     </View>
   );

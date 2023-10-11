@@ -20,14 +20,13 @@ const OnBoardingButton = ({ type }: props) => {
   const label = type.charAt(0).toUpperCase() + type.slice(1);
   const theme = useTheme();
   const { t, i18n } = useTranslation();
-  const { scrollTo, currentIndex, refs } = useOnBoarding();
+  const { scrollTo, currentIndex, numOfSlides} = useOnBoarding();
   const isEnglish = i18n.language == "en";
-  const nextDisabled = 
-    currentIndex + 1 >= refs.length && type === "next"
-    // : currentIndex - 1 < 0 && type === "next";
-  const prevDisabled = 
-     currentIndex - 1 < 0 && type === "previous"
-    // : currentIndex + 1 >= refs.length && type === "previous";
+  const isAndroid = Platform.OS == "android";
+  console.log(currentIndex + 1 >= numOfSlides);
+  const nextDisabled = currentIndex + 1 >= numOfSlides && type === "next";
+  const prevDisabled = currentIndex - 1 < 0 && type === "previous";
+
   const disabled = prevDisabled || nextDisabled;
 
   const scrollToNext = () => scrollTo(currentIndex + 1);
@@ -35,7 +34,7 @@ const OnBoardingButton = ({ type }: props) => {
   return (
     <TouchableOpacity
       onPress={() => {
-        type == "next" && isEnglish ? scrollToNext() : scrollToPrevious();
+        type == "next" ? scrollToNext() : scrollToPrevious();
       }}
       disabled={disabled}
     >

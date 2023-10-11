@@ -2,7 +2,7 @@ import StyledText from "components/StyledText";
 import OnBoardingScreen from "components/onBoarding/OnBoardingScreen";
 import { useOnBoarding } from "contexts/OnBoardingContext";
 import { useTheme } from "contexts/ThemeContexts";
-import React, { Ref, useRef } from "react";
+import React, { Ref, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { View } from "react-native";
 import { heightPercentageToDP as htdp } from "react-native-responsive-screen";
@@ -13,18 +13,23 @@ type props = {
 const Money = ({ index }: props) => {
   const theme = useTheme();
   const { t } = useTranslation();
-  const { refs } = useOnBoarding();
-  if (!refs) return;
+  const { currentIndex } = useOnBoarding();
+  const shouldPlay = currentIndex == index
+  const [progress,setProgress] = useState(0);
   return (
     <OnBoardingScreen
       buttonText="Next"
       headerIcon={
         <LottieView
-          autoPlay={true}
-          loop={false}
-          ref={refs[index]}
-          source={require("assets/Money.json")}
-        />
+        autoPlay={shouldPlay}
+        progress={progress}
+        onAnimationFinish={()=>{
+          setProgress(shouldPlay?0:1);
+        }}
+        loop={false}
+        source={require("assets/Money.json")}
+        key={index}
+      />
       }
     >
       <View>

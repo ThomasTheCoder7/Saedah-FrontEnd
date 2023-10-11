@@ -9,7 +9,7 @@
     "splash": {
       "image": "./assets/logo-no-background.png",
       "resizeMode": "contain",
-      "backgroundColor": "#000000"
+      "backgroundColor": "#1a1b1d"
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
@@ -17,8 +17,8 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/logo-no-background.png",
+        "backgroundColor": "#1a1b1d"
       },
       "package": "com.saedah.saedah"
     },

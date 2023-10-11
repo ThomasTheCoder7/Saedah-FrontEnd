@@ -18,8 +18,6 @@ type props = {
 const Welcome = ({ index }: props) => {
   const theme = useTheme();
   const { t } = useTranslation();
-  const { refs } = useOnBoarding();
-  if (!refs) return;
   return (
     <OnBoardingScreen
       buttonText="Next"

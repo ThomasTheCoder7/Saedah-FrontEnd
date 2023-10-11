@@ -10,13 +10,24 @@ import {
 } from "react";
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { Platform } from "react-native";
 import { widthPercentageToDP as wtdp } from "react-native-responsive-screen";
-const OnBoardingContext = createContext<{
-  refs: [];
+
+type OnBoarding = {
+  numOfSlides: number;
+  setNumOfSlides: Function;
   scrollTo: Function;
   setScrollTo: Function;
   currentIndex: number;
-}>({ refs: [], scrollTo: () => {}, setScrollTo: () => {}, currentIndex: 0 });
+};
+
+const OnBoardingContext = createContext<OnBoarding>({
+  numOfSlides: 3,
+  setNumOfSlides: () => {},
+  scrollTo: () => {},
+  setScrollTo: () => {},
+  currentIndex: 0,
+});
 
 type props = {
   children: ReactNode;
@@ -26,36 +37,30 @@ export const useOnBoarding = () => {
   return useContext(OnBoardingContext);
 };
 
-const calcIndex = (index: number, lang: string): number =>
-  lang == "en" ? index * wtdp("100%") : -calcIndex(index, "en")<0?0:-calcIndex(index);
+const calcIndex = (index: number, lang: string, len: number) =>
+  Platform.OS == "android" && lang == "ar"
+    ? Math.round(Math.abs((index - len) * wtdp("100%")))
+    : Math.round(Math.abs(index * wtdp("100%")));
 
 export default ({ children }: props) => {
-  const refs = Array(2).fill(useRef(null));
+  const [numOfSlides, setNumOfSlides] = useState(0);
   const [scrollViewRef, setScrollTo]: [Ref<any>, Function] = useState();
   const [currentIndex, setCurrentIndex]: [number, Function] = useState(0);
-  const {i18n} = useTranslation()
+  const { i18n } = useTranslation();
   const scrollTo = (index: number) => {
-    index = Math.abs(index);
-    console.log(calcIndex(index, 'en'))
-    if (scrollViewRef) {
-      scrollViewRef.scrollTo({
-        x: Math.round(index * wtdp("100%")),
-        animated: true,
-      });
-      refs.forEach((val, i) => {
-        if (currentIndex != i && val.current) {
-          val.current.reset();
-        }
-      });
+    scrollViewRef.current.scrollTo({
+      x: calcIndex(index, i18n.language, numOfSlides - 1),
+      y: 0,
+      animated: true,
+    });
 
-      refs[index].current.play();
-      setCurrentIndex(index);
-    }
+    setCurrentIndex(Math.abs(index));
   };
   return (
     <OnBoardingContext.Provider
       value={{
-        refs: refs,
+        setNumOfSlides: setNumOfSlides,
+        numOfSlides: numOfSlides,
         scrollTo: scrollTo,
         setScrollTo: setScrollTo,
         currentIndex: currentIndex,
