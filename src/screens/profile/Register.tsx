@@ -98,7 +98,10 @@ const Register = () => {
           </View>
           <AuthButton label="Register" onPress={()=>{
             setAuth(true)
-
+            navigation.reset({
+              index: 0,
+              routes: [{ name: "Main" }],
+            })
           }}/>
         </View>
       </ScrollView>

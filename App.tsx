@@ -10,6 +10,7 @@ import Main from "screens/Main";
 import { useTranslation } from "react-i18next";
 import Welcome from "screens/onBoarding/Welcome";
 import { heightPercentageToDP } from "react-native-responsive-screen";
+import MainStack from "navigation/MainStack";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -46,7 +47,7 @@ export default function App() {
     >
       <SafeAreaProvider onLayout={onLayoutRootView} style={{}}>
         <Providers>
-          <Main />
+          <MainStack/>
         </Providers>
       </SafeAreaProvider>
     </NavigationContainer>

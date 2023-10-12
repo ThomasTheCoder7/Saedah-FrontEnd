@@ -1,37 +1,28 @@
-import { View, Text, Button, StyleSheet, TouchableOpacity, Platform } from "react-native";
-import { ReactNode, Ref, useEffect, useRef } from "react";
-import LottieView from "lottie-react-native";
-import React from "react";
-import {
-  widthPercentageToDP as wtdp,
-  heightPercentageToDP as htdp,
-} from "react-native-responsive-screen";
 import { useTheme } from "contexts/ThemeContexts";
-import StyledText from "components/StyledText";
+import React, { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
-import { LinearGradient } from "expo-linear-gradient";
-import { useOnBoarding } from "contexts/OnBoardingContext";
+import { StyleSheet, View } from "react-native";
+import {
+  heightPercentageToDP as htdp,
+  widthPercentageToDP as wtdp,
+} from "react-native-responsive-screen";
 import OnBoardingButton from "./OnBoardingButton";
 
 type props = {
-  animationPath: string;
-  buttonText: string;
   isLast?: boolean;
   isFirst?: boolean;
   children: ReactNode;
-  animationRef: Ref<any>;
-  headerIcon: ReactNode;
+  headerIcon?: ReactNode;
 };
 
-const onBoardingScreen = ({
+const OnBoardingComponent = ({
   children,
-  headerIcon,
+  headerIcon=<></>,
   isLast = false,
   isFirst = false,
 }: props) => {
   const theme = useTheme();
   const { i18n } = useTranslation();
-  const { scrollTo } = useOnBoarding();
   return (
     <View
       style={[
@@ -39,7 +30,7 @@ const onBoardingScreen = ({
         {
           backgroundColor: theme.backgroundColor,
           width: wtdp("100%"),
-          height: htdp("100%"),
+          height: htdp("95%"),
           padding:0
         },
       ]}
@@ -62,17 +53,17 @@ const onBoardingScreen = ({
           direction:i18n.language == 'ar'?'rtl':'ltr',
           justifyContent: "space-between",
           width: "95%",
-          alignItems: "center",
+          alignItems: "center"
         }}
       >
         <OnBoardingButton type='previous' />
-        <OnBoardingButton type='next'/>
+        <OnBoardingButton type='next' last={isLast?'Initial':null}/>
       </View>
     </View>
   );
 };
 
-export default onBoardingScreen;
+export default OnBoardingComponent;
 
 const styles = StyleSheet.create({
   animationContainer: {

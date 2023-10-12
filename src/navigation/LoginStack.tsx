@@ -6,6 +6,7 @@ import Login from "screens/profile/Login";
 import Register from "screens/profile/Register";
 import Auth from "screens/profile/Auth";
 import { Platform } from "react-native";
+import OnBoardingScreen from "screens/onBoarding/OnBoardingScreen";
 
 const Stack = createNativeStackNavigator();
 const LoginStack = () => {
@@ -13,7 +14,7 @@ const LoginStack = () => {
   const { t, i18n } = useTranslation();
   return (
     <Stack.Navigator
-      initialRouteName="Initial"
+      initialRouteName="OnBoardingScreen"
       screenOptions={{
         headerShown: true,
         headerStyle: { backgroundColor: theme.backgroundColor },
@@ -33,6 +34,7 @@ const LoginStack = () => {
         component={Register}
         options={{title:t('Register'), headerBackTitleVisible:false,}}
       />
+      <Stack.Screen name="OnBoardingScreen" component={OnBoardingScreen} options={{headerShown:false, headerLeft:undefined}} />
     </Stack.Navigator>
   );
 };

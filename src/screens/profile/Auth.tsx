@@ -17,10 +17,11 @@ const Auth = () => {
   return (
     <View
       style={{
-        height: htdp("80%"),
+        height: htdp("100%"),
         width:'100%',
         justifyContent: "space-between",
-        alignItems:'center'
+        alignItems:'center',
+        backgroundColor:theme.backgroundColor
         
       }}
     >

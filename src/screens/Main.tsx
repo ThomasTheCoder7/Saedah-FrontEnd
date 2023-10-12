@@ -1,20 +1,17 @@
-import { View, Text, SafeAreaView, I18nManager } from "react-native";
-import React, { useEffect, useState } from "react";
-import BottomTab from "navigation/BottomTab";
-import CustomStatusBar from "components/CustomStatusBar";
-import { useTheme } from "contexts/ThemeContexts";
 import themeType from "assets/Themes/themeType";
+import { useTheme } from "contexts/ThemeContexts";
 import { getLocales } from "expo-localization";
+import BottomTab from "navigation/BottomTab";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { indexToLang } from "utils/LanguageHandler";
-import { load } from "utils/storageHandler";
+import { SafeAreaView, View } from "react-native";
 import FlashMessage from "react-native-flash-message";
 import {
-  widthPercentageToDP as wtdp,
   heightPercentageToDP as htdp,
+  widthPercentageToDP as wtdp,
 } from "react-native-responsive-screen";
-import Welcome from "./onBoarding/Welcome";
-import OnBoardingScreen from "./onBoarding/OnBoardingScreen";
+import { indexToLang } from "utils/LanguageHandler";
+import { load } from "utils/storageHandler";
 // import * as Updates from 'expo-updates';
 import { useSetTheme } from '../contexts/ThemeContexts';
 const Main = () => {
@@ -56,12 +53,10 @@ const Main = () => {
     loadData();
   }, []);
   if (loading) return;
-  return <View style={{ flex: 1, direction: i18n.dir(i18n.language), backgroundColor:theme.backgroundColor }}>
-    <OnBoardingScreen/>
-  </View>
+
   return (
     <View style={{ flex: 1, direction: i18n.dir(i18n.language), backgroundColor:theme.backgroundColor }}>
-      <CustomStatusBar backgroundColor={theme.backgroundColor} />
+
       <SafeAreaView style={{ flex: 1 }}>
         <BottomTab />
         <FlashMessage

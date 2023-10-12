@@ -12,6 +12,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { Platform } from "react-native";
 import { widthPercentageToDP as wtdp } from "react-native-responsive-screen";
+import { useAuth } from "./AuthContext";
 
 type OnBoarding = {
   numOfSlides: number;
@@ -46,7 +47,11 @@ export default ({ children }: props) => {
   const [numOfSlides, setNumOfSlides] = useState(0);
   const [scrollViewRef, setScrollTo]: [Ref<any>, Function] = useState();
   const [currentIndex, setCurrentIndex]: [number, Function] = useState(0);
+  const {isAuth} = useAuth()
   const { i18n } = useTranslation();
+
+  useEffect(()=>{setCurrentIndex(0)}, [isAuth])
+
   const scrollTo = (index: number) => {
     scrollViewRef.current.scrollTo({
       x: calcIndex(index, i18n.language, numOfSlides - 1),

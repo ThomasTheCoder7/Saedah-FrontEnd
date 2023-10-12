@@ -1,4 +1,5 @@
 import { useOnBoarding } from "contexts/OnBoardingContext";
+import LoginStack from "navigation/LoginStack";
 import React, { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { ScrollView, View } from "react-native";
@@ -6,7 +7,7 @@ import {
   heightPercentageToDP as htdp
 } from "react-native-responsive-screen";
 import Money from "./Money";
-import Page2 from "./Page2";
+import Page3 from "./Page3";
 import Welcome from "./Welcome";
 
 const OnBoardingScreen = () => {
@@ -24,6 +25,7 @@ const OnBoardingScreen = () => {
       <ScrollView
         style={{
           padding: 0,
+          direction:i18n.dir(i18n.language)
         }}
         bounces={false}
         horizontal
@@ -34,7 +36,7 @@ const OnBoardingScreen = () => {
       >
         <Welcome index={0} />
         <Money index={1} />
-        <Money index={2} />
+        <Page3 index={2} />
       </ScrollView>
     </View>
   );

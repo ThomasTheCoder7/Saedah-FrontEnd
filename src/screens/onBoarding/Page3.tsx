@@ -10,26 +10,27 @@ import { heightPercentageToDP as htdp } from "react-native-responsive-screen";
 type props = {
   index: number;
 };
-const Money = ({ index }: props) => {
+const Page3 = ({ index }: props) => {
   const theme = useTheme();
   const { t } = useTranslation();
   const { currentIndex } = useOnBoarding();
-  const shouldPlay = currentIndex == index
-  const [progress,setProgress] = useState(0);
+  const shouldPlay = currentIndex == index;
+  const [progress, setProgress] = useState(0);
   return (
     <OnBoardingComponent
       headerIcon={
         <LottieView
-        autoPlay={shouldPlay}
-        progress={progress}
-        onAnimationFinish={()=>{
-          setProgress(shouldPlay?0:1);
-        }}
-        loop={false}
-        source={require("assets/Money.json")}
-        key={index}
-      />
+          autoPlay={shouldPlay}
+          progress={progress}
+          onAnimationFinish={() => {
+            setProgress(shouldPlay ? 0 : 1);
+          }}
+          loop={false}
+          source={require("assets/Community.json")}
+          key={index}
+        />
       }
+      isLast
     >
       <View>
         <StyledText
@@ -40,21 +41,11 @@ const Money = ({ index }: props) => {
           }}
           weight="SemiBold"
         >
-          <StyledText
-            style={{
-              fontSize: htdp("3%"),
-              color: theme.bottomTabActiveIcon,
-              textAlign: "center",
-            }}
-            weight="Bold"
-          >
-            {t("Saedah") + " "}
-          </StyledText>{" "}
-          {t("MoneyOnBoarding")}
+          {t("Page 3")}
         </StyledText>
       </View>
     </OnBoardingComponent>
   );
 };
 
-export default Money;
+export default Page3;

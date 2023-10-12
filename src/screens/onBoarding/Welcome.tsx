@@ -1,17 +1,10 @@
-import { View, Text, Button, StyleSheet } from "react-native";
-import { Ref, useEffect, useRef } from "react";
-import LottieView from "lottie-react-native";
-import React from "react";
-import {
-  widthPercentageToDP as wtdp,
-  heightPercentageToDP as htdp,
-} from "react-native-responsive-screen";
-import { useTheme } from "contexts/ThemeContexts";
 import StyledText from "components/StyledText";
+import OnBoardingComponent from "components/onBoarding/OnBoardingComponent";
+import { useTheme } from "contexts/ThemeContexts";
+import React from "react";
 import { useTranslation } from "react-i18next";
-import OnBoardingScreen from "components/onBoarding/OnBoardingScreen";
-import { useOnBoarding } from "contexts/OnBoardingContext";
-import { Image } from "react-native";
+import { Image, View } from "react-native";
+import { heightPercentageToDP as htdp } from "react-native-responsive-screen";
 type props = {
   index: number;
 };
@@ -19,8 +12,7 @@ const Welcome = ({ index }: props) => {
   const theme = useTheme();
   const { t } = useTranslation();
   return (
-    <OnBoardingScreen
-      buttonText="Next"
+    <OnBoardingComponent
       headerIcon={
         <Image
           source={require("assets/logo-no-background.png")}
@@ -42,7 +34,7 @@ const Welcome = ({ index }: props) => {
           {t("Welcome")}
         </StyledText>
       </View>
-    </OnBoardingScreen>
+    </OnBoardingComponent>
   );
 };
 

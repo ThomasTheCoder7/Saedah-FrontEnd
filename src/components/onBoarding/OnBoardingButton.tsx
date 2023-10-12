@@ -1,40 +1,34 @@
-import { View, Text, TouchableOpacity } from "react-native";
-import React from "react";
-import { LinearGradient } from "expo-linear-gradient";
-import StyledText from "components/StyledText";
-import { useTheme } from "contexts/ThemeContexts";
-import { useTranslation } from "react-i18next";
-import {
-  widthPercentageToDP as wtdp,
-  heightPercentageToDP as htdp,
-} from "react-native-responsive-screen";
 import { useNavigation } from "@react-navigation/native";
+import StyledText from "components/StyledText";
 import { useOnBoarding } from "contexts/OnBoardingContext";
-import { Platform } from "react-native";
+import { useTheme } from "contexts/ThemeContexts";
+import React from "react";
+import { useTranslation } from "react-i18next";
+import { TouchableOpacity, View } from "react-native";
+import { heightPercentageToDP as htdp } from "react-native-responsive-screen";
 type props = {
   type: "next" | "previous";
+  last?: string | null
 };
 
-const OnBoardingButton = ({ type }: props) => {
+const OnBoardingButton = ({ type, last=null }: props) => {
   //Capitalize
   const label = type.charAt(0).toUpperCase() + type.slice(1);
   const theme = useTheme();
-  const { t, i18n } = useTranslation();
-  const { scrollTo, currentIndex, numOfSlides} = useOnBoarding();
-  const isEnglish = i18n.language == "en";
-  const isAndroid = Platform.OS == "android";
-  console.log(currentIndex + 1 >= numOfSlides);
+  const { t } = useTranslation();
+  const { scrollTo, currentIndex, numOfSlides } = useOnBoarding();
   const nextDisabled = currentIndex + 1 >= numOfSlides && type === "next";
   const prevDisabled = currentIndex - 1 < 0 && type === "previous";
+  const navigation = useNavigation()
 
-  const disabled = prevDisabled || nextDisabled;
+  const disabled = (prevDisabled || nextDisabled)&& last == null;
 
   const scrollToNext = () => scrollTo(currentIndex + 1);
   const scrollToPrevious = () => scrollTo(currentIndex - 1);
   return (
     <TouchableOpacity
       onPress={() => {
-        type == "next" ? scrollToNext() : scrollToPrevious();
+        last ? navigation.navigate(last) : type == "next" ? scrollToNext() : scrollToPrevious() 
       }}
       disabled={disabled}
     >

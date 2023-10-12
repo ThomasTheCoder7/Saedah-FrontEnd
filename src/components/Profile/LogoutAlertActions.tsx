@@ -8,7 +8,7 @@ import {
 } from "react-native-responsive-screen";
 import { useTranslation } from "react-i18next";
 import { store } from "utils/storageHandler";
-import { useNavigation } from "@react-navigation/native";
+import { CommonActions, StackActions, useNavigation } from "@react-navigation/native";
 import { useAuth } from "contexts/AuthContext";
 
 type props = {
@@ -78,7 +78,9 @@ const LogoutAlertAction = ({ onPress }: props) => {
       <CancelButton onPress={onPress} />
       <LogoutButton
         onPress={() => {
+          onPress()
           setAuth(false);
+          navigation.navigate("Start")
         }}
       />
     </View>
@@ -86,6 +88,9 @@ const LogoutAlertAction = ({ onPress }: props) => {
 };
 
 export default LogoutAlertAction;
+
+
+
 
 const styles = StyleSheet.create({
   buttonContainer: {

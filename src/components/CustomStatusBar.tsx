@@ -1,5 +1,5 @@
 import themeType from "assets/Themes/themeType";
-import { useTheme } from "contexts/ThemeContexts";
+import { useSetTheme, useTheme } from "contexts/ThemeContexts";
 import * as React from "react";
 import { Text, View, StyleSheet, StatusBar, StatusBarStyle, useColorScheme } from "react-native";
 import {
@@ -19,10 +19,9 @@ const CustomStatusBar = ({
   //add more props StatusBar
 }:props) => {
   const insets = useSafeAreaInsets();
-  const theme:themeType = useTheme();
-
+  const theme = useTheme()
   return (
-    <View style={{ height: insets.top, backgroundColor, }}>
+    <View style={{ height: insets.top, backgroundColor:theme.backgroundColor, }}>
       <StatusBar
         animated={true}
         backgroundColor={backgroundColor}
