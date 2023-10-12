@@ -31,7 +31,7 @@ const LogoutButton = ({ onPress }: props) => {
       onPress={() => onPress()}
     >
       <StyledText
-        style={{ color: theme.header, fontSize: htdp("2%") }}
+        style={{ color: theme.isDark? theme.header :theme.backgroundColor, fontSize: htdp("2%") }}
         weight="SemiBold"
       >
         {t("Sign Out")}

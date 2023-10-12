@@ -17,6 +17,7 @@ import Profile from "screens/profile/Profile";
 import ProfileStack from "./ProfileStack";
 import { DarkTheme, useNavigation } from "@react-navigation/native";
 import { useAuth } from "contexts/AuthContext";
+import Create from "screens/create/Create";
 
 function SettingsScreen() {
   return (
@@ -54,7 +55,7 @@ const BottomTab = () => {
 
     {
       name: "Create",
-      component: SettingsScreen,
+      component: Create,
       options: {
         tabBarIcon: AddPostIcon,
         tabBarLabel: "",
