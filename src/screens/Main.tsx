@@ -15,10 +15,9 @@ import { load } from "utils/storageHandler";
 // import * as Updates from 'expo-updates';
 import { useSetTheme } from '../contexts/ThemeContexts';
 const Main = () => {
-  const theme: themeType = useTheme();
+  const theme = useTheme();
   const { i18n } = useTranslation();
-  const [loading, setLoading] = useState(true);
-  const setTheme = useSetTheme()
+
   //TODO Uncomment on production.
   // useEffect(()=>{
   //   async function onFetchUpdateAsync() {
@@ -36,23 +35,6 @@ const Main = () => {
   //   }
   //   onFetchUpdateAsync()
   // },[i18n.language])
-  const themes = ['dark','light']
-  useEffect(() => {
-    const loadData = async () => {
-      let language = await load("language");
-      let theme = await load('theme');
-      const languageCode = language == null ? 2 : parseInt(language);
-      setTheme(theme == null?"default":themes[parseInt(theme)])
-      i18n.changeLanguage(
-        languageCode == 2
-          ? getLocales()[0].languageCode
-          : indexToLang[languageCode]
-      );
-      setLoading(false);
-    };
-    loadData();
-  }, []);
-  if (loading) return;
 
   return (
     <View style={{ flex: 1, direction: i18n.dir(i18n.language), backgroundColor:theme.backgroundColor }}>

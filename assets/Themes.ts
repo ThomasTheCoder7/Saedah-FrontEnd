@@ -1,12 +1,6 @@
 import themeType from "./Themes/themeType";
 import Dark from './Themes/dark'
-
-export const Light: themeType = {
-  isDefault: false,
-  isDark:false,
-  bottomTabBackground: "white",
-  bottomTabTextColor:'black',
-};
+import Light from './Themes/light'
 
 
 export const Default = (scheme:string|undefined|null) => {

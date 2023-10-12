@@ -24,8 +24,9 @@ const MainStack = () => {
     const loadData = async () => {
       let language = await load("language");
       let theme = await load("theme");
+      console.log(theme)
       const languageCode = language == null ? 2 : parseInt(language);
-      setTheme(theme == null ? "default" : themes[parseInt(theme)]);
+      setTheme(theme == "2" || theme == null ? "default" : themes[parseInt(theme)]);
       i18n.changeLanguage(
         languageCode == 2
           ? getLocales()[0].languageCode

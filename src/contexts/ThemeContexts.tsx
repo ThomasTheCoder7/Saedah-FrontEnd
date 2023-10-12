@@ -1,6 +1,7 @@
 import { useState, useContext, createContext, useEffect, useRef, ReactNode } from "react";
 import { useColorScheme } from "react-native";
-import { Default, Light } from "assets/Themes";
+import { Default } from "assets/Themes";
+import Light from 'assets/Themes/light'
 import Dark from 'assets/Themes/dark'
 import themeType from "assets/Themes/themeType";
 import React from 'react'

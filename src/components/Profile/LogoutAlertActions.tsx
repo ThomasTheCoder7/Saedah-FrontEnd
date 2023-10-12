@@ -1,4 +1,4 @@
-import { View, TouchableOpacity, StyleSheet } from "react-native";
+import { View, TouchableOpacity, StyleSheet, Platform } from "react-native";
 import React from "react";
 import StyledText from "components/StyledText";
 import { useTheme } from "contexts/ThemeContexts";
@@ -63,6 +63,7 @@ const CancelButton = ({ onPress }: props) => {
 
 const LogoutAlertAction = ({ onPress }: props) => {
   const navigation = useNavigation();
+  const isAndroid = Platform.OS == 'android';
   const { setAuth } = useAuth();
   return (
     <View
@@ -80,7 +81,7 @@ const LogoutAlertAction = ({ onPress }: props) => {
         onPress={() => {
           onPress()
           setAuth(false);
-          navigation.navigate("Start")
+          isAndroid ? navigation.reset({index:0, routes:[{name:'Start'}]}) : navigation.navigate("Start");
         }}
       />
     </View>

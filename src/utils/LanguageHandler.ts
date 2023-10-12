@@ -21,11 +21,11 @@ export const changeLanguage = (
   I18nManager.allowRTL(code == 'ar');
 
   if (code == "ar") {
-    showMessage({
+    i18n.language != 'ar' ? showMessage({
       message: "تم تغيير اللغة بنجاح ",
       description: "سوف تظهر التغييرات عند إعادة تشغيل التطبيق",
       type: "success",
-    });
+    }):false;
     return;
   }
   showMessage({
