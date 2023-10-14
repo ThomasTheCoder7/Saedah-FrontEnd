@@ -10,12 +10,12 @@ const Create = () => {
 
 
   return (
-    <View style={{flex:1, height:htdp('80%'), justifyContent:'center'}}>
-      
-      <MyDatePicker visible={visible} setVisible={setVisible}/>
+    <View style={{flex:1, height:htdp('80%'), justifyContent:'center', paddingHorizontal:20, gap:20}}>
+      <TextField label="Title"/>
+      <MyDatePicker/>
 
 
-      <Button title="Submit" onPress={()=>{setVisible(prev=>!prev)}}/>
+      {/* <Button title="Submit" onPress={()=>{setVisible(prev=>!prev)}}/> */}
     </View>
   );
 };
