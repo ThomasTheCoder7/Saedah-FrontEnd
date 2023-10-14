@@ -29,6 +29,7 @@ const PasswordField = ({ label, placeholder = "" }: props) => {
           backgroundColor: theme.fieldBackground,
           fontSize: htdp("3%"),
           borderRadius: 10,
+          color:theme.header
         }}
         textContentType="password"
         secureTextEntry

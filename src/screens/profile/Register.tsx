@@ -19,7 +19,7 @@ import { useTranslation } from "react-i18next";
 import TextField from "components/Fields/TextField";
 import PasswordField from "components/Fields/PasswordField";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
-import DateTimePicker from "components/Fields/DateTimePicker";
+import DateTimePicker from "components/Fields/DatePicker";
 import { useNavigation } from "@react-navigation/native";
 import AuthButton from "components/Fields/AuthButton";
 import { store } from "utils/storageHandler";
@@ -98,6 +98,7 @@ const Register = () => {
           </View>
           <AuthButton label="Register" onPress={()=>{
             setAuth(true)
+            store('token', 'JAWAD')
             navigation.reset({
               index: 0,
               routes: [{ name: "Main" }],

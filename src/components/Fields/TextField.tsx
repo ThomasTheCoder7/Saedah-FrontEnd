@@ -30,6 +30,7 @@ const TextField = ({ label, type = "default", placeholder = "" }: props) => {
           backgroundColor: theme.fieldBackground,
           fontSize: htdp("3%"),
           borderRadius: 10,
+          color:theme.header
         }}
         maxLength={35}
         keyboardType={type}

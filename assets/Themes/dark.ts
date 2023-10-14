@@ -13,7 +13,7 @@ const DarkTheme: themeType = {
   secondary: "#00949b",
   danger: "#e03e3e",
   warning: "#d97706",
-  fieldBackground: "#c8c9ce",
+  fieldBackground: "#242529",
 };
 
 export default DarkTheme;
