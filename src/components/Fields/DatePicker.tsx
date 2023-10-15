@@ -8,8 +8,8 @@ import { useTranslation } from "react-i18next";
 import { Platform, Pressable, View } from "react-native";
 import { heightPercentageToDP as htdp } from "react-native-responsive-screen";
 type props = {
-  visible: boolean;
-  setVisible: Function;
+  date:Date;
+  setDate:Function;
 };
 
 const MONTHS = [

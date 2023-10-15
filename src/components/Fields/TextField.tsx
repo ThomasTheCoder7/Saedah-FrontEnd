@@ -1,4 +1,4 @@
-import { View, Text, TextInput } from "react-native";
+import { View, Text, TextInput, StyleSheet } from "react-native";
 import React from "react";
 import {
   widthPercentageToDP as wtdp,
@@ -13,6 +13,9 @@ type props = {
   placeholder?: string;
   type?: "default" | "email-address" | "decimal-pad" | "web-search";
 };
+
+
+
 const TextField = ({ label, type = "default", placeholder = "" }: props) => {
   const theme = useTheme();
   const { t } = useTranslation();
