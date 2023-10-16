@@ -1,9 +1,14 @@
+import { useTheme } from "contexts/ThemeContexts";
 import * as Location from "expo-location";
 import React, { useEffect, useState } from "react";
-import { Linking, Platform, View } from "react-native";
+import { ActivityIndicator, Linking, Platform, View } from "react-native";
 import MapView, { MapPressEvent, Marker } from "react-native-maps";
-
+import {
+  widthPercentageToDP as wtdp,
+  heightPercentageToDP as htdp,
+} from "react-native-responsive-screen";
 const MapField = () => {
+  const theme = useTheme()
   const [location, setLocation] = useState({ latitude: 0, longitude: 0 });
   const [Userlocation, setUserLocation] = useState({
     latitude: 0,
@@ -54,23 +59,37 @@ const MapField = () => {
     })();
   }, []);
 
-  if (loading) return;
+  if (loading) <ActivityIndicator color={theme.bottomTabActiveIcon} size={'large'}/>;
   return (
-    <MapView
-      style={{ width: "100%", height: "70%" }}
-      region={{
-        latitude: Userlocation.latitude,
-        longitude: Userlocation.longitude,
-        latitudeDelta,
-        longitudeDelta,
+    <View
+      style={{
+        width: "100%",
+        height: htdp("45%"),
+        borderRadius: 15,
+        overflow: "hidden",
       }}
-      onPress={handleLocationPress}
     >
-      <Marker
-        coordinate={location}
-        draggable={false} // Marker is not draggable
-      />
-    </MapView>
+      {!loading && (
+        <MapView
+        loadingEnabled
+        loadingBackgroundColor={theme.bottomTabBackground}
+        loadingIndicatorColor={theme.bottomTabActiveIcon}
+          style={{ width: "100%", height: "100%", zIndex:0 }}
+          region={{
+            latitude: Userlocation.latitude,
+            longitude: Userlocation.longitude,
+            latitudeDelta,
+            longitudeDelta,
+          }}
+          onPress={handleLocationPress}
+        >
+          <Marker
+            coordinate={location}
+            draggable={false} // Marker is not draggable
+          />
+        </MapView>
+      )}
+    </View>
   );
 };
 

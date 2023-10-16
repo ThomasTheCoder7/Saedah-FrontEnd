@@ -49,12 +49,6 @@ const DateTime = () => {
 
   return Platform.OS == "ios" ? (
     <View style={{ gap: 10 }}>
-      <StyledText
-        style={{ color: theme.header, alignSelf: "flex-start" }}
-        weight="SemiBold"
-      >
-        {t("Expiry Date:")}
-      </StyledText>
       <View
         style={{
           backgroundColor: theme.bottomTabBackground,

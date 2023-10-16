@@ -11,6 +11,7 @@ import { useTranslation } from "react-i18next";
 type props = {
   label: string;
   children:ReactNode;
+  disableStyles?:boolean
 };
 
 export const FieldStyle = ()=>{
@@ -20,7 +21,7 @@ export const FieldStyle = ()=>{
   }
 
 
-const Field = ({ label, children }: props) => {
+const Field = ({ label, children, disableStyles=false }: props) => {
   const theme = useTheme();
   const { t } = useTranslation();
   return (
@@ -36,13 +37,13 @@ const Field = ({ label, children }: props) => {
           // Apply styles to the TextInput components
           
           return React.cloneElement(child, {
-            style: [{
+            style: [!disableStyles?{
               padding: 15,
               backgroundColor: theme.fieldBackground,
               fontSize: htdp("3%"),
               borderRadius: 10,
               color:theme.header,
-            }, child.props.style],
+            }:{}, child.props.style],
             key: index,
           });
         } else {

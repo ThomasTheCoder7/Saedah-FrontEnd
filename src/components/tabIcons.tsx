@@ -3,6 +3,7 @@ import {
   AntDesign,
   MaterialCommunityIcons,
   MaterialIcons,
+  Entypo
 } from "@expo/vector-icons";
 import { useTheme } from "contexts/ThemeContexts";
 
@@ -42,4 +43,14 @@ export const ProfileIcon = ({ focused }: IconProps) => {
 export const AddPostIcon = ({ focused }: IconProps) => {
   const theme = useTheme()
   return <AntDesign name="plus" size={25} color={isFocused(focused,theme.bottomTabActiveIcon,theme.bottomTabInactiveIcon)} />;
+};
+
+export const LocationIcon = ({ focused }: IconProps) => {
+  const theme = useTheme()
+  return <Entypo name="location" size={25} color={isFocused(focused,theme.bottomTabActiveIcon,theme.bottomTabInactiveIcon)} />;
+};
+
+export const LinkIcon = ({ focused }: IconProps) => {
+  const theme = useTheme()
+  return <Entypo name="link" size={25} color={isFocused(focused,theme.bottomTabActiveIcon,theme.bottomTabInactiveIcon)} />;
 };

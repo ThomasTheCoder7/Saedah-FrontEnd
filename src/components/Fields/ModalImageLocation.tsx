@@ -7,21 +7,57 @@ import {
 import { useTheme } from "contexts/ThemeContexts";
 import { Entypo } from "@expo/vector-icons";
 import StyledText from "components/StyledText";
+import * as ImagePicker from "expo-image-picker";
 
 type props = {
   visible: boolean;
   setVisible: Function;
-  openGallery: Function;
-  openCamera: Function;
 };
 
-const ModalImageLocation = ({
-  visible,
-  setVisible,
-  openGallery,
-  openCamera,
-}: props) => {
+const ModalImageLocation = ({ visible, setVisible }: props) => {
   const theme = useTheme();
+  const [cameraStatus, cameraRequestPermission] =
+    ImagePicker.useCameraPermissions();
+  const [mediaStatus, mediaRequestPermission] =
+    ImagePicker.useMediaLibraryPermissions();
+
+  useEffect(() => {
+    cameraRequestPermission();
+    mediaRequestPermission();
+  }, []);
+  const openCamera = async () => {
+    if (!cameraStatus?.granted) {
+      cameraRequestPermission();
+      return;
+    }
+    let result = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      quality: 0.5,
+      allowsMultipleSelection: false,
+    });
+
+    if (!result.canceled) {
+      // setImage(result.assets[0].uri);
+    }
+    setVisible(false);
+  };
+
+  const openGallery = async () => {
+    if (!mediaStatus?.granted) {
+      await ImagePicker.requestMediaLibraryPermissionsAsync();
+    }
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      quality: 0.5,
+    });
+
+    if (!result.canceled) {
+      // setImage(result.assets[0].uri);
+    }
+    setVisible(false);
+  };
   return (
     <>
       <View
@@ -34,7 +70,9 @@ const ModalImageLocation = ({
           position: "absolute",
           top: 0,
           left: 0,
+          zIndex:10
         }}
+        pointerEvents="none"
       />
       <Modal visible={visible} transparent animationType="slide">
         <Pressable
@@ -46,6 +84,7 @@ const ModalImageLocation = ({
             height: htdp("100%"),
             position: "absolute",
             top: 0,
+            zIndex:10
           }}
         />
         <View
@@ -57,7 +96,6 @@ const ModalImageLocation = ({
             backgroundColor: theme.bottomTabBackground,
             borderTopRightRadius: 25,
             borderTopLeftRadius: 25,
-
             flexDirection: "row",
             justifyContent: "space-between",
             alignItems: "center",
