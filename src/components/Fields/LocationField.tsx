@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TextInput, Platform } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  Platform,
+  TouchableNativeFeedback,
+} from "react-native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import {
   widthPercentageToDP as wtdp,
@@ -18,20 +24,24 @@ import Animated, {
 import MapField from "./MapField";
 import LocationFieldIos from "./LocationFieldIos";
 import { useNavigation } from "@react-navigation/native";
+import { Tab, TabView } from "@rneui/themed";
+import { useTranslation } from "react-i18next";
 
-const Tab = createMaterialTopTabNavigator();
+// const Tab = createMaterialTopTabNavigator();
 
 const LocationField = () => {
   const theme = useTheme();
   const [activeTab, setActiveTab] = useState("Geographic");
   const animatedHeight = useSharedValue(htdp("55%"));
-  const navigation = useNavigation();
+  const [index, setIndex] = React.useState(0);
   const animatedStyles = useAnimatedStyle(() => ({
     height: animatedHeight.value,
   }));
+  const {t, i18n} = useTranslation()
 
+  const isEnglish = i18n.language == 'en';
   useEffect(() => {
-    if (activeTab == "Geographic") {
+    if ((index == 0 && isEnglish)|| (index==1 && !isEnglish)) {
       animatedHeight.value = withSpring(htdp("55%"), {
         mass: 1,
         damping: 15,
@@ -45,72 +55,55 @@ const LocationField = () => {
       stiffness: 225,
       // overshootClamping: true,
     });
-  }, [activeTab]);
-  //   const switchTab = (newHeight) => {
-  //     // navigation.navigate(activeTab);
-  //     animatedHeight.value = withSpring(htdp(newHeight), {
-  //       mass: 1,
-  //       damping: 25,
-  //       stiffness: 225,
-  //       // overshootClamping: true,
-  //     });
-  //   };
-
-    if(Platform.OS=='ios') return <LocationFieldIos/>
+  }, [index]);
 
   return (
     <Animated.View
-      style={[{
-        flex: 1,
-        
-        shadowColor: "transparent",
-        shadowOffset: undefined,
-      }, animatedStyles]}
+      style={[
+        {
+          flex: 1,
+          shadowColor: "transparent",
+          shadowOffset: undefined,
+        },
+        animatedStyles,
+      ]}
     >
-      <Tab.Navigator
-        screenOptions={{
-          swipeEnabled: false,
-          tabBarInactiveTintColor: theme.bottomTabInactiveIcon,
-          tabBarActiveTintColor: theme.bottomTabActiveIcon,
-          tabBarAndroidRipple: { radius: 0 },
+      <Tab
+        value={index}
+        style={{flexDirection:isEnglish?'row':'row-reverse'}}
+        onChange={(e) => setIndex(e)}
+        titleStyle={{ color: theme.header }}
+        indicatorStyle={{
+          backgroundColor: theme.bottomTabActiveIcon,
         }}
       >
-        <Tab.Screen
-          name="Geographic"
-          children={() => (
-            <View>
-              <MapField />
-            </View>
-          )}
-          options={{ tabBarIcon: LocationIcon }}
-          listeners={{
-            tabPress: (e) => {
-              setActiveTab("Geographic");
-            //   switchTab("55%");
-              // e.preventDefault();
-            },
-          }}
+        <Tab.Item
+          title={isEnglish ? t("Geographic") : t('Link')}
+          background={TouchableNativeFeedback.Ripple("transparent", false)}
+          icon={{type:"entypo", name:isEnglish?'location':'link', color:theme.header}}
+          iconPosition={isEnglish ? 'left' : 'right'}
         />
-        <Tab.Screen
-          name="Link"
-          children={() => (
-            <Field label="">
-              <TextInput
-                placeholder="example.com"
-                placeholderTextColor={theme.hr}
-              />
-            </Field>
-          )}
-          options={{ tabBarIcon: LinkIcon }}
-          listeners={{
-            tabPress: (e) => {
-              setActiveTab("Link");
-            //   switchTab("23%");
-              // e.preventDefault();
-            },
-          }}
+        <Tab.Item
+          title={!isEnglish ? t("Geographic") : t('Link')}
+          icon={{type:"entypo", name:isEnglish?'link':'location', color:theme.header}}
+          iconPosition={!isEnglish ? 'left' : 'right'}
+          background={TouchableNativeFeedback.Ripple("transparent", false)}
         />
-      </Tab.Navigator>
+      </Tab>
+
+      <TabView value={index} onChange={setIndex} disableSwipe={true} containerStyle={{marginTop:5, flexDirection:isEnglish?'row':'row-reverse'}} >
+        <TabView.Item style={{ width: "100%", height: "100%", padding: 1 }}>
+          <MapField />
+        </TabView.Item>
+        <TabView.Item style={{ width: "100%", height: "100%", padding: 1 }}>
+          <Field label="">
+            <TextInput
+              placeholder="example.com"
+              placeholderTextColor={theme.hr}
+            />
+          </Field>
+        </TabView.Item>
+      </TabView>
     </Animated.View>
   );
 };

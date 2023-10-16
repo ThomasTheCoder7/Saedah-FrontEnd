@@ -23,49 +23,52 @@ const Create = () => {
         paddingHorizontal: 10,
       }}
     >
-      <ScrollView contentContainerStyle={{ paddingVertical: 10, gap: 20 }} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        contentContainerStyle={{ paddingVertical: 10, gap: 20 }}
+        showsVerticalScrollIndicator={false}
+      >
         <ModalImageLocation visible={visible} setVisible={setVisible} />
         <Field label="Images" disableStyles>
-        <View style={{width:'100%'}}>
-          <ScrollView horizontal contentContainerStyle={{width:'100%'}}>
-            <ImageField
-              onPress={() => {
-                setVisible(true);
-              }}
-            />
-
-          </ScrollView>
-        </View>
+          <View style={{ width: "100%" }}>
+            <ScrollView horizontal contentContainerStyle={{ width: "100%" }}>
+              <ImageField
+                onPress={() => {
+                  setVisible(true);
+                }}
+              />
+            </ScrollView>
+          </View>
         </Field>
-        <View style={{  gap: 20 }}>
+        <View style={{ gap: 20 }}>
           <Field label="Location" disableStyles>
-            <LocationField/>
+            <LocationField />
           </Field>
+          <View style={{backgroundColor:theme.backgroundColor, gap:20}}>
+            <Field label="Title">
+              <TextInput
+                maxLength={30}
+                placeholder="Amazing product"
+                placeholderTextColor={theme.hr}
+              />
+            </Field>
 
-          <Field label="Title">
-            <TextInput
-              maxLength={30}
-              placeholder="Amazing product"
-              placeholderTextColor={theme.hr}
-            />
-          </Field>
+            <Field label="Description">
+              <TextInput
+                maxLength={150}
+                placeholder="Amazing product Description"
+                placeholderTextColor={theme.hr}
+                multiline
+                numberOfLines={4}
+                blurOnSubmit
+                returnKeyType="done"
+                style={{ height: 150, textAlignVertical: "top" }}
+              />
+            </Field>
 
-          <Field label="Description">
-            <TextInput
-              maxLength={150}
-              placeholder="Amazing product Description"
-              placeholderTextColor={theme.hr}
-              multiline
-              numberOfLines={4}
-              blurOnSubmit
-              returnKeyType="done"
-              style={{ height: 150, textAlignVertical: "top" }}
-            />
-          </Field>
-
-          <Field label="Expiry Date">
-            <MyDatePicker />
-          </Field>
+            <Field label="Expiry Date">
+              <MyDatePicker />
+            </Field>
+          </View>
         </View>
       </ScrollView>
     </View>
