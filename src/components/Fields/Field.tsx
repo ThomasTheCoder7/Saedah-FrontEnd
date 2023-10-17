@@ -10,47 +10,61 @@ import { useTranslation } from "react-i18next";
 
 type props = {
   label: string;
-  children:ReactNode;
-  disableStyles?:boolean
+  children: ReactNode;
+  labelStyles?: Object;
+  disableStyles?: boolean;
 };
 
-export const FieldStyle = ()=>{
-    const theme = useTheme()
-  
-    return 
-  }
+export const FieldStyle = () => {
+  const theme = useTheme();
 
+  return;
+};
 
-const Field = ({ label, children, disableStyles=false }: props) => {
+const Field = ({
+  label,
+  children,
+  disableStyles = false,
+  labelStyles = {},
+}: props) => {
   const theme = useTheme();
   const { t } = useTranslation();
   return (
-    <View style={{ gap: 10, padding: 0 }}>
-      <StyledText
-        style={{ color: theme.header, paddingLeft: 3, alignSelf: "flex-start" }}
-        weight="SemiBold"
-      >
-        {t(label)}
-      </StyledText>
+    <View style={[{ gap: 10, padding: 0 }]}>
+      <View style={labelStyles}>
+        <StyledText
+          style={[
+            { color: theme.header, paddingLeft: 3, alignSelf: "flex-start" },
+            
+          ]}
+          weight="SemiBold"
+        >
+          {t(label)}
+        </StyledText>
+      </View>
       {React.Children.map(children, (child, index) => {
         if (React.isValidElement(child) && child.type === TextInput) {
           // Apply styles to the TextInput components
-          
+
           return React.cloneElement(child, {
-            style: [!disableStyles?{
-              padding: 15,
-              backgroundColor: theme.fieldBackground,
-              fontSize: htdp("3%"),
-              borderRadius: 10,
-              color:theme.header,
-            }:{}, child.props.style],
+            style: [
+              !disableStyles
+                ? {
+                    padding: 15,
+                    backgroundColor: theme.fieldBackground,
+                    fontSize: htdp("3%"),
+                    borderRadius: 10,
+                    color: theme.header,
+                  }
+                : {},
+              child.props.style,
+            ],
             key: index,
           });
         } else {
           return child;
         }
       })}
-       
     </View>
   );
 };

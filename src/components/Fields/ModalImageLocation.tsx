@@ -8,19 +8,21 @@ import { useTheme } from "contexts/ThemeContexts";
 import { Entypo } from "@expo/vector-icons";
 import StyledText from "components/StyledText";
 import * as ImagePicker from "expo-image-picker";
+import { useTranslation } from "react-i18next";
 
 type props = {
   visible: boolean;
   setVisible: Function;
+  appendImage:Function
 };
 
-const ModalImageLocation = ({ visible, setVisible }: props) => {
+const ModalImageLocation = ({ visible, setVisible, appendImage }: props) => {
   const theme = useTheme();
   const [cameraStatus, cameraRequestPermission] =
     ImagePicker.useCameraPermissions();
   const [mediaStatus, mediaRequestPermission] =
     ImagePicker.useMediaLibraryPermissions();
-
+  const {t} = useTranslation()
   useEffect(() => {
     cameraRequestPermission();
     mediaRequestPermission();
@@ -39,6 +41,8 @@ const ModalImageLocation = ({ visible, setVisible }: props) => {
 
     if (!result.canceled) {
       // setImage(result.assets[0].uri);
+      appendImage(result.assets[0].uri)
+      console.log(result.assets[0])
     }
     setVisible(false);
   };
@@ -49,11 +53,14 @@ const ModalImageLocation = ({ visible, setVisible }: props) => {
     }
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      // aspect:[wtdp('94%'),htdp('27%')],
       allowsEditing: true,
       quality: 0.5,
     });
 
     if (!result.canceled) {
+      console.log(result.assets[0])
+      appendImage(result.assets[0].uri)
       // setImage(result.assets[0].uri);
     }
     setVisible(false);
@@ -62,7 +69,6 @@ const ModalImageLocation = ({ visible, setVisible }: props) => {
     <>
       <View
         style={{
-          zIndex: 0,
           backgroundColor: visible ? "black" : "transparent",
           opacity: 0.5,
           width: wtdp("100%"),
@@ -99,6 +105,7 @@ const ModalImageLocation = ({ visible, setVisible }: props) => {
             flexDirection: "row",
             justifyContent: "space-between",
             alignItems: "center",
+            zIndex:11
           }}
         >
           <TouchableOpacity
@@ -112,7 +119,7 @@ const ModalImageLocation = ({ visible, setVisible }: props) => {
               style={{ color: theme.header, fontSize: htdp("2%") }}
               weight="Bold"
             >
-              Camera
+              {t('Camera')}
             </StyledText>
           </TouchableOpacity>
           <TouchableOpacity
@@ -126,7 +133,7 @@ const ModalImageLocation = ({ visible, setVisible }: props) => {
               style={{ color: theme.header, fontSize: htdp("2%") }}
               weight="Bold"
             >
-              Gallery
+              {t('Gallery')}
             </StyledText>
           </TouchableOpacity>
         </View>

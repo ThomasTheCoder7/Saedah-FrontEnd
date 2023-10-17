@@ -33,6 +33,15 @@ export default {
   "WelcomeOnBoarding":"",
   "MoneyOnBoarding":"يساعدك على توفير اموالك عن طريق تزويدك بافضل العروض",
   "Saedah":"صيدة",
+  "Camera":"كاميرا",
+  "Gallery":"المعرض",
+  "Product Images":"صور المنتج",
+  "Location":"الموقع",
+  "Title":"عنوان المنشر",
+  "Description":"وصف المنتج",
+  "Expiry Date":"تاريخ انتهاء العرض",
   "Next":"التالي",
-  "Previous":"عودة"
+  "Previous":"عودة",
+  "Geographic":"جغرافي",
+  "Link":"رابط",
 };

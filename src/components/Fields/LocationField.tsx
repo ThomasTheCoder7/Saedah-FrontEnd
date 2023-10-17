@@ -22,7 +22,6 @@ import Animated, {
   useAnimatedStyle,
 } from "react-native-reanimated";
 import MapField from "./MapField";
-import LocationFieldIos from "./LocationFieldIos";
 import { useNavigation } from "@react-navigation/native";
 import { Tab, TabView } from "@rneui/themed";
 import { useTranslation } from "react-i18next";
@@ -33,23 +32,24 @@ const LocationField = () => {
   const theme = useTheme();
   const [activeTab, setActiveTab] = useState("Geographic");
   const animatedHeight = useSharedValue(htdp("55%"));
-  const [index, setIndex] = React.useState(0);
+  const { t, i18n } = useTranslation();
+  const isEnglish = i18n.language == "en";
+  const [index, setIndex] = React.useState(isEnglish?0:1);
   const animatedStyles = useAnimatedStyle(() => ({
     height: animatedHeight.value,
   }));
-  const {t, i18n} = useTranslation()
 
-  const isEnglish = i18n.language == 'en';
+
   useEffect(() => {
-    if ((index == 0 && isEnglish)|| (index==1 && !isEnglish)) {
-      animatedHeight.value = withSpring(htdp("55%"), {
+    if ((index == 0 && isEnglish) || (index == 1 && !isEnglish)) {
+      animatedHeight.value = withSpring(htdp("51%"), {
         mass: 1,
         damping: 15,
         stiffness: 100,
       });
       return;
     }
-    animatedHeight.value = withSpring(htdp("23%"), {
+    animatedHeight.value = withSpring(htdp("17%"), {
       mass: 1,
       damping: 25,
       stiffness: 225,
@@ -63,14 +63,13 @@ const LocationField = () => {
         {
           flex: 1,
           shadowColor: "transparent",
-          shadowOffset: undefined,
         },
         animatedStyles,
       ]}
     >
       <Tab
         value={index}
-        style={{flexDirection:isEnglish?'row':'row-reverse'}}
+        style={{ flexDirection: isEnglish ? "row" : "row-reverse" }}
         onChange={(e) => setIndex(e)}
         titleStyle={{ color: theme.header }}
         indicatorStyle={{
@@ -78,28 +77,57 @@ const LocationField = () => {
         }}
       >
         <Tab.Item
-          title={isEnglish ? t("Geographic") : t('Link')}
+          title={isEnglish ? t("Geographic") : t("Link")}
           background={TouchableNativeFeedback.Ripple("transparent", false)}
-          icon={{type:"entypo", name:isEnglish?'location':'link', color:theme.header}}
-          iconPosition={isEnglish ? 'left' : 'right'}
+          icon={{
+            type: "entypo",
+            name: isEnglish ? "location" : "link",
+            color: theme.header,
+          }}
+          iconPosition={isEnglish ? "left" : "right"}
         />
         <Tab.Item
-          title={!isEnglish ? t("Geographic") : t('Link')}
-          icon={{type:"entypo", name:isEnglish?'link':'location', color:theme.header}}
-          iconPosition={!isEnglish ? 'left' : 'right'}
+          title={!isEnglish ? t("Geographic") : t("Link")}
+          icon={{
+            type: "entypo",
+            name: isEnglish ? "link" : "location",
+            color: theme.header,
+          }}
+          iconPosition={!isEnglish ? "left" : "right"}
           background={TouchableNativeFeedback.Ripple("transparent", false)}
         />
       </Tab>
 
-      <TabView value={index} onChange={setIndex} disableSwipe={true} containerStyle={{marginTop:5, flexDirection:isEnglish?'row':'row-reverse'}} >
-        <TabView.Item style={{ width: "100%", height: "100%", padding: 1 }}>
+      <TabView
+        value={index}
+        onChange={setIndex}
+        disableSwipe={true}
+        containerStyle={{
+          marginTop: 5,
+          flexDirection: isEnglish ? "row" : "row-reverse",
+          width: "100%",
+        }}
+      >
+        <TabView.Item
+          style={{
+            width: "100%",
+            height: "100%",
+            paddingHorizontal:1
+          }}
+        >
           <MapField />
         </TabView.Item>
-        <TabView.Item style={{ width: "100%", height: "100%", padding: 1 }}>
+        <TabView.Item
+          style={{
+            width: "100%",
+            height: "100%",
+          }}
+        >
           <Field label="">
             <TextInput
               placeholder="example.com"
               placeholderTextColor={theme.hr}
+              style={{ margin: 0 }}
             />
           </Field>
         </TabView.Item>
