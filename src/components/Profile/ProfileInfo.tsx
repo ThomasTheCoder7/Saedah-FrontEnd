@@ -7,21 +7,29 @@ import {
 } from "react-native-responsive-screen";
 import StyledText from "components/StyledText";
 import { useTheme } from "contexts/ThemeContexts";
-import Stats from './Stats';
+import Stats from "./Stats";
 const ProfileInfo = () => {
-    const theme = useTheme()
+  const theme = useTheme();
   return (
-    <View style={{alignItems:'center', gap:20}}>
+    <View style={{ alignItems: "center", gap: 20 }}>
       <Avatar
-        icon={{ type: "FontAwesome5", size: htdp("15%"), name: "person", color:theme.header }}
+        icon={{
+          type: "FontAwesome5",
+          size: htdp("15%"),
+          name: "person",
+          color: theme.header,
+        }}
         size={htdp("20%")}
         rounded
-        containerStyle={{ backgroundColor: theme.bottomTabActiveIcon}}
+        containerStyle={{ backgroundColor: theme.bottomTabBackground }}
       />
-      <StyledText weight="SemiBold" style={{fontSize:htdp('3%'), color:theme.header}}>
+      <StyledText
+        weight="SemiBold"
+        style={{ fontSize: htdp("3%"), color: theme.header }}
+      >
         Havel
       </StyledText>
-      <Stats/>
+      <Stats />
     </View>
   );
 };

@@ -7,7 +7,7 @@ import DealCard from 'components/DealCard/DealCard'
 const Home = () => {
   const theme = useTheme()
   return (
-    <View style={{backgroundColor:theme.backgroundColor, flex:1, paddingTop:htdp('5%')}}>
+    <View style={{backgroundColor:theme.backgroundColor, flex:1, paddingTop:htdp('5%'), alignItems:'center'}}>
       <DealCard/>
     </View> 
   )
