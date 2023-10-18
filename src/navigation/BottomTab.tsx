@@ -58,7 +58,7 @@ const BottomTab = () => {
       component: Create,
       options: {
         tabBarIcon: AddPostIcon,
-        tabBarLabel: "",
+        tabBarLabel: t('Post'),
       },
     },
     {

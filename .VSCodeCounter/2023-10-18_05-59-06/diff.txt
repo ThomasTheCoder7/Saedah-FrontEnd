@@ -1,0 +1,49 @@
+Date : 2023-10-18 05:59:06
+Directory : c:\Users\veget\Documents\graduation_project\saedah\src
+Total : 16 files,  -15893 codes, -43 comments, -25 blanks, all -15961 lines
+
+Languages
++--------------------+------------+------------+------------+------------+------------+
+| language           | files      | code       | comment    | blank      | total      |
++--------------------+------------+------------+------------+------------+------------+
+| JSON with Comments |          1 |         -9 |        -13 |          0 |        -22 |
+| TypeScript JSX     |          1 |        -51 |          0 |         -5 |        -56 |
+| JavaScript         |          3 |        -60 |         -1 |         -8 |        -69 |
+| TypeScript         |          4 |        -64 |          0 |        -10 |        -74 |
+| JSON               |          7 |    -15,709 |        -29 |         -2 |    -15,740 |
++--------------------+------------+------------+------------+------------+------------+
+
+Directories
++-------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                          | files      | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                             |         16 |    -15,893 |        -43 |        -25 |    -15,961 |
+| ..                                                                            |         16 |    -15,893 |        -43 |        -25 |    -15,961 |
+| .. (Files)                                                                    |          8 |    -15,825 |        -43 |        -15 |    -15,883 |
+| ..\assets                                                                     |          8 |        -68 |          0 |        -10 |        -78 |
+| ..\assets (Files)                                                             |          5 |        -18 |          0 |         -3 |        -21 |
+| ..\assets\Themes                                                              |          3 |        -50 |          0 |         -7 |        -57 |
++-------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| filename                                                                      | language           | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| c:\Users\veget\Documents\graduation_project\saedah\App.tsx                    | TypeScript JSX     |        -51 |          0 |         -5 |        -56 |
+| c:\Users\veget\Documents\graduation_project\saedah\app.json                   | JSON               |        -14 |        -29 |          0 |        -43 |
+| c:\Users\veget\Documents\graduation_project\saedah\assets\ArrowDown.json      | JSON               |         -1 |          0 |          0 |         -1 |
+| c:\Users\veget\Documents\graduation_project\saedah\assets\Community.json      | JSON               |         -1 |          0 |          0 |         -1 |
+| c:\Users\veget\Documents\graduation_project\saedah\assets\Money.json          | JSON               |         -1 |          0 |          0 |         -1 |
+| c:\Users\veget\Documents\graduation_project\saedah\assets\SaudiArabia.json    | JSON               |         -1 |          0 |          0 |         -1 |
+| c:\Users\veget\Documents\graduation_project\saedah\assets\Themes.ts           | TypeScript         |        -14 |          0 |         -3 |        -17 |
+| c:\Users\veget\Documents\graduation_project\saedah\assets\Themes\dark.ts      | TypeScript         |        -17 |          0 |         -3 |        -20 |
+| c:\Users\veget\Documents\graduation_project\saedah\assets\Themes\light.ts     | TypeScript         |        -17 |          0 |         -3 |        -20 |
+| c:\Users\veget\Documents\graduation_project\saedah\assets\Themes\themeType.ts | TypeScript         |        -16 |          0 |         -1 |        -17 |
+| c:\Users\veget\Documents\graduation_project\saedah\babel.config.js            | JavaScript         |        -33 |          0 |         -1 |        -34 |
+| c:\Users\veget\Documents\graduation_project\saedah\i18n.js                    | JavaScript         |        -20 |          0 |         -5 |        -25 |
+| c:\Users\veget\Documents\graduation_project\saedah\package-lock.json          | JSON               |    -15,625 |          0 |         -1 |    -15,626 |
+| c:\Users\veget\Documents\graduation_project\saedah\package.json               | JSON               |        -66 |          0 |         -1 |        -67 |
+| c:\Users\veget\Documents\graduation_project\saedah\tailwind.config.js         | JavaScript         |         -7 |         -1 |         -2 |        -10 |
+| c:\Users\veget\Documents\graduation_project\saedah\tsconfig.json              | JSON with Comments |         -9 |        -13 |          0 |        -22 |
+| Total                                                                         |                    |    -15,893 |        -43 |        -25 |    -15,961 |
++-------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+

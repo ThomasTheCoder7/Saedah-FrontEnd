@@ -4,6 +4,7 @@ export default {
   Favorites:"المفضلة",
   Settings:"الاعدادات",
   Profile:"الملف الشخصي",
+  Post:"انشر",
   Appearance:"المظهر",
   Light: "ساطع",
   Dark: "داكن",

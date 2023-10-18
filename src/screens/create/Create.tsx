@@ -1,20 +1,20 @@
+import AuthButton from "components/Fields/AuthButton";
+import MyDatePicker from "components/Fields/DatePicker";
 import Field from "components/Fields/Field";
 import ImageField from "components/Fields/ImageField";
+import LocationField from "components/Fields/LocationField";
 import ModalImageLocation from "components/Fields/ModalImageLocation";
 import { useTheme } from "contexts/ThemeContexts";
-import React, { ReactNode, useRef, useState } from "react";
-import { ScrollView, Text, View } from "react-native";
-import MyDatePicker from "components/Fields/DatePicker";
-import { TextInput } from "react-native";
-import MapField from "components/Fields/MapField";
-import LocationField from "components/Fields/LocationField";
-import {
-  widthPercentageToDP as wtdp,
-  heightPercentageToDP as htdp,
-} from "react-native-responsive-screen";
-import AuthButton from "components/Fields/AuthButton";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { getAppendImageFunction, getDeleteImageFunction } from "utils/CreateFormHandlers";
+import { ScrollView, TextInput, View } from "react-native";
+import {
+  widthPercentageToDP as wtdp
+} from "react-native-responsive-screen";
+import {
+  getAppendImageFunction,
+  getDeleteImageFunction,
+} from "utils/CreateFormHandlers";
 const Create = () => {
   const [images, setImages]: [string[], Function] = useState([]);
   const { t } = useTranslation();
@@ -42,7 +42,14 @@ const Create = () => {
           <Field label="Product Images" disableStyles>
             <ScrollView horizontal pagingEnabled showsHorizontalScrollIndicator>
               {images.map((image, index) => {
-                return <ImageField staticImage uri={image} key={index} deleteImage={getDeleteImageFunction(setImages)}/>;
+                return (
+                  <ImageField
+                    staticImage
+                    uri={image}
+                    key={index}
+                    deleteImage={getDeleteImageFunction(setImages)}
+                  />
+                );
               })}
               <ImageField
                 onPress={() => {

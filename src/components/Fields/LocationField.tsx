@@ -1,30 +1,21 @@
-import React, { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  Platform,
-  TouchableNativeFeedback,
-} from "react-native";
-import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import {
-  widthPercentageToDP as wtdp,
-  heightPercentageToDP as htdp,
-} from "react-native-responsive-screen";
-import { useTheme } from "contexts/ThemeContexts";
-import Field from "./Field";
-import { LinkIcon, LocationIcon, ProfileIcon } from "components/tabIcons";
-import Animated, {
-  Easing,
-  withSpring,
-  useSharedValue,
-  useDerivedValue,
-  useAnimatedStyle,
-} from "react-native-reanimated";
-import MapField from "./MapField";
-import { useNavigation } from "@react-navigation/native";
 import { Tab, TabView } from "@rneui/themed";
+import { useTheme } from "contexts/ThemeContexts";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import {
+  TextInput,
+  TouchableNativeFeedback
+} from "react-native";
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring
+} from "react-native-reanimated";
+import {
+  heightPercentageToDP as htdp
+} from "react-native-responsive-screen";
+import Field from "./Field";
+import MapField from "./MapField";
 
 // const Tab = createMaterialTopTabNavigator();
 
