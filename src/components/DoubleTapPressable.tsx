@@ -2,15 +2,17 @@ import React, { ReactNode, useRef } from "react";
 import { Pressable, Text, View } from "react-native";
 
 interface DoubleTapPressableProps {
-  onSingleTap: () => void;
+  onSingleTap?: () => void;
   onDoubleTap: () => void;
   children: ReactNode;
+  ignore?:boolean
 }
 
 const DoubleTapPressable: React.FC<DoubleTapPressableProps> = ({
-  onSingleTap,
+  onSingleTap=()=>{},
   onDoubleTap,
   children,
+  ignore=false
 }) => {
   const lastPress = useRef<number>(0);
   let doublePressTimeout: NodeJS.Timeout | null = null;
@@ -35,7 +37,7 @@ const DoubleTapPressable: React.FC<DoubleTapPressableProps> = ({
     lastPress.current = currentTime;
   };
 
-  return <Pressable onPress={handlePress}>{children}</Pressable>;
+  return <Pressable onPress={handlePress} pointerEvents={ignore?'none':'auto'}>{children}</Pressable>;
 };
 
 export default DoubleTapPressable;
