@@ -26,6 +26,8 @@ import Animated, {
 import { Image } from "@rneui/themed";
 import DealImageScrollView from "./DealImageScrollView";
 import StyledBlurView from "./StyledBlurView";
+import IndexIndicator from "components/IndexIndicator";
+import { useNavigation } from "@react-navigation/native";
 
 const animationConfig = {
   mass: 1,
@@ -41,8 +43,7 @@ const DealCard = () => {
   const bottomOffset = useSharedValue(0);
   const bubbleOffset = useSharedValue(100);
   const [index, setIndex] = useState(0)
-
-  const Offsets = [useSharedValue(0), useSharedValue(0)];
+  const navigation = useNavigation()
   const [hidden, setHidden] = useState(false);
 
   const topAnimatedStyle = useAnimatedStyle(() => ({
@@ -81,7 +82,7 @@ const DealCard = () => {
       }}
     >
       <DealImageScrollView hidden={hidden} animate={animate} index={index} setIndex={setIndex} />
-      <DoubleTapPressable onDoubleTap={() => animate()} ignore={hidden}>
+      <DoubleTapPressable onDoubleTap={() => animate()} onSingleTap={()=>{navigation.navigate('Details')}} ignore={hidden}>
         <View style={{ width: "100%", height: "100%" }}>
           {/* TOP */}
           <Animated.View
@@ -126,14 +127,7 @@ const DealCard = () => {
         ]}
         pointerEvents="none"
       >
-        <StyledBlurView
-          style={{ minWidth: 80, borderRadius: 100, justifyContent:'center', alignItems:'center', flexDirection:'row',  }}
-        >
-          <View style={{width:10, height:10, backgroundColor:index==0?'white':theme.hr, borderRadius:100, marginHorizontal:5}}/>
-          <View style={{width:10, height:10, backgroundColor:index==1?'white':theme.hr, borderRadius:100, marginHorizontal:5}}/>
-          <View style={{width:10, height:10, backgroundColor:index==2?'white':theme.hr, borderRadius:100, marginHorizontal:5}}/>
-        
-        </StyledBlurView>
+        <IndexIndicator index={index}/>
       </Animated.View>
     </View>
   );

@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import React from "react";
 import { useTheme } from "contexts/ThemeContexts";
@@ -8,7 +8,7 @@ import StyledBlurView from "./StyledBlurView";
 const Counter = () => {
   const theme = useTheme();
   return (
-    <StyledBlurView style={{flex:0.15}}>
+    <StyledBlurView style={{ flex: 0.15 }}>
       <View
         style={{
           flex: 1,
@@ -17,11 +17,15 @@ const Counter = () => {
           paddingVertical: 10,
         }}
       >
-        <Entypo name="plus" size={24} color={theme.header} />
+        <TouchableOpacity style={{ padding: 5 }}>
+          <Entypo name="plus" size={24} color={theme.header} />
+        </TouchableOpacity>
         <StyledText style={{ color: theme.header, fontSize: 17 }} weight="Bold">
           10
         </StyledText>
-        <Entypo name="minus" size={24} color={theme.header} />
+        <TouchableOpacity style={{ padding: 5 }}>
+          <Entypo name="minus" size={24} color={theme.header} />
+        </TouchableOpacity>
       </View>
     </StyledBlurView>
   );

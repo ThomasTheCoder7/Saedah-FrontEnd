@@ -37,7 +37,7 @@ const DoubleTapPressable: React.FC<DoubleTapPressableProps> = ({
     lastPress.current = currentTime;
   };
 
-  return <Pressable onPress={handlePress} pointerEvents={ignore?'none':'auto'}>{children}</Pressable>;
+  return <Pressable onPress={onSingleTap} pointerEvents={ignore?'none':'auto'} onLongPress={()=>onDoubleTap()} delayLongPress={150}>{children}</Pressable>;
 };
 
 export default DoubleTapPressable;
