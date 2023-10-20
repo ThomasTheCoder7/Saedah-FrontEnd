@@ -51,6 +51,7 @@ const Field = ({
               !disableStyles
                 ? {
                     padding: 15,
+                    paddingHorizontal:20,
                     backgroundColor: theme.fieldBackground,
                     fontSize: htdp("3%"),
                     borderRadius: 10,

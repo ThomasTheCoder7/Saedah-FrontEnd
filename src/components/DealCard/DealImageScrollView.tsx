@@ -19,6 +19,8 @@ type props = {
   setIndex: Function;
 };
 
+const SCREEN_WIDTH = wtdp("94%");
+
 const DealImageScrollView = ({ hidden, animate, index, setIndex }: props) => {
   return (
     <ScrollView
@@ -29,16 +31,17 @@ const DealImageScrollView = ({ hidden, animate, index, setIndex }: props) => {
       showsHorizontalScrollIndicator={false}
       onScroll={(event: any) => {
         const { x } = event.nativeEvent.contentOffset;
-        const screenWidth = wtdp("94%");
+        const screenWidth = SCREEN_WIDTH;
 
         // Calculate the index based on the scroll position
         const newIndex = Math.round(x / screenWidth);
 
-        if (newIndex !== index && newIndex >= 0 && newIndex <= 2) {
+        if (newIndex !== index) {
           setIndex(newIndex);
         }
       }}
       scrollEventThrottle={10}
+      bounces={false}
     >
       <DoubleTapPressable
         onDoubleTap={() => {
@@ -49,12 +52,9 @@ const DealImageScrollView = ({ hidden, animate, index, setIndex }: props) => {
           source={{
             uri: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&w=2670",
           }}
-          // borderRadius={15}
-          // resizeMode="contain"
           style={{
             width: wtdp("94%"),
             height: htdp("30%"),
-            // borderRadius: 15,
             direction: "ltr",
             overflow: "hidden",
           }}
@@ -69,12 +69,10 @@ const DealImageScrollView = ({ hidden, animate, index, setIndex }: props) => {
           source={{
             uri: "https://images.unsplash.com/photo-1528164344705-47542687000d?auto=format&fit=crop&q=80&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&w=2092",
           }}
-          // borderRadius={15}
-          // resizeMode="contain"
           style={{
             width: wtdp("94%"),
             height: htdp("30%"),
-            // borderRadius: 15,
+
             direction: "ltr",
             overflow: "hidden",
           }}
@@ -89,12 +87,26 @@ const DealImageScrollView = ({ hidden, animate, index, setIndex }: props) => {
           source={{
             uri: "https://images.unsplash.com/photo-1573455494060-c5595004fb6c?auto=format&fit=crop&q=80&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&w=2040",
           }}
-          // borderRadius={15}
-          // resizeMode="contain"
           style={{
             width: wtdp("94%"),
             height: htdp("30%"),
-            // borderRadius: 15,
+            direction: "ltr",
+            overflow: "hidden",
+          }}
+        />
+      </DoubleTapPressable>
+      <DoubleTapPressable
+        onDoubleTap={() => {
+          animate();
+        }}
+      >
+        <ImageBackground
+          source={{
+            uri: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=2599&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          }}
+          style={{
+            width: wtdp("94%"),
+            height: htdp("30%"),
             direction: "ltr",
             overflow: "hidden",
           }}

@@ -66,11 +66,10 @@ const ImageField = ({
         {fullScreen && <FullScreenView />}
         <ImageBackground
           source={{ uri: uri }}
-          resizeMode="cover"
           style={{
             width: wtdp("94%"),
             marginHorizontal: wtdp("1%"),
-            height: htdp("27%"),
+            height: htdp("30%"),
           }}
           borderRadius={15}
         >
@@ -108,7 +107,7 @@ const ImageField = ({
         style={{
           width: wtdp("94%"),
           marginHorizontal: wtdp("1%"),
-          height: htdp("27%"),
+          height: htdp("30%"),
           justifyContent: "center",
           alignItems: "center",
         }}

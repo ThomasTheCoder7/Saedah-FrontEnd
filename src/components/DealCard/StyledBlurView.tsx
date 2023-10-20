@@ -1,7 +1,7 @@
 import { BlurView } from "expo-blur";
 import { ReactNode } from "react";
 import React from "react";
-import { Platform, ViewStyle } from "react-native";
+import { Platform, View, ViewStyle } from "react-native";
 
 const StyledBlurView = ({
   children,
@@ -10,6 +10,23 @@ const StyledBlurView = ({
   children?: ReactNode;
   style?: ViewStyle;
 }) => {
+  if (Platform.OS == "android") {
+    return (
+      <View
+        style={[
+          {
+            flex: 0.8,
+            borderRadius: 10,
+            overflow: "hidden",
+            backgroundColor: "rgba(15,15,15,0.5)",
+          },
+          style,
+        ]}
+      >
+        {children}
+      </View>
+    );
+  }
   return (
     <BlurView
       style={[
@@ -17,13 +34,12 @@ const StyledBlurView = ({
           flex: 0.8,
           borderRadius: 10,
           overflow: "hidden",
-          backgroundColor: Platform.OS=='android'?"rgba(0,0,0,0)":'rgba(0,0,0,0.4)',
+          backgroundColor: "rgba(0,0,0,0.4)",
         },
         style,
       ]}
       tint="dark"
-      blurReductionFactor={35}
-      intensity={Platform.OS=='android'?110:50}
+      intensity={50}
     >
       {children}
     </BlurView>

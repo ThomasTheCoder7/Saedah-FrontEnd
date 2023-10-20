@@ -13,7 +13,7 @@ import { useTranslation } from "react-i18next";
 type props = {
   visible: boolean;
   setVisible: Function;
-  appendImage:Function
+  appendImage: Function;
 };
 
 const ModalImageLocation = ({ visible, setVisible, appendImage }: props) => {
@@ -22,7 +22,7 @@ const ModalImageLocation = ({ visible, setVisible, appendImage }: props) => {
     ImagePicker.useCameraPermissions();
   const [mediaStatus, mediaRequestPermission] =
     ImagePicker.useMediaLibraryPermissions();
-  const {t} = useTranslation()
+  const { t } = useTranslation();
   useEffect(() => {
     cameraRequestPermission();
     mediaRequestPermission();
@@ -41,8 +41,8 @@ const ModalImageLocation = ({ visible, setVisible, appendImage }: props) => {
 
     if (!result.canceled) {
       // setImage(result.assets[0].uri);
-      appendImage(result.assets[0].uri)
-      console.log(result.assets[0])
+      appendImage(result.assets[0].uri);
+      console.log(result.assets[0]);
     }
     setVisible(false);
   };
@@ -53,14 +53,13 @@ const ModalImageLocation = ({ visible, setVisible, appendImage }: props) => {
     }
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      // aspect:[wtdp('94%'),htdp('27%')],
       allowsEditing: true,
       quality: 0.5,
     });
 
     if (!result.canceled) {
-      console.log(result.assets[0])
-      appendImage(result.assets[0].uri)
+      console.log(result.assets[0]);
+      appendImage(result.assets[0].uri);
       // setImage(result.assets[0].uri);
     }
     setVisible(false);
@@ -76,7 +75,7 @@ const ModalImageLocation = ({ visible, setVisible, appendImage }: props) => {
           position: "absolute",
           top: 0,
           left: 0,
-          zIndex:10
+          zIndex: 10,
         }}
         pointerEvents="none"
       />
@@ -90,7 +89,7 @@ const ModalImageLocation = ({ visible, setVisible, appendImage }: props) => {
             height: htdp("100%"),
             position: "absolute",
             top: 0,
-            zIndex:10
+            zIndex: 10,
           }}
         />
         <View
@@ -105,7 +104,7 @@ const ModalImageLocation = ({ visible, setVisible, appendImage }: props) => {
             flexDirection: "row",
             justifyContent: "space-between",
             alignItems: "center",
-            zIndex:11
+            zIndex: 11,
           }}
         >
           <TouchableOpacity
@@ -119,7 +118,7 @@ const ModalImageLocation = ({ visible, setVisible, appendImage }: props) => {
               style={{ color: theme.header, fontSize: htdp("2%") }}
               weight="Bold"
             >
-              {t('Camera')}
+              {t("Camera")}
             </StyledText>
           </TouchableOpacity>
           <TouchableOpacity
@@ -133,7 +132,7 @@ const ModalImageLocation = ({ visible, setVisible, appendImage }: props) => {
               style={{ color: theme.header, fontSize: htdp("2%") }}
               weight="Bold"
             >
-              {t('Gallery')}
+              {t("Gallery")}
             </StyledText>
           </TouchableOpacity>
         </View>
