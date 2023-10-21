@@ -10,6 +10,7 @@ import { useTranslation } from "react-i18next";
 import { store } from "utils/storageHandler";
 import { CommonActions, StackActions, useNavigation } from "@react-navigation/native";
 import { useAuth } from "contexts/AuthContext";
+import { logout } from "utils/Forms/Logout";
 
 type props = {
   onPress: Function;
@@ -80,6 +81,8 @@ const LogoutAlertAction = ({ onPress }: props) => {
       <LogoutButton
         onPress={() => {
           onPress()
+          logout()
+          store('token',null);
           setAuth(false);
           isAndroid ? navigation.reset({index:0, routes:[{name:'Start'}]}) : navigation.navigate("Start");
         }}

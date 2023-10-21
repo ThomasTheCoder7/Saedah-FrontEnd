@@ -1,49 +1,93 @@
 import { Tab, TabView } from "@rneui/themed";
 import { useTheme } from "contexts/ThemeContexts";
+import * as Location from "expo-location";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  TextInput,
-  TouchableNativeFeedback
-} from "react-native";
+import { TextInput, TouchableNativeFeedback } from "react-native";
+import { MapPressEvent } from "react-native-maps";
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
-  withSpring
+  withSpring,
 } from "react-native-reanimated";
-import {
-  heightPercentageToDP as htdp
-} from "react-native-responsive-screen";
+import { heightPercentageToDP as htdp } from "react-native-responsive-screen";
 import Field from "./Field";
 import MapField from "./MapField";
+type location = { latitude: number; longitude: number } | null;
 
 // const Tab = createMaterialTopTabNavigator();
+type props = {
+  setData: Function;
+  setGeometry: Function;
+  setLink: Function;
+};
 
-const LocationField = () => {
+const LocationField = ({ setData, setLink, setGeometry }: props) => {
   const theme = useTheme();
   const [activeTab, setActiveTab] = useState("Geographic");
   const animatedHeight = useSharedValue(htdp("55%"));
   const { t, i18n } = useTranslation();
   const isEnglish = i18n.language == "en";
-  const [index, setIndex] = React.useState(isEnglish?0:1);
+  const [index, setIndex] = React.useState(isEnglish ? 0 : 1);
   const animatedStyles = useAnimatedStyle(() => ({
     height: animatedHeight.value,
   }));
 
+  const [location, setLocation] = useState({ latitude: 0, longitude: 0 });
+  const [Userlocation, setUserLocation] = useState({
+    latitude: 0,
+    longitude: 0,
+  });
+
+  const [loading, setLoading] = useState(true);
+
+  const handleLocationPress = (event: MapPressEvent) => {
+    const { latitude, longitude } = event.nativeEvent.coordinate;
+    setLocation({ latitude, longitude });
+    setData(`latitude:${latitude},longitude:${longitude}`);
+  };
+  useEffect(() => {
+    if ((index == 0 && isEnglish)|| (index==1 && !isEnglish)) {
+      setGeometry(true);
+      return;
+    }
+    setGeometry(false);
+  }, [index]);
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        console.log("Permission to access location was denied");
+        setLoading(false);
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      setUserLocation({
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+      });
+      setLocation({
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+      });
+      setLoading(false);
+    })();
+  }, []);
 
   useEffect(() => {
     if ((index == 0 && isEnglish) || (index == 1 && !isEnglish)) {
       animatedHeight.value = withSpring(htdp("51%"), {
         mass: 1,
-        damping: 15,
+        damping: 45,
         stiffness: 100,
       });
       return;
     }
     animatedHeight.value = withSpring(htdp("17%"), {
       mass: 1,
-      damping: 25,
-      stiffness: 225,
+      damping: 45,
+      stiffness: 100,
       // overshootClamping: true,
     });
   }, [index]);
@@ -93,6 +137,7 @@ const LocationField = () => {
         value={index}
         onChange={setIndex}
         disableSwipe={true}
+        animationConfig={{ bounciness: 0 }}
         containerStyle={{
           marginTop: 5,
           flexDirection: isEnglish ? "row" : "row-reverse",
@@ -103,11 +148,16 @@ const LocationField = () => {
           style={{
             width: "100%",
             height: "100%",
-            paddingHorizontal:1,
-            paddingTop:5
+            paddingHorizontal: 1,
+            paddingTop: 5,
           }}
         >
-          <MapField />
+          <MapField
+            loading={loading}
+            location={location}
+            Userlocation={Userlocation}
+            handleLocationPress={handleLocationPress}
+          />
         </TabView.Item>
         <TabView.Item
           style={{
@@ -120,6 +170,9 @@ const LocationField = () => {
               placeholder="example.com"
               placeholderTextColor={theme.hr}
               style={{ margin: 0 }}
+              onChange={(value) => {
+                setLink(value.nativeEvent.text);
+              }}
             />
           </Field>
         </TabView.Item>

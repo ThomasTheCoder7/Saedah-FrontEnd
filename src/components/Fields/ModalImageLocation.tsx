@@ -9,11 +9,13 @@ import { Entypo } from "@expo/vector-icons";
 import StyledText from "components/StyledText";
 import * as ImagePicker from "expo-image-picker";
 import { useTranslation } from "react-i18next";
+import { Image } from "utils/Forms/CreateDeal";
+import { extractFileType, generateRandomToken } from "utils/logicUtils";
 
 type props = {
   visible: boolean;
   setVisible: Function;
-  appendImage: Function;
+  appendImage: (image:Image)=>void;
 };
 
 const ModalImageLocation = ({ visible, setVisible, appendImage }: props) => {
@@ -39,9 +41,11 @@ const ModalImageLocation = ({ visible, setVisible, appendImage }: props) => {
       allowsMultipleSelection: false,
     });
 
+
     if (!result.canceled) {
       // setImage(result.assets[0].uri);
-      appendImage(result.assets[0].uri);
+      
+      // appendImage({uri:result.assets[0].uri, name:'', type:'image'});
       console.log(result.assets[0]);
     }
     setVisible(false);
@@ -58,9 +62,10 @@ const ModalImageLocation = ({ visible, setVisible, appendImage }: props) => {
     });
 
     if (!result.canceled) {
-      console.log(result.assets[0]);
-      appendImage(result.assets[0].uri);
-      // setImage(result.assets[0].uri);
+      // console.log(result.assets[0]);
+      // console.log('type:', extractFileType(result.assets[0].uri));
+      appendImage({uri:result.assets[0].uri, name:`${generateRandomToken()}.${extractFileType(result.assets[0].uri)}`, type:`image/${extractFileType(result.assets[0].uri)}`});
+      // appendImage(result.assets[0]);
     }
     setVisible(false);
   };

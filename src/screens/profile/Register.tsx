@@ -6,8 +6,9 @@ import {
   Platform,
   StyleSheet,
   TouchableOpacity,
+  TextInput,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { useTheme } from "contexts/ThemeContexts";
 import {
   widthPercentageToDP as wtdp,
@@ -24,11 +25,26 @@ import { useNavigation } from "@react-navigation/native";
 import AuthButton from "components/Fields/AuthButton";
 import { store } from "utils/storageHandler";
 import { useAuth } from "contexts/AuthContext";
+import { registerData, submitRegister } from "utils/Forms/Register";
+import Field from "components/Fields/Field";
 
 const Register = () => {
   const theme = useTheme();
   const { t } = useTranslation();
   const keyboardVerticalOffset = Platform.OS === "ios" ? 70 : 0;
+  const [data, setData]:[registerData, Function] = useState({fullname:'',email:'', username:'', password:''})
+  const setFullName = (val:string)=>{
+    setData({...data, fullname:val});
+  }
+  const setEmail = (val:string)=>{
+    setData({...data, email:val});
+  }
+  const setUsername = (val:string)=>{
+    setData({...data, username:val});
+  }
+  const setPassword = (val:string)=>{
+    setData({...data, password:val});
+  }
   const {setAuth} = useAuth();
   const navigation = useNavigation();
   const styles = StyleSheet.create({
@@ -80,9 +96,45 @@ const Register = () => {
               color={theme.bottomTabActiveIcon}
             />
           </View>
-          <TextField label="Email" />
-          <TextField label="Username" />
-          <PasswordField label="Password" />
+          <Field label="Full Name">
+            <TextInput
+              onChange={(value) => {
+                setFullName(value.nativeEvent.text);
+              }}
+              maxLength={24}
+              placeholder="Firstname Lastname"
+            />
+          </Field>
+          <Field label="Email">
+            <TextInput
+              onChange={(value) => {
+                setEmail(value.nativeEvent.text);
+              }}
+              maxLength={24}
+              placeholder="example@ggg.com"
+              keyboardType="email-address"
+            />
+          </Field>
+          <Field label="Username">
+            <TextInput
+              onChange={(value) => {
+                setUsername(value.nativeEvent.text);
+              }}
+              maxLength={24}
+              placeholder="Username"
+            />
+          </Field>
+          <Field label="Password">
+            <TextInput
+              onChange={(value) => {
+                setPassword(value.nativeEvent.text);
+              }}
+              textContentType="password"
+              secureTextEntry
+              maxLength={20}
+              placeholder={"Password"}
+            />
+          </Field>
           <View
             style={{ flexDirection: "row", justifyContent: "center", gap: 5 }}
             >
@@ -97,12 +149,7 @@ const Register = () => {
             </TouchableOpacity>
           </View>
           <AuthButton label="Register" onPress={()=>{
-            setAuth(true)
-            store('token', 'JAWAD')
-            navigation.reset({
-              index: 0,
-              routes: [{ name: "Main" }],
-            })
+            submitRegister(data, navigation);
           }}/>
         </View>
       </ScrollView>

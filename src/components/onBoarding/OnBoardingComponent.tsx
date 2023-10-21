@@ -48,7 +48,7 @@ const OnBoardingComponent = ({
       <View
         style={{
           position: "absolute",
-          bottom: 0,
+          bottom: 25,
           flexDirection:'row',
           direction:i18n.language == 'ar'?'rtl':'ltr',
           justifyContent: "space-between",

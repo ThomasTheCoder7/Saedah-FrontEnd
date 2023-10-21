@@ -17,7 +17,7 @@ const OnBoardingScreen = () => {
     setScrollTo(scrollViewRef);
     setNumOfSlides(3);
   }, [scrollViewRef]);
-
+  
   const { i18n } = useTranslation();
 
   return (

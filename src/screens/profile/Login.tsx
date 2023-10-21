@@ -6,8 +6,9 @@ import {
   Platform,
   StyleSheet,
   TouchableOpacity,
+  TextInput,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { useTheme } from "contexts/ThemeContexts";
 import {
   widthPercentageToDP as wtdp,
@@ -21,12 +22,23 @@ import PasswordField from "components/Fields/PasswordField";
 import { useNavigation } from "@react-navigation/native";
 import Submit from "components/Fields/Submit";
 import AuthButton from "components/Fields/AuthButton";
+import { loginData, submitLogin } from "utils/Forms/Login";
 
+import Field from "components/Fields/Field";
+// TODO: submit on keyboard
 const Login = () => {
   const theme = useTheme();
   const { t, i18n } = useTranslation();
   const keyboardVerticalOffset = Platform.OS === "ios" ? 40 : 0;
-  const navigation = useNavigation()
+  const [data, setData]: [loginData, Function] = useState({
+    username: "",
+    password: "",
+  });
+  const setLoginData = (dataType: "username" | "password", str: string) => {
+    if (dataType == "username") setData({ ...data, username: str });
+    else setData({ ...data, password: str });
+  };
+  const navigation = useNavigation();
   const styles = StyleSheet.create({
     mainContainer: {
       backgroundColor: theme.backgroundColor,
@@ -76,22 +88,52 @@ const Login = () => {
               color={theme.bottomTabActiveIcon}
             />
           </View>
-          <TextField label="Username"/>
-          <PasswordField label="Password" />
+          <Field label="Username">
+            <TextInput
+              onChange={(value) => {
+                setLoginData("username", value.nativeEvent.text);
+              }}
+              maxLength={24}
+              placeholder="Username"
+            />
+          </Field>
+          <Field label="Password">
+            <TextInput
+              onChange={(value) => {
+                setLoginData("password", value.nativeEvent.text);
+              }}
+              textContentType="password"
+              secureTextEntry
+              maxLength={20}
+              placeholder={"Password"}
+            />
+          </Field>
           <View
             style={{ flexDirection: "row", justifyContent: "center", gap: 5 }}
-            >
+          >
             {/* TODO ADD TRANSLATION */}
             <StyledText style={{ color: theme.body }}>
               {t("Don't have an account ?")}
             </StyledText>
-            <TouchableOpacity onPress={()=>{navigation.navigate('Register')}}>
-            <StyledText style={{ color: theme.bottomTabActiveIcon }} weight="Bold">
-              {t('Register')}
-            </StyledText>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("Register");
+              }}
+            >
+              <StyledText
+                style={{ color: theme.bottomTabActiveIcon }}
+                weight="Bold"
+              >
+                {t("Register")}
+              </StyledText>
             </TouchableOpacity>
           </View>
-          <AuthButton label="Login" />
+          <AuthButton
+            label="Login"
+            onPress={() => {
+              submitLogin(data, navigation);
+            }}
+          />
         </View>
       </ScrollView>
     </KeyboardAvoidingView>

@@ -8,8 +8,8 @@ import { useTranslation } from "react-i18next";
 import { Platform, Pressable, View } from "react-native";
 import { heightPercentageToDP as htdp } from "react-native-responsive-screen";
 type props = {
-  date:Date;
-  setDate:Function;
+  date: Date;
+  setDate: Function;
 };
 
 const MONTHS = [
@@ -27,14 +27,13 @@ const MONTHS = [
   "Dec",
 ];
 
-const DateTime = () => {
+const DateTime = ({ date, setDate }: props) => {
   const theme = useTheme();
   const { t } = useTranslation();
   const [visible, setVisible] = useState(false);
-  const [date, setDate] = useState(new Date());
   const MyDateTimePicker = () => (
     <DateTimePicker
-      value={date}
+      value={date == null ? new Date() : date}
       display="inline"
       accentColor={theme.bottomTabActiveIcon}
       style={{}}

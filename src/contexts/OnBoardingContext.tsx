@@ -61,6 +61,11 @@ export default ({ children }: props) => {
 
     setCurrentIndex(Math.abs(index));
   };
+
+  useEffect(()=>{
+  setCurrentIndex(0)
+  },[isAuth])
+
   return (
     <OnBoardingContext.Provider
       value={{

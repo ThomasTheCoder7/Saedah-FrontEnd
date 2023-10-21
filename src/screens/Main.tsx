@@ -18,27 +18,7 @@ const Main = () => {
 
       <SafeAreaView style={{ flex: 1 }}>
         <BottomTab />
-        <FlashMessage
-          position="top"
-          style={{
-            borderRadius: 20,
-            marginHorizontal: wtdp("5%"),
-            marginTop: htdp("4%"),
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-          titleStyle={{
-            fontFamily: `${
-              i18n.language === "en" ? "Poppins" : "Cairo"
-            }-SemiBold`,
-            paddingVertical: 5,
-          }}
-          textStyle={{
-            fontFamily: `${
-              i18n.language === "en" ? "Poppins" : "Cairo"
-            }-Regular`,
-          }}
-        />
+        
       </SafeAreaView>
     </View>
   );

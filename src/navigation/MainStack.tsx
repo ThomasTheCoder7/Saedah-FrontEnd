@@ -10,7 +10,9 @@ import Main from "screens/Main";
 import { indexToLang } from "utils/LanguageHandler";
 import { load } from "utils/storageHandler";
 import LoginStack from "./LoginStack";
-
+import FlashMessage from "react-native-flash-message";
+import { widthPercentageToDP as wtdp ,heightPercentageToDP as htdp } from 'react-native-responsive-screen'
+import StyledText from "components/StyledText";
 const Stack = createNativeStackNavigator();
 
 const MainStack = () => {
@@ -45,6 +47,33 @@ const MainStack = () => {
         direction:i18n.dir(i18n.language)
       }}
     >
+      <FlashMessage
+          position="top"
+          style={{
+            borderRadius: 15,
+            marginHorizontal: wtdp("5%"),
+            marginTop: htdp("4%"),
+            alignItems: "center",
+            justifyContent: "flex-start",
+            padding:0
+          }}
+          titleStyle={{
+            fontFamily: `${
+              i18n.language === "en" ? "Poppins" : "Cairo"
+            }-SemiBold`,
+            // paddingVertical: 5,
+            textAlignVertical:'center',
+            alignSelf:'center',
+            padding:0
+          }}
+          textStyle={{
+            fontFamily: `${
+              i18n.language === "en" ? "Poppins" : "Cairo"
+            }-Regular`,
+            alignSelf:'center',
+            padding:0
+          }}
+        />
       <CustomStatusBar backgroundColor={theme.backgroundColor} />
       <Stack.Navigator
         initialRouteName={isAuth ? "Main" : "Start"}

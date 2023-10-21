@@ -1,20 +1,21 @@
-import { ReactNode } from "react";
-import ImageField from "components/Fields/ImageField";
-import React from "react";
-
+import { Image } from "./Forms/CreateDeal";
+import * as FileSystem from 'expo-file-system';
 export const getAppendImageFunction = (setImages: Function) => {
-  return (imageUri: string) => {
-    setImages((prev: string[]) => [...prev, imageUri]);
+  return (image: Image) => {
+    setImages((prev: Image[]) => [...prev, image]);
   };
 };
 
 export const getDeleteImageFunction = (setImages: Function) => {
-  return (imageUri: string) => {
-    setImages((prev: string[]) => {
+  return (image: Image) => {
+    setImages((prev: Image[]) => {
       const updatedImages = prev.filter(
-        (uri: string) => uri !== imageUri
+        (currentImage: Image) => currentImage.uri !== image.uri
       );
       return updatedImages;
     });
   };
 };
+
+
+

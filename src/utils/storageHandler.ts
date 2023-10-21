@@ -4,7 +4,11 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 type storageItem = 'language'| 'theme' | 'token';
 
 
-export const store = async (item:storageItem, value:string)=> {
+export const store = async (item:storageItem, value:string|null)=> {
+    if(value == null){
+        await AsyncStorage.removeItem(item);
+        return;
+    }
     try{
         await AsyncStorage.setItem(item, value)
         console.log('saved', item, ':',value)
