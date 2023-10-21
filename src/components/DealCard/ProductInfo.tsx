@@ -8,6 +8,7 @@ import {
 } from "react-native-responsive-screen";
 import { useTranslation } from "react-i18next";
 import StyledBlurView from "./StyledBlurView";
+import DarkTheme from "assets/Themes/dark";
 
 const cutString = (text: string, maxLength: number) => {
   return text?.length <= maxLength
@@ -16,7 +17,7 @@ const cutString = (text: string, maxLength: number) => {
 };
 
 const ProductInfo = () => {
-  const theme = useTheme();
+  const theme = DarkTheme;
   const { i18n } = useTranslation();
   const flexDirection = i18n.language == "en" ? "row" : "row-reverse";
   const isAndroid = Platform.OS == "android";
@@ -28,7 +29,7 @@ const ProductInfo = () => {
           <StyledText
             style={[styles.textStyle, { color: theme.header, fontSize: 20 }]}
           >
-            KtUc2h8N*EoPzJd7$LmQ
+            Nike Boots
           </StyledText>
           <StyledText
             style={[styles.textStyle, { color: theme.header, fontSize: 13 }]}

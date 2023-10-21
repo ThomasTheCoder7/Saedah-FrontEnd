@@ -30,7 +30,7 @@ const Field = ({
   const theme = useTheme();
   const { t } = useTranslation();
   return (
-    <View style={[{ gap: 10, padding: 0 }]}>
+    <View style={[{ gap: 10, padding: 0, }]}>
       <View style={labelStyles}>
         <StyledText
           style={[

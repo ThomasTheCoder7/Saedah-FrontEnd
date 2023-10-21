@@ -26,8 +26,8 @@ const Auth = () => {
       }}
     >
       <Image
-        source={require("assets/logo-no-background.png")}
-        style={{ width: wtdp('55%'), height: wtdp('55%'), marginTop:htdp('4%') }}
+        source={theme.isDark ? require("assets/logo-no-background.png"): require("assets/logo-no-background-light.png")}
+        style={{ width: htdp('38%'), height: htdp('38%'), marginTop:htdp('4%') }}
         resizeMode="contain"
       />
       <StyledText style={{color:theme.header, fontSize:htdp('4%') }} weight="Bold">

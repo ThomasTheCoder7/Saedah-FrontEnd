@@ -14,14 +14,14 @@ import {
 } from "react-native-responsive-screen";
 type props = {
   hidden: boolean;
-  animate: () => void;
+  animate?: () => void;
   index: number;
   setIndex: Function;
 };
 
 const SCREEN_WIDTH = wtdp("94%");
 
-const DealImageScrollView = ({ hidden, animate, index, setIndex }: props) => {
+const DealImageScrollView = ({ hidden, animate=()=>{}, index, setIndex }: props) => {
   return (
     <ScrollView
       style={{ position: "absolute", width: "100%", height: "100%" }}
@@ -42,6 +42,7 @@ const DealImageScrollView = ({ hidden, animate, index, setIndex }: props) => {
       }}
       scrollEventThrottle={10}
       bounces={false}
+      nestedScrollEnabled
     >
       <DoubleTapPressable
         onDoubleTap={() => {

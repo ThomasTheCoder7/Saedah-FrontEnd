@@ -5,17 +5,19 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { Image, View } from "react-native";
 import { heightPercentageToDP as htdp } from "react-native-responsive-screen";
+import Svg, { SvgXml } from "react-native-svg";
 type props = {
   index: number;
 };
 const Welcome = ({ index }: props) => {
+
   const theme = useTheme();
   const { t } = useTranslation();
   return (
     <OnBoardingComponent
       headerIcon={
         <Image
-          source={require("assets/logo-no-background.png")}
+          source={theme.isDark ? require("assets/logo-no-background.png"): require("assets/logo-no-background-light.png")}
           style={{ width: htdp("38%"), height: htdp("38%") }}
           resizeMode="contain"
         />

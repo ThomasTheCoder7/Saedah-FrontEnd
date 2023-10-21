@@ -35,16 +35,20 @@ const animationConfig = {
   stiffness: 100,
 };
 
-const DealCard = () => {
+type props = {
+  initalState?: "visible" | "hidden";
+};
+
+const DealCard = ({ initalState = "visible" }: props) => {
   const theme = useTheme();
   const { i18n } = useTranslation();
+  const [hidden, setHidden] = useState(initalState == "hidden" ? true : false);
   const flexDirection = i18n.language == "en" ? "row" : "row-reverse";
-  const topOffset = useSharedValue(0);
-  const bottomOffset = useSharedValue(0);
-  const bubbleOffset = useSharedValue(100);
-  const [index, setIndex] = useState(0)
-  const navigation = useNavigation()
-  const [hidden, setHidden] = useState(false);
+  const topOffset = useSharedValue(!hidden ? 0 : -100);
+  const bottomOffset = useSharedValue(!hidden ? 0 : 200);
+  const bubbleOffset = useSharedValue(!hidden ? 100 : 0);
+  const [index, setIndex] = useState(0);
+  const navigation = useNavigation();
 
   const topAnimatedStyle = useAnimatedStyle(() => ({
     transform: [{ translateY: topOffset.value }],
@@ -81,8 +85,19 @@ const DealCard = () => {
         overflow: "hidden",
       }}
     >
-      <DealImageScrollView hidden={hidden} animate={animate} index={index} setIndex={setIndex} />
-      <DoubleTapPressable onDoubleTap={() => animate()} onSingleTap={()=>{navigation.navigate('Details')}} ignore={hidden}>
+      <DealImageScrollView
+        hidden={hidden}
+        animate={animate}
+        index={index}
+        setIndex={setIndex}
+      />
+      <DoubleTapPressable
+        onDoubleTap={() => animate()}
+        onSingleTap={() => {
+          navigation.navigate("Details");
+        }}
+        ignore={hidden}
+      >
         <View style={{ width: "100%", height: "100%" }}>
           {/* TOP */}
           <Animated.View
@@ -127,7 +142,7 @@ const DealCard = () => {
         ]}
         pointerEvents="none"
       >
-        <IndexIndicator index={index}/>
+        <IndexIndicator index={index} />
       </Animated.View>
     </View>
   );

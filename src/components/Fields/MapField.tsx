@@ -7,9 +7,15 @@ import {
   widthPercentageToDP as wtdp,
   heightPercentageToDP as htdp,
 } from "react-native-responsive-screen";
-const MapField = () => {
-  const theme = useTheme()
-  const [location, setLocation] = useState({ latitude: 0, longitude: 0 });
+type location = {latitude: number, longitude: number}|null
+
+type props ={
+  DealLocation?:location
+}
+
+const MapField = ({DealLocation}:props) => {
+  const theme = useTheme();
+  const [location, setLocation] = useState(DealLocation);
   const [Userlocation, setUserLocation] = useState({
     latitude: 0,
     longitude: 0,
@@ -26,7 +32,7 @@ const MapField = () => {
   };
 
   const handleOpenMaps = () => {
-    const { latitude, longitude } = location;
+    const { latitude, longitude } = location!
 
     const url = Platform.select({
       ios: `https://maps.google.com/maps?q=${latitude},${longitude}`,
@@ -38,6 +44,7 @@ const MapField = () => {
     }
   };
   useEffect(() => {
+    
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
@@ -59,22 +66,23 @@ const MapField = () => {
     })();
   }, []);
 
-  if (loading) <ActivityIndicator color={theme.bottomTabActiveIcon} size={'large'}/>;
+  if (loading)
+    <ActivityIndicator color={theme.bottomTabActiveIcon} size={"large"} />;
   return (
     <View
       style={{
         width: "100%",
-        height: htdp("45%"),
+        // height: htdp("45%"),
         borderRadius: 15,
         overflow: "hidden",
       }}
     >
       {!loading && (
         <MapView
-        loadingEnabled
-        loadingBackgroundColor={theme.bottomTabBackground}
-        loadingIndicatorColor={theme.bottomTabActiveIcon}
-          style={{ width: "100%", height: "100%", zIndex:0 }}
+          loadingEnabled
+          loadingBackgroundColor={theme.bottomTabBackground}
+          loadingIndicatorColor={theme.bottomTabActiveIcon}
+          style={{ width: "100%", height: "100%", zIndex: 0 }}
           region={{
             latitude: Userlocation.latitude,
             longitude: Userlocation.longitude,

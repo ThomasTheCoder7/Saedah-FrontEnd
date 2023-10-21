@@ -15,14 +15,14 @@ type props = {
   onPress?: Function;
   staticImage?: boolean;
   uri?: string;
-  deleteImage?: Function;
+  deleteImage?: Function | null;
 };
 
 const ImageField = ({
   onPress = () => {},
   staticImage = false,
   uri = "",
-  deleteImage = () => {},
+  deleteImage = null,
 }: props) => {
   const theme = useTheme();
   const [fullScreen, setFullScreen] = useState(false);
@@ -36,7 +36,6 @@ const ImageField = ({
           height: htdp("100%"),
           justifyContent: "center",
           alignItems: "center",
-
         }}
         backgroundColor={theme.backgroundColor}
         imageUrls={[{ url: uri }]}
@@ -48,7 +47,7 @@ const ImageField = ({
           position: "absolute",
           top: 20,
           left: 0,
-          padding:10
+          padding: 10,
         }}
       >
         {i18n.language == "en" ? (
@@ -85,14 +84,16 @@ const ImageField = ({
               setFullScreen(true);
             }}
           />
-          <TouchableOpacity
-            style={{ position: "absolute", top: 0, right: 0, padding: 10 }}
-            onPress={() => {
-              deleteImage(uri);
-            }}
-          >
-            <AntDesign name="minuscircle" size={24} color={theme.danger} />
-          </TouchableOpacity>
+          {deleteImage && (
+            <TouchableOpacity
+              style={{ position: "absolute", top: 0, right: 0, padding: 10 }}
+              onPress={() => {
+                deleteImage(uri);
+              }}
+            >
+              <AntDesign name="minuscircle" size={24} color={theme.danger} />
+            </TouchableOpacity>
+          )}
         </ImageBackground>
       </>
     );

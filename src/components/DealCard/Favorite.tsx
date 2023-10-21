@@ -3,9 +3,10 @@ import React, { useState } from "react";
 import StyledBlurView from "./StyledBlurView";
 import { AntDesign } from "@expo/vector-icons";
 import { useTheme } from "contexts/ThemeContexts";
+import DarkTheme from "assets/Themes/dark";
 
 const Favorite = () => {
-  const theme = useTheme();
+  const theme = DarkTheme;
   const [pressed, setPressed] = useState(false)
   return (
     <StyledBlurView

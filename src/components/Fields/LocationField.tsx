@@ -103,7 +103,8 @@ const LocationField = () => {
           style={{
             width: "100%",
             height: "100%",
-            paddingHorizontal:1
+            paddingHorizontal:1,
+            paddingTop:5
           }}
         >
           <MapField />

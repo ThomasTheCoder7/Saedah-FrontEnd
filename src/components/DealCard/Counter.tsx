@@ -4,9 +4,10 @@ import React from "react";
 import { useTheme } from "contexts/ThemeContexts";
 import StyledText from "components/StyledText";
 import StyledBlurView from "./StyledBlurView";
+import DarkTheme from "assets/Themes/dark";
 
 const Counter = () => {
-  const theme = useTheme();
+  const theme = DarkTheme;
   return (
     <StyledBlurView style={{ flex: 0.15 }}>
       <View
