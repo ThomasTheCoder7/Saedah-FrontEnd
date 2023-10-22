@@ -28,6 +28,7 @@ import DealImageScrollView from "./DealImageScrollView";
 import StyledBlurView from "./StyledBlurView";
 import IndexIndicator from "components/IndexIndicator";
 import { useNavigation } from "@react-navigation/native";
+import { useDetails } from "contexts/DetailsContext";
 
 const animationConfig = {
   mass: 1,
@@ -36,20 +37,36 @@ const animationConfig = {
 };
 
 type props = {
-  initalState?: "visible" | "hidden";
+  title: string;
+  description: string;
+  isLiked: boolean;
+  upVotes: number;
+  downVotes: number;
+  price: string;
+  latitude: string;
+  longitude: string;
+  photos: string[];
+  expiry_date: string;
+  avatar:string;
+  username:string;
+  id:string;
+  profile_id:string;
+  isFollowed:boolean;
+  postedBySame?:boolean;
+  UserProfile:boolean;
 };
 
-const DealCard = ({ initalState = "visible" }: props) => {
+const DealCard = (props: props) => {
   const theme = useTheme();
   const { i18n } = useTranslation();
-  const [hidden, setHidden] = useState(initalState == "hidden" ? true : false);
+  const [hidden, setHidden] = useState(false);
   const flexDirection = i18n.language == "en" ? "row" : "row-reverse";
   const topOffset = useSharedValue(!hidden ? 0 : -100);
   const bottomOffset = useSharedValue(!hidden ? 0 : 200);
   const bubbleOffset = useSharedValue(!hidden ? 100 : 0);
   const [index, setIndex] = useState(0);
   const navigation = useNavigation();
-
+  const { setDetails, details } = useDetails();
   const topAnimatedStyle = useAnimatedStyle(() => ({
     transform: [{ translateY: topOffset.value }],
   }));
@@ -73,6 +90,10 @@ const DealCard = ({ initalState = "visible" }: props) => {
     setHidden((prev) => !prev);
   };
 
+  if (props.photos.length <= 0) {
+    return;
+  }
+
   return (
     <View
       style={{
@@ -90,10 +111,19 @@ const DealCard = ({ initalState = "visible" }: props) => {
         animate={animate}
         index={index}
         setIndex={setIndex}
+        images={props.photos}
       />
       <DoubleTapPressable
         onDoubleTap={() => animate()}
         onSingleTap={() => {
+          setDetails({ ...props });
+          console.log(details);
+          
+          // console.log(details);
+          if(props.UserProfile){
+            navigation.navigate("UserDealDetails");
+            return;
+          }
           navigation.navigate("Details");
         }}
         ignore={hidden}
@@ -109,8 +139,8 @@ const DealCard = ({ initalState = "visible" }: props) => {
               topAnimatedStyle,
             ]}
           >
-            <Profile />
-            <Favorite />
+            <Profile avatar={props.avatar} username={props.username} id={props.profile_id} isFollowed={props.isFollowed} postedByUser={props.postedBySame} />
+            <Favorite active={props.isLiked}  id={props.id}/>
           </Animated.View>
 
           {/* BOTTOM */}
@@ -124,8 +154,13 @@ const DealCard = ({ initalState = "visible" }: props) => {
               bottomAnimatedStyle,
             ]}
           >
-            <ProductInfo />
-            <Counter />
+            <ProductInfo
+              title={props.title}
+              description={props.description}
+              expiry_date={props.expiry_date}
+              price={props.price}
+            />
+            <Counter count={(props.upVotes - props.downVotes)} id={props.id} />
           </Animated.View>
         </View>
       </DoubleTapPressable>
@@ -142,7 +177,7 @@ const DealCard = ({ initalState = "visible" }: props) => {
         ]}
         pointerEvents="none"
       >
-        <IndexIndicator index={index} />
+      {props.photos.length > 1 && <IndexIndicator index={index} len={props.photos.length} />}
       </Animated.View>
     </View>
   );

@@ -43,10 +43,7 @@ const ModalImageLocation = ({ visible, setVisible, appendImage }: props) => {
 
 
     if (!result.canceled) {
-      // setImage(result.assets[0].uri);
-      
-      // appendImage({uri:result.assets[0].uri, name:'', type:'image'});
-      console.log(result.assets[0]);
+      appendImage({uri:result.assets[0].uri, name:`${new Date().getTime()}.${extractFileType(result.assets[0].uri)}`, type:`image/${extractFileType(result.assets[0].uri)}`});
     }
     setVisible(false);
   };
@@ -62,10 +59,7 @@ const ModalImageLocation = ({ visible, setVisible, appendImage }: props) => {
     });
 
     if (!result.canceled) {
-      // console.log(result.assets[0]);
-      // console.log('type:', extractFileType(result.assets[0].uri));
-      appendImage({uri:result.assets[0].uri, name:`${generateRandomToken()}.${extractFileType(result.assets[0].uri)}`, type:`image/${extractFileType(result.assets[0].uri)}`});
-      // appendImage(result.assets[0]);
+      appendImage({uri:result.assets[0].uri, name:`${new Date().getTime()}.${extractFileType(result.assets[0].uri)}`, type:`image/${extractFileType(result.assets[0].uri)}`});
     }
     setVisible(false);
   };

@@ -15,6 +15,7 @@ import MapField from "components/Fields/MapField";
 import AuthButton from "components/Fields/AuthButton";
 import { handleOpenMaps } from "utils/HandleOpenLocation";
 import Counter from "./Counter";
+import { useDetails } from "contexts/DetailsContext";
 type props = {
   images: string[];
   index: number;
@@ -22,13 +23,15 @@ type props = {
 };
 
 const Bottom = () => {
+  const { details } = useDetails();
   const theme = useTheme();
+  
   return (
     <Page>
       <View style={{ gap: 20 }}>
         <View
           style={{
-            marginTop:10,
+            marginTop: 10,
             backgroundColor: theme.bottomTabBackground,
             height: htdp("47%"),
             borderRadius: 15,
@@ -36,12 +39,22 @@ const Bottom = () => {
             //   padding: 10,
           }}
         >
-          <MapField DealLocation={{ latitude: 20, longitude: 20 }} />
+          <MapField
+            preview
+            location={{
+              latitude: details.latitude,
+              longitude: details.longitude,
+            }}
+            handleLocationPress={()=>{}}
+          />
         </View>
         <AuthButton
           label="Take Me There"
           onPress={() => {
-            handleOpenMaps({ latitude: 20, longitude: 20 });
+            handleOpenMaps({
+              latitude: details.latitude,
+              longitude: details.longitude,
+            });
           }}
         />
         <View
@@ -50,10 +63,10 @@ const Bottom = () => {
             borderRadius: 15,
             flexDirection: "row",
             justifyContent: "space-between",
-            alignItems:'center'
+            alignItems: "center",
           }}
         >
-          <View style={{ flex: 1, padding: 10}}>
+          <View style={{ flex: 1, padding: 10 }}>
             {/* <Field label="Price">
               <StyledText
                 style={{

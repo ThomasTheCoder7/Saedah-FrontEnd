@@ -1,10 +1,14 @@
-import { View, Platform } from "react-native";
+import { View, Platform, TouchableOpacity } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Profile from "screens/profile/Profile";
-import React from "react";
+import React, { useState } from "react";
 import Settings from "screens/settings/Settings";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "contexts/ThemeContexts";
+import Details from "screens/Details";
+import { useDetails } from "contexts/DetailsContext";
+import { likeDeal } from "utils/Forms/DealUtils";
+import { AntDesign } from '@expo/vector-icons';
 
 const Stack = createNativeStackNavigator();
 
@@ -22,6 +26,7 @@ const config = {
 
 const ProfileStack = () => {
   const { t, i18n } = useTranslation();
+  const {details} = useDetails()
   const lang = i18n.language;
   const theme = useTheme();
   return (
@@ -29,11 +34,17 @@ const ProfileStack = () => {
       <Stack.Navigator
         initialRouteName="UserProfile"
         screenOptions={{
+          headerStyle: { backgroundColor: theme.backgroundColor },
+          headerShadowVisible: false,
+          headerTintColor: theme.header,
+          headerBlurEffect: "dark",
+          headerBackTitleVisible: false,
+          headerTitleAlign: "center",
           animation: `${
-            Platform.OS == "android" ? "slide_from_bottom" : "default"
+            // is it android ? if yes -> check if it is arabic if yes slide from left animation if it is english slide from right
+            Platform.OS == "android" ? "slide_from_right" : "default"
           }`,
         }}
-
       >
         <Stack.Screen
           name="UserProfile"
@@ -41,18 +52,31 @@ const ProfileStack = () => {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="Settings"
-          component={Settings}
-          
+          name="UserDealDetails"
+          component={Details}
           options={{
-            headerTitle: t("Settings"),
-            headerStyle: { backgroundColor: theme.backgroundColor },
-            headerTitleStyle: {
-              fontSize: 23,
-              fontFamily: `${lang === "en" ? "Poppins" : "Cairo"}-SemiBold`,
+            gestureEnabled: false,
+            title: details.title,
+            headerRight: () => {
+              const [pressed, setPressed] = useState(details.isLiked);
+
+              return (
+                <TouchableOpacity
+                  style={{ padding: 5 }}
+                  onPress={() => {
+                    setPressed(!pressed);
+                    likeDeal(details.id);
+                  }}
+                >
+                  {/* TOP RIGHT */}
+                  <AntDesign
+                    name={pressed ? "heart" : "hearto"}
+                    size={20}
+                    color={theme.header}
+                  />
+                </TouchableOpacity>
+              );
             },
-            headerTintColor: theme.header,
-            headerShadowVisible: false,
           }}
         />
       </Stack.Navigator>

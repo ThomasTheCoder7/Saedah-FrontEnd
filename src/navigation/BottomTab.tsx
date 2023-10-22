@@ -63,7 +63,7 @@ const BottomTab = () => {
     },
     {
       name: "Profile",
-      component: Profile,
+      component: ProfileStack,
       options: {
         tabBarIcon: ProfileIcon,
         tabBarLabel: t("Profile"),

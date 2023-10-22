@@ -1,19 +1,74 @@
-import { View, Text, Platform, TouchableOpacity } from "react-native";
-import React from "react";
-import DarkTheme from "assets/Themes/dark";
-import { Avatar } from "@rneui/themed";
-import StyledText from "components/StyledText";
-import StyledBlurView from "./StyledBlurView";
-import { useTranslation } from "react-i18next";
-import {
-  widthPercentageToDP as wtdp,
-  heightPercentageToDP as htdp,
-} from "react-native-responsive-screen";
 import { Ionicons } from "@expo/vector-icons";
-const Profile = () => {
+import { Avatar } from "@rneui/themed";
+import DarkTheme from "assets/Themes/dark";
+import StyledText from "components/StyledText";
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { Platform, Text, TouchableOpacity, View } from "react-native";
+import { heightPercentageToDP as htdp } from "react-native-responsive-screen";
+import { URL } from "utils/logicUtils";
+import StyledBlurView from "./StyledBlurView";
+
+import { follow } from "utils/Forms/DealUtils";
+
+type props = {
+  username: string;
+  avatar: string;
+  id: string;
+  isFollowed: boolean;
+  postedByUser?: boolean;
+};
+
+const Profile = ({ avatar, username, id, isFollowed, postedByUser=false }: props) => {
   const theme = DarkTheme;
   const { i18n } = useTranslation();
+  const [UIisFollowed, setFollow] = useState(isFollowed);
   const flexDirection = i18n.language == "en" ? "row" : "row-reverse";
+
+  const FollowUnfollowButton = () => {
+    if (UIisFollowed) {
+      return (
+        <>
+          <TouchableOpacity
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "row",
+              gap: 5,
+            }}
+            onPress={() => {
+              setFollow((prev) => !prev);
+              follow(id);
+            }}
+          >
+            <Text style={{ color: theme.header }}>Unfollow</Text>
+            <Ionicons name="remove" size={24} color={theme.header} />
+          </TouchableOpacity>
+        </>
+      );
+    }
+
+    return (
+      <>
+        <TouchableOpacity
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "row",
+            gap: 5,
+          }}
+          onPress={() => {
+            setFollow((prev) => !prev);
+            follow(id);
+          }}
+        >
+        <Text style={{ color: theme.header }}>Follow</Text>
+        <Ionicons name="add" size={24} color={theme.header} />
+        </TouchableOpacity>
+        
+      </>
+    );
+  };
 
   return (
     <StyledBlurView style={{ justifyContent: "center", paddingVertical: 10 }}>
@@ -28,14 +83,14 @@ const Profile = () => {
           justifyContent: "space-between",
         }}
       >
-        <View style={{flexDirection:'row', alignItems:'center', gap:10}}>
+        <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
           <Avatar
             size={30}
             rounded
             containerStyle={{ backgroundColor: theme.bottomTabInactiveIcon }}
-            //   source={{
-            //     uri: "https://images.unsplash.com/photo-1534278931827-8a259344abe7?auto=format&fit=crop&q=80&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&w=2670",
-            //   }}
+            source={{
+              uri: `${URL}${avatar}`,
+            }}
             icon={{
               type: "FontAwesome5",
               size: 15,
@@ -47,18 +102,15 @@ const Profile = () => {
             style={{
               color: theme.header,
               letterSpacing: 1.2,
-              fontSize: htdp("2.8%"),
+              fontSize: htdp("2.2%"),
               verticalAlign: "middle",
             }}
             weight="Light"
           >
-            HavelTheCoder
+            {username}
           </StyledText>
         </View>
-
-        <TouchableOpacity style={{justifyContent:'center', alignItems:'center'}}>
-        <Ionicons name="add" size={24} color={theme.header} />
-        </TouchableOpacity>
+        {!postedByUser && <FollowUnfollowButton/>}
       </View>
     </StyledBlurView>
   );

@@ -12,13 +12,15 @@ import {
   widthPercentageToDP as wtdp,
   heightPercentageToDP as htdp,
 } from "react-native-responsive-screen";
+import { useDetails } from "contexts/DetailsContext";
+import { URL, formatDate } from "utils/logicUtils";
 type props = {
-  images: string[];
   index: number;
   setIndex: (index: number) => void;
 };
 
-const Top = ({ index, setIndex, images }: props) => {
+const Top = ({ index, setIndex }: props) => {
+  const {details} = useDetails();
   const theme = useTheme();
   return (
     <Page>
@@ -33,12 +35,12 @@ const Top = ({ index, setIndex, images }: props) => {
             scrollEventThrottle={20}
             onScroll={(event: any) => onScroll(event, index, setIndex)}
           >
-            {images.map((image, index) => {
-              return <ImageField staticImage uri={image} key={index} />;
+            {details.photos.map((image, index) => {
+              return <ImageField staticImage uri={`${URL}${image}`} key={index} />;
             })}
           </ScrollView>
-          {images.length > 1 && (
-            <IndexIndicator index={index} len={images.length} />
+          {details.photos.length > 1 && (
+            <IndexIndicator index={index} len={details.photos.length} />
           )}
         </View>
 
@@ -64,7 +66,7 @@ const Top = ({ index, setIndex, images }: props) => {
                 fontSize: 20,
               }}
             >
-             HavelTheCoder
+             {"JAWAD"}
             </StyledText>
             <StyledText
               style={{
@@ -73,42 +75,24 @@ const Top = ({ index, setIndex, images }: props) => {
                 fontSize: 20,
               }}
             >
-              350 SAR
+              {details.price} SAR
             </StyledText>
             <StyledText
               style={{
                 fontFamily: "Poppins-Regular",
                 color: theme.header,
-                fontSize: 13,
+                fontSize: 12,
+                textAlign:'right'
               }}
             >
-              Posted 18 Hours ago
+              {formatDate(details.expiry_date)}
             </StyledText>
           </View>
           <ScrollView nestedScrollEnabled bounces={false}>
             <StyledText
               style={{ fontFamily: "Poppins-Regular", color: theme.body }}
             >
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni,
-              nisi debitis fugiat cupiditate accusamus, maxime quo architecto ex
-              pariatur voluptatum libero dolor. Voluptatem blanditiis iure,
-              atque laudantium recusandae id illum laborum vitae laboriosam
-              soluta aliquam dolores omnis dolorem quasi esse aspernatur placeat
-              quibusdam non magni, voluptatum, repudiandae deserunt explicabo.
-              Quidem soluta magni tempora. Iusto, at corporis! Ut,
-              necessitatibus. Accusamus, voluptatibus saepe sunt, corrupti
-              dolores libero eaque, magni earum illo alias quis blanditiis ad
-              cupiditate ducimus deserunt quas iusto facere? Sunt reprehenderit
-              tempore, accusamus consectetur officiis corporis voluptate est
-              animi tenetur suscipit possimus delectus quae nihil laudantium!
-              Repellat, harum? Dolorem, aliquam consequuntur? Molestias suscipit
-              consectetur in fuga soluta? Similique tempore necessitatibus
-              aliquam expedita aspernatur sapiente optio voluptas quod, velit
-              fugiat molestias alias unde porro excepturi veniam exercitationem
-              aperiam, ullam obcaecati est. Illo laboriosam, eum quod quisquam
-              est ullam blanditiis suscipit repellat atque mollitia magni
-              laborum ipsam sit magnam beatae harum modi, inventore repudiandae
-              tenetur. Est, ipsam, ullam, laborum nisi .
+              {details.description}
             </StyledText>
           </ScrollView>
         </View>

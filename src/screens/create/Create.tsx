@@ -22,7 +22,7 @@ import {
   getDeleteImageFunction,
 } from "utils/CreateFormHandlers";
 import { Image, createData, submitCreate } from "utils/Forms/CreateDeal";
-import { onScroll } from "utils/ScrollHandler";
+import { onScroll } from "../../utils/ScrollHandler";
 
 const Create = () => {
   // const [images, setImages]: [Image[], Function] = useState([]);

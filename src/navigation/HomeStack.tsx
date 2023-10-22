@@ -10,12 +10,15 @@ import { useNavigation } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
 import { HomeIcon } from "../components/tabIcons";
 import Favorite from "components/DealCard/Favorite";
+import { useDetails } from "contexts/DetailsContext";
+import { likeDeal } from "../utils/Forms/DealUtils";
 
 const Stack = createNativeStackNavigator();
 
 const HomeStack = () => {
   const theme = useTheme();
   const { i18n } = useTranslation();
+  const { details } = useDetails();
   return (
     <Stack.Navigator
       initialRouteName="Deals"
@@ -47,15 +50,16 @@ const HomeStack = () => {
         component={Details}
         options={{
           gestureEnabled: false,
-          title: "Nike Boots",
+          title: details.title,
           headerRight: () => {
-            const [pressed, setPressed] = useState(false);
+            const [pressed, setPressed] = useState(details.isLiked);
 
             return (
               <TouchableOpacity
                 style={{ padding: 5 }}
                 onPress={() => {
                   setPressed(!pressed);
+                  likeDeal(details.id);
                 }}
               >
                 {/* TOP RIGHT */}

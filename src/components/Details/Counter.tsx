@@ -1,11 +1,12 @@
 import { View, Text, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { Entypo } from "@expo/vector-icons";
 import StyledText from "components/StyledText";
 import { useTheme } from "contexts/ThemeContexts";
 
 const Counter = () => {
   const theme = useTheme();
+  const [count, setCount] = useState(0)
   return (
     <View style={{alignItems:'center', justifyContent:'space-between', borderRadius:10, padding:10}}>
       <TouchableOpacity style={{ padding: 5 }}>

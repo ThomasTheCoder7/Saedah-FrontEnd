@@ -10,10 +10,11 @@ import {
 type location = { latitude: number; longitude: number } | null;
 
 type props = {
-  handleLocationPress: Function;
+  handleLocationPress: (event: MapPressEvent) => void;
   loading: boolean;
   location: any;
   Userlocation: any;
+  preview: boolean;
 };
 
 const MapField = ({
@@ -21,6 +22,7 @@ const MapField = ({
   loading,
   location,
   Userlocation,
+  preview = false,
 }: props) => {
   const theme = useTheme();
 
@@ -34,7 +36,7 @@ const MapField = ({
           justifyContent: "center",
           alignSelf: "center",
           height: "100%",
-          width:'100%',
+          width: "100%",
           backgroundColor: theme.bottomTabBackground,
           borderRadius: 15,
           overflow: "hidden",
@@ -43,6 +45,43 @@ const MapField = ({
         <ActivityIndicator color={theme.bottomTabActiveIcon} size={"small"} />
       </View>
     );
+
+  if (preview) {
+    return (
+      <View
+        style={{
+          width: "100%",
+          borderRadius: 15,
+          overflow: "hidden",
+        }}
+      >
+        {!loading && (
+          <MapView
+            provider="google"
+            loadingEnabled
+            loadingBackgroundColor={theme.bottomTabBackground}
+            loadingIndicatorColor={theme.bottomTabActiveIcon}
+            style={{ width: "100%", height: "100%", zIndex: 0 }}
+            region={{
+              latitude: location.latitude,
+              longitude: location.longitude,
+              latitudeDelta: latitudeDelta,
+              longitudeDelta: longitudeDelta,
+            }}
+            onPress={handleLocationPress}
+          >
+            <Marker
+              coordinate={{
+                latitude: location.latitude,
+                longitude: location.longitude,
+              }}
+              draggable={false} // Marker is not draggable
+            />
+          </MapView>
+        )}
+      </View>
+    );
+  }
   return (
     <View
       style={{
@@ -54,6 +93,7 @@ const MapField = ({
     >
       {!loading && (
         <MapView
+          provider="google"
           loadingEnabled
           loadingBackgroundColor={theme.bottomTabBackground}
           loadingIndicatorColor={theme.bottomTabActiveIcon}

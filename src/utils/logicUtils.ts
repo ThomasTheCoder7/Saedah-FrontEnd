@@ -1,3 +1,5 @@
+export const URL = 'https://saedah.pythonanywhere.com';
+
 export const isEmpty = (str: string|any[]) => {
   return str.length == 0;
 };
@@ -38,4 +40,18 @@ export const extractFileType = (filename: string): string => {
     return match[1];
   }
   return 'Unknown';
+};
+
+
+export const formatDate = (inputDate: string): string => {
+  const date = new Date(inputDate);
+
+
+  const options: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  };
+
+  return date.toLocaleDateString(undefined, options);
 };

@@ -9,6 +9,7 @@ import {
 import { useTranslation } from "react-i18next";
 import StyledBlurView from "./StyledBlurView";
 import DarkTheme from "assets/Themes/dark";
+import { formatDate } from "utils/logicUtils";
 
 const cutString = (text: string, maxLength: number) => {
   return text?.length <= maxLength
@@ -16,7 +17,14 @@ const cutString = (text: string, maxLength: number) => {
     : text?.substring(0, maxLength - 3) + "...";
 };
 
-const ProductInfo = () => {
+type props = {
+  title:string;
+  description:string;
+  price:string;
+  expiry_date:string;
+}
+
+const ProductInfo = ({description,expiry_date,price,title}:props) => {
   const theme = DarkTheme;
   const { i18n } = useTranslation();
   const flexDirection = i18n.language == "en" ? "row" : "row-reverse";
@@ -29,13 +37,13 @@ const ProductInfo = () => {
           <StyledText
             style={[styles.textStyle, { color: theme.header, fontSize: 20 }]}
           >
-            Nike Boots
+            {title}
           </StyledText>
           <StyledText
             style={[styles.textStyle, { color: theme.header, fontSize: 13 }]}
           >
             {cutString(
-              "Lorem ipsum dolor sit amet, consectetur adipisicing elit. A error nulla, unde iste voluptate saepe voluptatum soluta dolorum cumque itaque officia reprehenderit. Eligendi, fugiat? Natus soluta quis voluptas eum molestias?",
+              description,
               80
             )}
           </StyledText>
@@ -50,12 +58,12 @@ const ProductInfo = () => {
           <StyledText
             style={[styles.textStyle, { color: theme.header, fontSize: 15 }]}
           >
-            320 {"SAR"}
+            {price} {"SAR"}
           </StyledText>
           <StyledText
             style={[styles.textStyle, { color: theme.header, fontSize: 15 }]}
           >
-            18 Hours ago
+            {formatDate(expiry_date)}
           </StyledText>
         </View>
       </View>

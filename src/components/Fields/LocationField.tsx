@@ -62,15 +62,16 @@ const LocationField = ({ setData, setLink, setGeometry }: props) => {
         return;
       }
 
-      let location = await Location.getCurrentPositionAsync({});
+      let currentLocation = await Location.getCurrentPositionAsync({});
       setUserLocation({
-        latitude: location.coords.latitude,
-        longitude: location.coords.longitude,
+        latitude: currentLocation.coords.latitude,
+        longitude: currentLocation.coords.longitude,
       });
       setLocation({
-        latitude: location.coords.latitude,
-        longitude: location.coords.longitude,
+        latitude: currentLocation.coords.latitude,
+        longitude: currentLocation.coords.longitude,
       });
+      setData(`latitude:${currentLocation.coords.latitude},longitude:${currentLocation.coords.longitude}`);
       setLoading(false);
     })();
   }, []);

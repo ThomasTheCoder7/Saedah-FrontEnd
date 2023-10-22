@@ -14,10 +14,11 @@ type props = {
   label: string;
   children: ReactNode;
   justifyContent: "center" | "flex-start" | "flex-end";
-  style?:object
+  count:number;
+  style?:object;
 };
 
-const Label = ({ label, children, justifyContent,style }: props) => {
+const Label = ({ label, children, justifyContent,style,count }: props) => {
   const theme = useTheme();
   const { t } = useTranslation();
   return (
@@ -37,7 +38,7 @@ const Label = ({ label, children, justifyContent,style }: props) => {
         </StyledText>
       </View>
       <StyledText style={{ color: theme.body }} weight="Bold">
-        15
+        {count}
       </StyledText>
     </View>
   );
