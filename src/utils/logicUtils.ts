@@ -35,18 +35,15 @@ export const generateRandomToken = ()=>{
 
 
 export const extractFileType = (filename: string): string => {
-  const match = filename.match(/\.(.+)$/);
-  if (match) {
-    return match[1];
-  }
-  return 'Unknown';
+  const match = /(?:\.([^.]+))?$/;
+  const extension = match.exec(filename)![1];
+  return extension!=null ? extension :''
 };
 
 
 export const formatDate = (inputDate: string): string => {
   const date = new Date(inputDate);
-
-
+  date.setMonth(date.getMonth())
   const options: Intl.DateTimeFormatOptions = {
     year: 'numeric',
     month: 'long',

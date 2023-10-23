@@ -74,10 +74,6 @@ const Create = () => {
   const theme = useTheme();
   const keyboardVerticalOffset = Platform.OS === "ios" ? 40 : 0;
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
-
   return (
     <>
       <ModalImageLocation

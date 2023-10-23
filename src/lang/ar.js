@@ -45,4 +45,5 @@ export default {
   "Previous":"عودة",
   "Geographic":"جغرافي",
   "Link":"رابط",
+  "Comments":"التعليقات"
 };

@@ -1,4 +1,6 @@
 import { View, Text, Modal, Pressable, TouchableOpacity } from "react-native";
+import * as MediaLibrary from "expo-media-library";
+
 import React, { useEffect, useState } from "react";
 import {
   widthPercentageToDP as wtdp,
@@ -11,15 +13,17 @@ import * as ImagePicker from "expo-image-picker";
 import { useTranslation } from "react-i18next";
 import { Image } from "utils/Forms/CreateDeal";
 import { extractFileType, generateRandomToken } from "utils/logicUtils";
+import { useUserDetails } from "contexts/UserDetailsContext";
 
 type props = {
   visible: boolean;
   setVisible: Function;
-  appendImage: (image:Image)=>void;
+  appendImage: (image: Image) => void;
 };
 
 const ModalImageLocation = ({ visible, setVisible, appendImage }: props) => {
   const theme = useTheme();
+  const { setUserDetails } = useUserDetails();
   const [cameraStatus, cameraRequestPermission] =
     ImagePicker.useCameraPermissions();
   const [mediaStatus, mediaRequestPermission] =
@@ -41,9 +45,15 @@ const ModalImageLocation = ({ visible, setVisible, appendImage }: props) => {
       allowsMultipleSelection: false,
     });
 
-
     if (!result.canceled) {
-      appendImage({uri:result.assets[0].uri, name:`${new Date().getTime()}.${extractFileType(result.assets[0].uri)}`, type:`image/${extractFileType(result.assets[0].uri)}`});
+      appendImage({
+        uri: result.assets[0].uri,
+        name: `${new Date().getTime()}.${extractFileType(
+          result.assets[0].uri
+        )}`,
+        type: `image/${extractFileType(result.assets[0].uri)}`,
+      });
+      setUserDetails({});
     }
     setVisible(false);
   };
@@ -55,11 +65,19 @@ const ModalImageLocation = ({ visible, setVisible, appendImage }: props) => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
+      allowsMultipleSelection: false,
       quality: 0.5,
     });
 
     if (!result.canceled) {
-      appendImage({uri:result.assets[0].uri, name:`${new Date().getTime()}.${extractFileType(result.assets[0].uri)}`, type:`image/${extractFileType(result.assets[0].uri)}`});
+      appendImage({
+        uri: result.assets[0].uri,
+        name: `${new Date().getTime()}.${extractFileType(
+          result.assets[0].uri
+        )}`,
+        type: `image/${extractFileType(result.assets[0].uri)}`,
+      });
+      setUserDetails({});
     }
     setVisible(false);
   };

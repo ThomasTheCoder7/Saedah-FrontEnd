@@ -41,7 +41,7 @@ const Profile = ({ avatar, username, id, isFollowed, postedByUser=false }: props
               follow(id);
             }}
           >
-            <Text style={{ color: theme.header }}>Unfollow</Text>
+            {/* <Text style={{ color: theme.header }}>Unfollow</Text> */}
             <Ionicons name="remove" size={24} color={theme.header} />
           </TouchableOpacity>
         </>
@@ -62,7 +62,7 @@ const Profile = ({ avatar, username, id, isFollowed, postedByUser=false }: props
             follow(id);
           }}
         >
-        <Text style={{ color: theme.header }}>Follow</Text>
+        {/* <Text style={{ color: theme.header }}>Follow</Text> */}
         <Ionicons name="add" size={24} color={theme.header} />
         </TouchableOpacity>
         
@@ -102,7 +102,7 @@ const Profile = ({ avatar, username, id, isFollowed, postedByUser=false }: props
             style={{
               color: theme.header,
               letterSpacing: 1.2,
-              fontSize: htdp("2.2%"),
+              fontSize: htdp("2.3%"),
               verticalAlign: "middle",
             }}
             weight="Light"

@@ -103,6 +103,7 @@ const Register = () => {
               }}
               maxLength={24}
               placeholder="Firstname Lastname"
+              placeholderTextColor={theme.hr}
             />
           </Field>
           <Field label="Email">
@@ -113,6 +114,7 @@ const Register = () => {
               maxLength={24}
               placeholder="example@ggg.com"
               keyboardType="email-address"
+              placeholderTextColor={theme.hr}
             />
           </Field>
           <Field label="Username">
@@ -122,6 +124,7 @@ const Register = () => {
               }}
               maxLength={24}
               placeholder="Username"
+              placeholderTextColor={theme.hr}
             />
           </Field>
           <Field label="Password">
@@ -133,6 +136,7 @@ const Register = () => {
               secureTextEntry
               maxLength={20}
               placeholder={"Password"}
+              placeholderTextColor={theme.hr}
             />
           </Field>
           <View

@@ -41,6 +41,7 @@ export const submitCreate = async (data: createData, navigation: any) => {
 
   const formData = new FormData();
   data.images.map((image, index) => {
+    //@ts-ignore
     formData.append(`photos`, {
       uri: image.uri,
       name: `${image.name}`,
@@ -90,7 +91,7 @@ export const submitCreate = async (data: createData, navigation: any) => {
         console.log("Response Error:", axiosError.response.data);
       } else if (axiosError.request) {
         // Handle network error (e.g., no internet connection)
-        console.error("Network Error:", axiosError.request);
+        // console.error("Network Error:", axiosError.request);
       } else {
         // Handle other Axios errors (e.g., request setup error)
         console.error("Axios Error:", axiosError.message);

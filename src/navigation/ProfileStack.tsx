@@ -8,25 +8,14 @@ import { useTheme } from "contexts/ThemeContexts";
 import Details from "screens/Details";
 import { useDetails } from "contexts/DetailsContext";
 import { likeDeal } from "utils/Forms/DealUtils";
-import { AntDesign } from '@expo/vector-icons';
+import { Feather, EvilIcons } from "@expo/vector-icons";
+import HeaderRight from "components/Details/HeaderRight";
 
 const Stack = createNativeStackNavigator();
 
-const config = {
-  animation: "spring",
-  config: {
-    stiffness: 2000,
-    damping: 1800,
-    mass: 5,
-    overshootClamping: true,
-    restDisplacementThreshold: 0.01,
-    restSpeedThreshold: 0.1,
-  },
-};
-
 const ProfileStack = () => {
   const { t, i18n } = useTranslation();
-  const {details} = useDetails()
+  const { details } = useDetails();
   const lang = i18n.language;
   const theme = useTheme();
   return (
@@ -57,26 +46,8 @@ const ProfileStack = () => {
           options={{
             gestureEnabled: false,
             title: details.title,
-            headerRight: () => {
-              const [pressed, setPressed] = useState(details.isLiked);
-
-              return (
-                <TouchableOpacity
-                  style={{ padding: 5 }}
-                  onPress={() => {
-                    setPressed(!pressed);
-                    likeDeal(details.id);
-                  }}
-                >
-                  {/* TOP RIGHT */}
-                  <AntDesign
-                    name={pressed ? "heart" : "hearto"}
-                    size={20}
-                    color={theme.header}
-                  />
-                </TouchableOpacity>
-              );
-            },
+            headerTitleAlign:'center',
+            headerRight: () => <HeaderRight/>,
           }}
         />
       </Stack.Navigator>

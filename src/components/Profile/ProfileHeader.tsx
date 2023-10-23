@@ -24,11 +24,11 @@ const ProfileHeader = () => {
           paddingVertical: 5,
         }}
       >
-        <LogoutButton onPress={() => setModalVisible(true)} />
         <LogoutAlert
           modalVisible={modalVisible}
           setModalVisible={setModalVisible}
         />
+        <LogoutButton onPress={() => setModalVisible(true)} />
       </View>
     </>
   );

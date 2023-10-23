@@ -46,9 +46,7 @@ const Counter = ({ count, id }: props) => {
           style={{ padding: 10 }}
           onPress={() => {
             vote(id, "downvote");
-
             setCount(UIcount == 0?-1:0);
-            
           }}
           disabled={UIcount == 1}
         >

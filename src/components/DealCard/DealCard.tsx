@@ -53,7 +53,9 @@ type props = {
   profile_id:string;
   isFollowed:boolean;
   postedBySame?:boolean;
+  isDeletable?:boolean;
   UserProfile:boolean;
+  created_at:string;
 };
 
 const DealCard = (props: props) => {
@@ -99,11 +101,13 @@ const DealCard = (props: props) => {
       style={{
         width: wtdp("94%"),
         height: htdp("30%"),
-        marginHorizontal: wtdp("2%"),
+        alignSelf:'center',
         backgroundColor: theme.bottomTabBackground,
         borderRadius: 15,
-        direction: "ltr",
+        // direction: "ltr",
         overflow: "hidden",
+        marginVertical:htdp('1%'),
+        
       }}
     >
       <DealImageScrollView
@@ -117,8 +121,6 @@ const DealCard = (props: props) => {
         onDoubleTap={() => animate()}
         onSingleTap={() => {
           setDetails({ ...props });
-          console.log(details);
-          
           // console.log(details);
           if(props.UserProfile){
             navigation.navigate("UserDealDetails");

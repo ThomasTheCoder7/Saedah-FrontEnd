@@ -12,6 +12,7 @@ import { HomeIcon } from "../components/tabIcons";
 import Favorite from "components/DealCard/Favorite";
 import { useDetails } from "contexts/DetailsContext";
 import { likeDeal } from "../utils/Forms/DealUtils";
+import HeaderRight from "components/Details/HeaderRight";
 
 const Stack = createNativeStackNavigator();
 
@@ -38,7 +39,10 @@ const HomeStack = () => {
       <Stack.Screen
         name="Deals"
         component={Home}
-        options={{ headerShown: false }}
+        options={{
+          headerShown: false,
+          contentStyle: { alignItems: "center", width: "100%", height: "100%" },
+        }}
       />
       <Stack.Screen
         name="Start"
@@ -51,26 +55,9 @@ const HomeStack = () => {
         options={{
           gestureEnabled: false,
           title: details.title,
-          headerRight: () => {
-            const [pressed, setPressed] = useState(details.isLiked);
+          headerTitleAlign: "center",
 
-            return (
-              <TouchableOpacity
-                style={{ padding: 5 }}
-                onPress={() => {
-                  setPressed(!pressed);
-                  likeDeal(details.id);
-                }}
-              >
-                {/* TOP RIGHT */}
-                <AntDesign
-                  name={pressed ? "heart" : "hearto"}
-                  size={20}
-                  color={theme.header}
-                />
-              </TouchableOpacity>
-            );
-          },
+          headerRight: () => <HeaderRight />,
         }}
       />
     </Stack.Navigator>

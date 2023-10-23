@@ -8,16 +8,17 @@ type props = {
   style?: StyleProp<TextStyle>;
   weight?: fontWeight;
   children: string | ReactNode;
+  poppins?:boolean
 };
 
-const StyledText = ({ style = {}, weight = "Regular", children }: props) => {
+const StyledText = ({ style = {}, weight = "Regular", children, poppins=false }: props) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
   return (
     <Text
       style={[
         {
-          fontFamily: `${lang === "en" ? "Poppins" : "Cairo"}-${weight}`,
+          fontFamily: `${lang === "en" || poppins ? "Poppins" : "Cairo"}-${weight}`,
           padding: 0,
         },
         style,

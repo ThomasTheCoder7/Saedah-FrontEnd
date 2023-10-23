@@ -63,8 +63,8 @@ const MapField = ({
             loadingIndicatorColor={theme.bottomTabActiveIcon}
             style={{ width: "100%", height: "100%", zIndex: 0 }}
             region={{
-              latitude: location.latitude,
-              longitude: location.longitude,
+              latitude: location.latitude?location.latitude:0,
+              longitude: location.longitude?location.longitude:0,
               latitudeDelta: latitudeDelta,
               longitudeDelta: longitudeDelta,
             }}
@@ -72,8 +72,8 @@ const MapField = ({
           >
             <Marker
               coordinate={{
-                latitude: location.latitude,
-                longitude: location.longitude,
+                latitude: location.latitude?location.latitude:0,
+                longitude: location.longitude?location.longitude:0,
               }}
               draggable={false} // Marker is not draggable
             />

@@ -7,6 +7,7 @@ import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Platform, Pressable, View } from "react-native";
 import { heightPercentageToDP as htdp } from "react-native-responsive-screen";
+import { formatDate } from "utils/logicUtils";
 type props = {
   date: Date;
   setDate: Function;
@@ -40,8 +41,10 @@ const DateTime = ({ date, setDate }: props) => {
       themeVariant={theme.isDark ? "dark" : "light"}
       minimumDate={new Date()}
       onChange={(event: DateTimePickerEvent) => {
+        const currentDate = new Date(event.nativeEvent.timestamp!)
+        currentDate.setMonth(currentDate.getMonth()+1)
         setVisible(false);
-        setDate(new Date(event.nativeEvent.timestamp!));
+        setDate(currentDate);
       }}
     />
   );
@@ -79,9 +82,11 @@ const DateTime = ({ date, setDate }: props) => {
               textAlign: "center",
             }}
           >
-            {`${date.getFullYear()}-${
-              MONTHS[date.getMonth()]
-            }-${date.getUTCDate()}`}
+            {formatDate(
+              `${date.getFullYear()}-${
+                date.getMonth() + 1
+              }-${date.getUTCDate()}`
+            )}
           </StyledText>
         </View>
       </View>

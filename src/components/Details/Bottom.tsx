@@ -1,5 +1,5 @@
 import { View, Text, ScrollView, TextInput } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Field from "components/Fields/Field";
 import { onScroll } from "utils/ScrollHandler";
 import IndexIndicator from "components/IndexIndicator";
@@ -16,6 +16,8 @@ import AuthButton from "components/Fields/AuthButton";
 import { handleOpenMaps } from "utils/HandleOpenLocation";
 import Counter from "./Counter";
 import { useDetails } from "contexts/DetailsContext";
+import CommentsModal from "components/Comments/CommentsModal";
+import { getComments } from "utils/GetComments";
 type props = {
   images: string[];
   index: number;
@@ -25,10 +27,14 @@ type props = {
 const Bottom = () => {
   const { details } = useDetails();
   const theme = useTheme();
-  
+  const [commentsModalVisible, setCommentsModalVisible] = useState(false);
+  const [comments, setComments] = useState([]);
+  useEffect(() => {
+    getComments(details.id, setComments);
+  }, []);
   return (
-    <Page>
-      <View style={{ gap: 20 }}>
+    <>
+      <View style={{ gap: 20, marginHorizontal: wtdp("2%") }}>
         <View
           style={{
             marginTop: 10,
@@ -45,7 +51,7 @@ const Bottom = () => {
               latitude: details.latitude,
               longitude: details.longitude,
             }}
-            handleLocationPress={()=>{}}
+            handleLocationPress={() => {}}
           />
         </View>
         <AuthButton
@@ -81,15 +87,21 @@ const Bottom = () => {
             <AuthButton
               label="Comments"
               onPress={() => {
-                handleOpenMaps({ latitude: 20, longitude: 20 });
+                setCommentsModalVisible(true);
               }}
               secondary
             />
           </View>
           <Counter />
         </View>
+        <CommentsModal
+          setVisible={setCommentsModalVisible}
+          visible={commentsModalVisible}
+          comments={comments}
+          setComments={setComments}
+        />
       </View>
-    </Page>
+    </>
   );
 };
 

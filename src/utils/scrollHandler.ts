@@ -26,7 +26,6 @@ const onVerticalScroll = (event:any, index:number, setIndex:Function)=>{
   const screenHeight = htdp('75%')
     // Calculate the index based on the scroll position
     const newIndex = Math.round(y / screenHeight);
-    console.log(newIndex)
     if (newIndex !== index) {
       setIndex(newIndex);
     }

@@ -1,13 +1,27 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { headers } from "./logicUtils";
-import { load } from "./storageHandler"
+import { load, store } from "./storageHandler";
 
+export const getDealsHome = async (
+  setDeals: Function,
+  setRefreshing: Function
+) => {
+  const token = await load("token");
+  const getHeaders = { ...headers, Authorization: `Token ${token}` };
 
-export const getDealsHome = async (setDeals:Function, setRefreshing:Function)=>{
-    const token = await load('token');
-    const getHeaders = {...headers, Authorization:`Token ${token}`}
+  const request = axios.get("https://saedah.pythonanywhere.com/home/", {
+    headers: getHeaders,
+  }).then((response)=>{
+    setDeals(response.data);
+  }).catch((err:AxiosError)=>{
+    
+    if(err.response?.data == 'Invalid Token'){
+      store('token',null);
+    }
+    
+  })
 
-    const response = await axios.get('https://saedah.pythonanywhere.com/home/',{headers:getHeaders})
-    setDeals(response.data)
-    setRefreshing(false)
-}
+  
+
+  setRefreshing(false);
+};

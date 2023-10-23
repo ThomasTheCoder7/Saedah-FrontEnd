@@ -20,84 +20,82 @@ type props = {
 };
 
 const Top = ({ index, setIndex }: props) => {
-  const {details} = useDetails();
+  const { details } = useDetails();
   const theme = useTheme();
-  return (
-    <Page>
-      <View style={{ gap: 20 }}>
-        <View>
-          <ScrollView
-            bounces={false}
-            horizontal
-            pagingEnabled
-            showsHorizontalScrollIndicator={false}
-            nestedScrollEnabled
-            scrollEventThrottle={20}
-            onScroll={(event: any) => onScroll(event, index, setIndex)}
-          >
-            {details.photos.map((image, index) => {
-              return <ImageField staticImage uri={`${URL}${image}`} key={index} />;
-            })}
-          </ScrollView>
-          {details.photos.length > 1 && (
-            <IndexIndicator index={index} len={details.photos.length} />
-          )}
-        </View>
 
-        <View
-          style={{
-            backgroundColor: theme.bottomTabBackground,
-            height: "56%",
-            borderRadius: 15,
-            padding: 10,
-            paddingBottom:0,
-            gap:10
-          }}
+
+  return (
+    <>
+      <View>
+        <ScrollView
+          bounces={false}
+          horizontal
+          pagingEnabled
+          showsHorizontalScrollIndicator={false}
+          nestedScrollEnabled
+          scrollEventThrottle={20}
+          onScroll={(event: any) => onScroll(event, index, setIndex)}
         >
-          <View
+          {details.photos.map((image, index) => {
+            return (
+              <ImageField staticImage uri={`${URL}${image}`} key={index} />
+            );
+          })}
+        </ScrollView>
+        {details.photos.length > 1 && (
+          <IndexIndicator index={index} len={details.photos.length} />
+        )}
+      </View>
+
+      <View
+        style={{
+          backgroundColor: theme.bottomTabBackground,
+          // height: "56%",
+          borderRadius: 15,
+          padding: 25,
+          gap: 10,
+          marginHorizontal: wtdp("1%"),
+        }}
+      >
+        <View style={{}}>
+          <StyledText
             style={{
-       
+              fontFamily: "Poppins-Regular",
+              color: theme.header,
+              fontSize: 20,
             }}
           >
-            <StyledText
-              style={{
-                fontFamily: "Poppins-Regular",
-                color: theme.header,
-                fontSize: 20,
-              }}
-            >
-             {"JAWAD"}
-            </StyledText>
-            <StyledText
-              style={{
-                fontFamily: "Poppins-Regular",
-                color: theme.header,
-                fontSize: 20,
-              }}
-            >
-              {details.price} SAR
-            </StyledText>
-            <StyledText
-              style={{
-                fontFamily: "Poppins-Regular",
-                color: theme.header,
-                fontSize: 12,
-                textAlign:'right'
-              }}
-            >
-              {formatDate(details.expiry_date)}
-            </StyledText>
-          </View>
-          <ScrollView nestedScrollEnabled bounces={false}>
-            <StyledText
-              style={{ fontFamily: "Poppins-Regular", color: theme.body }}
-            >
-              {details.description}
-            </StyledText>
-          </ScrollView>
+            {details.username}
+          </StyledText>
+          <StyledText
+            style={{
+              fontFamily: "Poppins-Regular",
+              color: theme.header,
+              fontSize: 20,
+            }}
+          >
+            {details.price} SAR
+          </StyledText>
+          <StyledText
+            style={{
+              fontFamily: "Poppins-Regular",
+              color: theme.header,
+              fontSize: 12,
+              textAlign: "right",
+            }}
+          >
+            {formatDate(details.created_at)}
+          </StyledText>
         </View>
+        <ScrollView nestedScrollEnabled bounces={false}>
+          <StyledText
+            style={{ fontFamily: "Poppins-Regular", color: theme.body }}
+          >
+            {details.description}
+          </StyledText>
+        </ScrollView>
       </View>
-    </Page>
+    </>
   );
 };
 

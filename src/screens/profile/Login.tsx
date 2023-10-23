@@ -95,6 +95,7 @@ const Login = () => {
               }}
               maxLength={24}
               placeholder="Username"
+              placeholderTextColor={theme.hr}
             />
           </Field>
           <Field label="Password">
@@ -106,6 +107,7 @@ const Login = () => {
               secureTextEntry
               maxLength={20}
               placeholder={"Password"}
+              placeholderTextColor={theme.hr}
             />
           </Field>
           <View

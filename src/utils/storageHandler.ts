@@ -7,6 +7,7 @@ type storageItem = 'language'| 'theme' | 'token';
 export const store = async (item:storageItem, value:string|null)=> {
     if(value == null){
         await AsyncStorage.removeItem(item);
+        console.log('loaded', item, ':',value)
         return;
     }
     try{
