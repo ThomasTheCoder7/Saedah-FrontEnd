@@ -48,7 +48,9 @@ export const submitCreate = async (data: createData, navigation: any) => {
       type: image.type,
     });
   });
-
+  // console.log(data.images);
+  // return;
+  // formData.append("photos", data.images);
   formData.append("title", data.title);
   formData.append("description", data.description);
   formData.append(

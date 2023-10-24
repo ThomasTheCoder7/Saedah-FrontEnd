@@ -1,38 +1,27 @@
-import React from "react";
-import { View, Text } from "react-native";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
-import Settings from "screens/settings/Settings";
-import { useTheme as usePaperTheme } from "react-native-paper";
+import { DarkTheme } from "@react-navigation/native";
 import {
-  HomeIcon,
-  SearchIcon,
-  ProfileIcon,
-  SettingsIcon,
   AddPostIcon,
+  HomeIcon,
+  ProfileIcon,
+  SearchIcon,
+  SettingsIcon,
 } from "components/tabIcons";
 import { useTheme } from "contexts/ThemeContexts";
+import React from "react";
 import { useTranslation } from "react-i18next";
-import HomeStack from "./HomeStack";
-import Profile from "screens/profile/Profile";
-import ProfileStack from "./ProfileStack";
-import { DarkTheme, useNavigation } from "@react-navigation/native";
-import { useAuth } from "contexts/AuthContext";
+import { useTheme as usePaperTheme } from "react-native-paper";
 import Create from "screens/create/Create";
-
-function SettingsScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Settings!</Text>
-    </View>
-  );
-}
-
+import Settings from "screens/settings/Settings";
+import HomeStack from "./HomeStack";
+import ProfileStack from "./ProfileStack";
+import SearchStack from "./SearchStack";
+import { widthPercentageToDP as wtdp ,heightPercentageToDP as htdp } from 'react-native-responsive-screen'
 const Tab = createMaterialBottomTabNavigator();
 const BottomTab = () => {
   const paperTheme = usePaperTheme();
   const theme = useTheme();
   const { t } = useTranslation();
-  const { isAuth } = useAuth();
 
   paperTheme.colors.secondaryContainer = "transparent";
   const tabScreens = [
@@ -46,7 +35,7 @@ const BottomTab = () => {
     },
     {
       name: "Search",
-      component: SettingsScreen,
+      component: SearchStack,
       options: {
         tabBarIcon: SearchIcon,
         tabBarLabel: t("Search"),
@@ -58,7 +47,7 @@ const BottomTab = () => {
       component: Create,
       options: {
         tabBarIcon: AddPostIcon,
-        tabBarLabel: t('Post'),
+        tabBarLabel: t("Post"),
       },
     },
     {
@@ -83,12 +72,15 @@ const BottomTab = () => {
     <Tab.Navigator
       theme={DarkTheme}
       shifting={true}
+      keyboardHidesNavigationBar={false}
       activeColor={theme.bottomTabActiveIcon}
       barStyle={{
         backgroundColor: theme.bottomTabBackground,
         position: "relative",
         overflow: "hidden",
+        height:htdp('10%')
       }}
+
     >
       {tabScreens.map((screen, index) => (
         <Tab.Screen
@@ -96,6 +88,7 @@ const BottomTab = () => {
           name={screen.name}
           component={screen.component}
           options={screen.options}
+          
         />
       ))}
     </Tab.Navigator>

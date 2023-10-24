@@ -29,22 +29,22 @@ const MapField = ({
   const [latitudeDelta, setLatitudeDelta] = useState(0.0922);
   const [longitudeDelta, setLongitudeDelta] = useState(0.0421);
 
-  if (loading)
-    return (
-      <View
-        style={{
-          justifyContent: "center",
-          alignSelf: "center",
-          height: "100%",
-          width: "100%",
-          backgroundColor: theme.bottomTabBackground,
-          borderRadius: 15,
-          overflow: "hidden",
-        }}
-      >
-        <ActivityIndicator color={theme.bottomTabActiveIcon} size={"small"} />
-      </View>
-    );
+  // if (loading)
+  //   return (
+  //     <View
+  //       style={{
+  //         justifyContent: "center",
+  //         alignSelf: "center",
+  //         height: "100%",
+  //         width: "100%",
+  //         backgroundColor: theme.bottomTabBackground,
+  //         borderRadius: 15,
+  //         overflow: "hidden",
+  //       }}
+  //     >
+  //       <ActivityIndicator color={theme.bottomTabActiveIcon} size={"small"} />
+  //     </View>
+  //   );
 
   if (preview) {
     return (
@@ -58,7 +58,7 @@ const MapField = ({
         {!loading && (
           <MapView
             provider="google"
-            loadingEnabled
+            loadingEnabled={loading}
             loadingBackgroundColor={theme.bottomTabBackground}
             loadingIndicatorColor={theme.bottomTabActiveIcon}
             style={{ width: "100%", height: "100%", zIndex: 0 }}

@@ -11,8 +11,12 @@ import React from "react";
 import { ActivityIndicator } from "react-native-paper";
 import { getDealsHome } from "utils/GetDeals";
 import { load } from "utils/storageHandler";
-import { widthPercentageToDP as wtdp ,heightPercentageToDP as htdp } from 'react-native-responsive-screen'
+import {
+  widthPercentageToDP as wtdp,
+  heightPercentageToDP as htdp,
+} from "react-native-responsive-screen";
 import { View } from "react-native";
+import { checkToken } from "utils/Forms/Login";
 const AuthContext = createContext<{ isAuth: boolean; setAuth: Function }>({
   isAuth: false,
   setAuth: () => {},
@@ -26,11 +30,7 @@ const loadToken = async (
   setAuth: Function,
   setLoading: (loading: boolean) => void
 ) => {
-  getDealsHome(
-    (obj: any) => {},
-    (nop: boolean) => {}
-  );
-  const token = await load("token");
+  const token = await checkToken();
   setAuth(token != null);
   setLoading(false);
 };
@@ -46,12 +46,7 @@ export default ({ children }: props) => {
     setLoading(true);
     loadToken(setAuth, setLoading);
   }, []);
-  if (loading)
-    return (
-      <View style={{width:wtdp('100%'), height:htdp('100%')}}>
-        <ActivityIndicator size={'large'}/>
-      </View>
-    );
+  if (loading) return;
   return (
     <AuthContext.Provider value={{ isAuth: isAuth, setAuth: setAuth }}>
       {children}

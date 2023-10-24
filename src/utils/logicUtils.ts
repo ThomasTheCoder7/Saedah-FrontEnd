@@ -35,9 +35,17 @@ export const generateRandomToken = ()=>{
 
 
 export const extractFileType = (filename: string): string => {
-  const match = /(?:\.([^.]+))?$/;
-  const extension = match.exec(filename)![1];
-  return extension!=null ? extension :''
+  // const match = /(?:\.([^.]+))?$/;
+  // const extension = match.exec(filename)![1];
+  // return extension!=null ? extension :''
+  const extension = filename.split('.').pop()?.toString();
+
+  if(!extension) return '';
+  if(extension == 'jpeg') return 'jpg'
+  console.log(extension, filename);
+  
+
+  return extension;
 };
 
 

@@ -1,6 +1,6 @@
 import { showMessage } from "react-native-flash-message";
-import { headers, isEmpty } from "utils/logicUtils";
-import { store } from "utils/storageHandler";
+import { URL, headers, isEmpty } from "utils/logicUtils";
+import { load, store } from "utils/storageHandler";
 
 export type loginData = {
   username: string;
@@ -42,3 +42,23 @@ export const submitLogin = async (data: loginData, navigation:any) => {
   })
   
 };
+
+
+export const checkToken = async ()=>{
+  const token = await load('token');
+  const authHeaders = {...headers, Authorization:`Token ${token}`}
+
+
+  const request = await fetch(`${URL}/home/`, {headers:authHeaders})
+
+  const response = await request.json();
+
+
+  if(response.detail == 'Invalid token' || request.status != 200){
+    store('token', null);
+    return null;
+  }
+
+  return token;
+  
+}

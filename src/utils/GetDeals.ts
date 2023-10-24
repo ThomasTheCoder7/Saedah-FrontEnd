@@ -13,13 +13,7 @@ export const getDealsHome = async (
     headers: getHeaders,
   }).then((response)=>{
     setDeals(response.data);
-  }).catch((err:AxiosError)=>{
-    
-    if(err.response?.data == 'Invalid Token'){
-      store('token',null);
-    }
-    
-  })
+  });
 
   
 

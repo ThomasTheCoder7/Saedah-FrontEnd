@@ -43,6 +43,7 @@ const ModalImageLocation = ({ visible, setVisible, appendImage }: props) => {
       allowsEditing: true,
       quality: 0.5,
       allowsMultipleSelection: false,
+      base64:false
     });
 
     if (!result.canceled) {
@@ -67,6 +68,8 @@ const ModalImageLocation = ({ visible, setVisible, appendImage }: props) => {
       allowsEditing: true,
       allowsMultipleSelection: false,
       quality: 0.5,
+      base64:false
+
     });
 
     if (!result.canceled) {

@@ -47,15 +47,16 @@ type props = {
   longitude: string;
   photos: string[];
   expiry_date: string;
-  avatar:string;
-  username:string;
-  id:string;
-  profile_id:string;
-  isFollowed:boolean;
-  postedBySame?:boolean;
-  isDeletable?:boolean;
-  UserProfile:boolean;
-  created_at:string;
+  avatar: string;
+  username: string;
+  id: string;
+  profile_id: string;
+  isFollowed: boolean;
+  postedBySame?: boolean;
+  isDeletable?: boolean;
+  UserProfile: boolean;
+  created_at: string;
+  path?: string;
 };
 
 const DealCard = (props: props) => {
@@ -93,6 +94,8 @@ const DealCard = (props: props) => {
   };
 
   if (props.photos.length <= 0) {
+    console.log(props);
+    
     return;
   }
 
@@ -101,13 +104,12 @@ const DealCard = (props: props) => {
       style={{
         width: wtdp("94%"),
         height: htdp("30%"),
-        alignSelf:'center',
+        alignSelf: "center",
         backgroundColor: theme.bottomTabBackground,
         borderRadius: 15,
         // direction: "ltr",
         overflow: "hidden",
-        marginVertical:htdp('1%'),
-        
+        marginVertical: htdp("1%"),
       }}
     >
       <DealImageScrollView
@@ -122,8 +124,11 @@ const DealCard = (props: props) => {
         onSingleTap={() => {
           setDetails({ ...props });
           // console.log(details);
-          if(props.UserProfile){
+          if (props.UserProfile) {
             navigation.navigate("UserDealDetails");
+            return;
+          } else if (props.path === "SearchDealDetails") {
+            navigation.navigate("SearchDealDetails");
             return;
           }
           navigation.navigate("Details");
@@ -141,8 +146,14 @@ const DealCard = (props: props) => {
               topAnimatedStyle,
             ]}
           >
-            <Profile avatar={props.avatar} username={props.username} id={props.profile_id} isFollowed={props.isFollowed} postedByUser={props.postedBySame} />
-            <Favorite active={props.isLiked}  id={props.id}/>
+            <Profile
+              avatar={props.avatar}
+              username={props.username}
+              id={props.profile_id}
+              isFollowed={props.isFollowed}
+              postedByUser={props.postedBySame}
+            />
+            <Favorite active={props.isLiked} id={props.id} />
           </Animated.View>
 
           {/* BOTTOM */}
@@ -162,7 +173,7 @@ const DealCard = (props: props) => {
               expiry_date={props.expiry_date}
               price={props.price}
             />
-            <Counter count={(props.upVotes - props.downVotes)} id={props.id} />
+            <Counter count={props.upVotes - props.downVotes} id={props.id} />
           </Animated.View>
         </View>
       </DoubleTapPressable>
@@ -179,7 +190,9 @@ const DealCard = (props: props) => {
         ]}
         pointerEvents="none"
       >
-      {props.photos.length > 1 && <IndexIndicator index={index} len={props.photos.length} />}
+        {props.photos.length > 1 && (
+          <IndexIndicator index={index} len={props.photos.length} />
+        )}
       </Animated.View>
     </View>
   );

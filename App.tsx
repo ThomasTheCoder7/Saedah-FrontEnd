@@ -45,7 +45,7 @@ export default function App() {
         },
       }}
     >
-      <SafeAreaProvider onLayout={onLayoutRootView} style={{}}>
+      <SafeAreaProvider onLayout={onLayoutRootView} style={{}} >
         <Providers>
           <MainStack/>
         </Providers>

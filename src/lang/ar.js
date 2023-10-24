@@ -17,6 +17,8 @@ export default {
   All:"الكل",
   Entertainment:"ترفيه",
   Deals:"منشوراتي",
+  Following:"يتابع",
+  Followers:"متابعين",
   signOutMessage1:"انت على وشك تسجيل الخروج من حسابك",
   signOutMessage2:"هل انت متأكد ؟",
   "Sign Out":"تسجيل الخروج",

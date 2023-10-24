@@ -42,7 +42,7 @@ const DateTime = ({ date, setDate }: props) => {
       minimumDate={new Date()}
       onChange={(event: DateTimePickerEvent) => {
         const currentDate = new Date(event.nativeEvent.timestamp!)
-        currentDate.setMonth(currentDate.getMonth()+1)
+        currentDate.setMonth(currentDate.getMonth())
         setVisible(false);
         setDate(currentDate);
       }}
@@ -84,7 +84,7 @@ const DateTime = ({ date, setDate }: props) => {
           >
             {formatDate(
               `${date.getFullYear()}-${
-                date.getMonth() + 1
+                date.getMonth()+1
               }-${date.getUTCDate()}`
             )}
           </StyledText>

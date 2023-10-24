@@ -6,10 +6,13 @@ import { likeDeal } from "utils/Forms/DealUtils";
 import { useTheme } from "contexts/ThemeContexts";
 import AlertModal from "components/AlertModal/AlertModal";
 import { useUserDetails } from "contexts/UserDetailsContext";
+import { deleteDeal } from "utils/Forms/deleteDeal";
+import { useNavigation } from "@react-navigation/native";
 const Delete = () => {
   const { details } = useDetails();
-  const {setUserDetails} = useUserDetails()
+  const { setUserDetails } = useUserDetails();
   const [modalVisible, setModalVisible] = useState(false);
+  const navigation = useNavigation();
   const theme = useTheme();
 
   return (
@@ -20,7 +23,12 @@ const Delete = () => {
     >
       <AlertModal
         modalVisible={modalVisible}
-        actionPress={() => {setUserDetails({})}}
+        actionPress={() => {
+          deleteDeal(details.id);
+          setUserDetails({});
+          navigation.navigate('Deals')
+          setModalVisible(false)
+        }}
         setModalVisible={setModalVisible}
         actionMessage="Delete"
         message1="deleteDealMessage"

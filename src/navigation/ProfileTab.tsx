@@ -16,15 +16,16 @@ import DealCard from "components/DealCard/DealCard";
 import ModalImageLocation from "components/Fields/ModalImageLocation";
 import { Image } from "utils/Forms/CreateDeal";
 import { submitAvatar } from "utils/Forms/submitAvatar";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const Header = () => {
   const theme = useTheme();
   const [image, setImage]:[Image, (obj:Image)=>void] = useState({uri:'', name:'', type:''});
   const [visible, setVisible] = useState(false)
-
+  const insets = useSafeAreaInsets();
   useEffect(()=>{
-    
-  })
+    insets.bottom = 20
+  },[])
   return (
     <View style={{ backgroundColor: theme.backgroundColor }}>
       <ModalImageLocation appendImage={submitAvatar} visible={visible} setVisible={setVisible}  />
