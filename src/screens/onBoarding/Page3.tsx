@@ -41,7 +41,18 @@ const Page3 = ({ index }: props) => {
           }}
           weight="SemiBold"
         >
-          {t("Page 3")}
+          {t("CommunityOnBoarding1") + " "}
+          <StyledText
+            style={{
+              fontSize: htdp("3%"),
+              color: theme.bottomTabActiveIcon,
+              textAlign: "center",
+            }}
+            weight="Bold"
+          >
+            {t("Saedah") + ""}
+          </StyledText>{" "}
+          {t("CommunityOnBoarding2")}
         </StyledText>
       </View>
     </OnBoardingComponent>

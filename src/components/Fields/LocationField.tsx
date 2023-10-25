@@ -3,7 +3,7 @@ import { useTheme } from "contexts/ThemeContexts";
 import * as Location from "expo-location";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { TextInput, TouchableNativeFeedback } from "react-native";
+import { TextInput, TouchableNativeFeedback, View } from "react-native";
 import { MapPressEvent } from "react-native-maps";
 import Animated, {
   useAnimatedStyle,
@@ -156,12 +156,14 @@ const LocationField = ({ setData, setLink, setGeometry }: props) => {
             paddingTop: 5,
           }}
         >
+          <View style={{height:htdp('45%')}}>
           <MapField
             loading={loading}
             location={location}
             Userlocation={Userlocation}
             handleLocationPress={handleLocationPress}
           />
+          </View>
         </TabView.Item>
         <TabView.Item
           style={{
