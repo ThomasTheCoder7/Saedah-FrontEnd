@@ -6,6 +6,7 @@ import { useTheme } from "contexts/ThemeContexts";
 import DarkTheme from "assets/Themes/dark";
 import { likeDeal } from "utils/Forms/DealUtils";
 
+
 type props = {
   active:boolean;
   id:string
@@ -18,7 +19,7 @@ const Favorite = ({active, id}:props) => {
     <StyledBlurView
       style={{ flex: 0.15, justifyContent: "center", alignItems: "center" }}
     >
-      <TouchableOpacity style={{padding:5}} onPress={()=>{setPressed(!pressed); likeDeal(id)}}>
+      <TouchableOpacity style={{padding:5}} onPress={()=>{setPressed(!pressed); likeDeal(id);  }}>
         {/* TOP RIGHT */}
         <AntDesign name={pressed?"heart":'hearto'} size={20} color={theme.header} />
       </TouchableOpacity>

@@ -1,36 +1,43 @@
-import { View, Text, Platform } from "react-native";
-import React, { useEffect, useRef, useState } from "react";
-import {
-  Tabs,
-  MaterialTabBar,
-  CollapsibleRef,
-  FlashList,
-} from "react-native-collapsible-tab-view";
+import DealCard from "components/DealCard/DealCard";
 import ProfileHeader from "components/Profile/ProfileHeader";
 import ProfileInfo from "components/Profile/ProfileInfo";
 import { useTheme } from "contexts/ThemeContexts";
-import { useTranslation } from "react-i18next";
 import { useUserDetails } from "contexts/UserDetailsContext";
-import DealCard from "components/DealCard/DealCard";
+import React, { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { Platform, View } from "react-native";
+import {
+  CollapsibleRef,
+  MaterialTabBar,
+  Tabs
+} from "react-native-collapsible-tab-view";
 
 import ModalImageLocation from "components/Fields/ModalImageLocation";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Image } from "utils/Forms/CreateDeal";
 import { submitAvatar } from "utils/Forms/submitAvatar";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const Header = () => {
   const theme = useTheme();
-  const [image, setImage]:[Image, (obj:Image)=>void] = useState({uri:'', name:'', type:''});
-  const [visible, setVisible] = useState(false)
+  const [image, setImage]: [Image, (obj: Image) => void] = useState({
+    uri: "",
+    name: "",
+    type: "",
+  });
+  const [visible, setVisible] = useState(false);
   const insets = useSafeAreaInsets();
-  useEffect(()=>{
-    insets.bottom = 20
-  },[])
+  useEffect(() => {
+    insets.bottom = 20;
+  }, []);
   return (
     <View style={{ backgroundColor: theme.backgroundColor }}>
-      <ModalImageLocation appendImage={submitAvatar} visible={visible} setVisible={setVisible}  />
+      <ModalImageLocation
+        appendImage={submitAvatar}
+        visible={visible}
+        setVisible={setVisible}
+      />
       <ProfileHeader />
-      <ProfileInfo  setVisible={setVisible}/>
+      <ProfileInfo setVisible={setVisible} />
     </View>
   );
 };
@@ -53,7 +60,7 @@ const Favorites = (label: string) => {
                   title={item.title}
                   description={item.description}
                   expiry_date={item.expiry_date}
-                  isLiked={true}
+                  isLiked={item.isLiked}
                   upVotes={item.upvotes}
                   downVotes={item.downvotes}
                   price={item.price}
@@ -64,6 +71,11 @@ const Favorites = (label: string) => {
                   avatar={item.avatar}
                   profile_id={item.posted_by}
                   isFollowed={item.isFollowed}
+                  UserProfile={false}
+                  isDeletable={item.isDeletable}
+                  created_at={item.created_at}
+                  isUpvoted={item.isUpvoted}
+                  isDownvoted={item.isDownvoted}
                   UserProfile={true}
                 />
               );
@@ -86,7 +98,6 @@ const Deals = (label: string) => {
             estimatedItemSize={15}
             data={userDetails.deals.deals}
             renderItem={({ item, index }) => {
-
               return (
                 <DealCard
                   key={index}
@@ -137,7 +148,7 @@ const ProfileTab = () => {
   };
   useEffect(() => {
     if (tabRef.current) tabRef.current.setIndex(isArabic ? 1 : 0);
-    setArabic(i18n.language=='ar');
+    setArabic(i18n.language == "ar");
   }, [i18n.language]);
 
   if (isAndroid && isArabic) {
@@ -170,17 +181,17 @@ const ProfileTab = () => {
     </Tabs.Container>
   );
 
-  return isArabic ?(
+  return isArabic ? (
     <Container>
       {tabs(0, isArabic, t)}
       {tabs(1, isArabic, t)}
     </Container>
-  ):(
+  ) : (
     <Container>
-    {tabs(0, isArabic, t)}
-    {tabs(1, isArabic, t)}
-  </Container>
-  )
+      {tabs(0, isArabic, t)}
+      {tabs(1, isArabic, t)}
+    </Container>
+  );
 };
 
 export default ProfileTab;

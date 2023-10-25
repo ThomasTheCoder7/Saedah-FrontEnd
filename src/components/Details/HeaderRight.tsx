@@ -25,9 +25,8 @@ const Delete = () => {
         modalVisible={modalVisible}
         actionPress={() => {
           deleteDeal(details.id);
-          setUserDetails({});
-          navigation.navigate('Deals')
-          setModalVisible(false)
+          navigation.goBack();
+          setModalVisible(false);
         }}
         setModalVisible={setModalVisible}
         actionMessage="Delete"
@@ -43,6 +42,7 @@ const Like = () => {
   const { details } = useDetails();
   const [pressed, setPressed] = useState(details.isLiked);
   const theme = useTheme();
+
   return (
     <TouchableOpacity
       onPress={() => {

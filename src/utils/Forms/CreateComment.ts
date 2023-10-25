@@ -8,18 +8,21 @@ export const createComment = async (
 ) => {
   const token = await load("token");
   const authHeaders = { ...headers, Authorization: `Token ${token}` };
-  // console.log("headers:",authHeaders);
-  const formData = new FormData();
-  formData.append("content", comment);
+  const data = { content: comment };
 
-  const request = await fetch(`${URL}/deal/${id}/comment/`, {
-    method: "POST",
-    headers: authHeaders,
-    body: formData,
-  });
-  const response = await request.json();
+  try {
+    const request = await fetch(`${URL}/deal/${id}/comment/`, {
+      method: "POST",
+      headers: authHeaders,
+      body: JSON.stringify(data),
+    });
+    const response = await request.json();
+    console.log(request.status);
 
-  if (!request.ok) return;
+    if (!request.ok) return;
 
-  appendComment((prev: any) => [...prev, response]);
+    appendComment((prev: any) => [...prev, response]);
+  } catch (err) {
+    console.log(err);
+  }
 };

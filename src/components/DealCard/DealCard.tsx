@@ -56,6 +56,8 @@ type props = {
   isDeletable?: boolean;
   UserProfile: boolean;
   created_at: string;
+  isUpvoted: boolean;
+  isDownvoted: boolean;
   path?: string;
 };
 
@@ -93,9 +95,9 @@ const DealCard = (props: props) => {
     setHidden((prev) => !prev);
   };
 
-  if (props.photos.length <= 0) {
-    console.log(props);
-    
+  if (props.photos == undefined) {
+    // console.log(props);
+
     return;
   }
 
@@ -107,7 +109,7 @@ const DealCard = (props: props) => {
         alignSelf: "center",
         backgroundColor: theme.bottomTabBackground,
         borderRadius: 15,
-        // direction: "ltr",
+        direction: "ltr",
         overflow: "hidden",
         marginVertical: htdp("1%"),
       }}
@@ -120,7 +122,12 @@ const DealCard = (props: props) => {
         images={props.photos}
       />
       <DoubleTapPressable
-        onDoubleTap={() => animate()}
+        onDoubleTap={() => {
+          if (props.photos.length <= 0) {
+            return;
+          }
+          animate();
+        }}
         onSingleTap={() => {
           setDetails({ ...props });
           // console.log(details);
@@ -170,10 +177,15 @@ const DealCard = (props: props) => {
             <ProductInfo
               title={props.title}
               description={props.description}
-              expiry_date={props.expiry_date}
+              expiry_date={props.created_at}
               price={props.price}
             />
-            <Counter count={props.upVotes - props.downVotes} id={props.id} />
+            <Counter
+              count={props.upVotes - props.downVotes}
+              id={props.id}
+              isDownvoted={props.isDownvoted}
+              isUpvoted={props.isUpvoted}
+            />
           </Animated.View>
         </View>
       </DoubleTapPressable>

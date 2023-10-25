@@ -11,12 +11,14 @@ export default (props: any) => {
   const { userDetails, setUserDetails } = useUserDetails();
   const [loading, setLoading] = useState(true);
   const { isAuth } = useAuth();
+
   const theme = useTheme();
   const isFocused = useIsFocused();
   useEffect(() => {
     if (!isFocused) {
       return;
     }
+
     getProfile(setUserDetails, setLoading, userDetails);
   }, [isFocused, userDetails]);
 

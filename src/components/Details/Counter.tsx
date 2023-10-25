@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Entypo } from "@expo/vector-icons";
 import StyledText from "components/StyledText";
 import { useTheme } from "contexts/ThemeContexts";
@@ -8,8 +8,13 @@ import { vote } from "utils/Forms/DealUtils";
 
 const Counter = () => {
   const theme = useTheme();
-  const [count, setCount] = useState(0);
   const { details } = useDetails();
+  const [count, setCount] = useState(details.upVotes - details.downVotes);
+  const [isVoted, setVoted]: ["up" | "down" | null, Function] = useState();
+  useEffect(() => {
+    if (details.isUpvoted) setVoted("up");
+    if (details.isDownvoted) setVoted("down");
+  }, []);
 
   return (
     <View
@@ -23,32 +28,44 @@ const Counter = () => {
       <TouchableOpacity
         style={{ padding: 5 }}
         onPress={() => {
-          vote(details.id, "upvote");
-          setCount(count == 0 ? 1 : 0);
+          vote(id, "downvote");
+          if (isVoted == null) {
+            setCount((prev) => prev - 1);
+            setVoted("down");
+            return;
+          }
+          setCount((prev) => prev + 1);
+          setVoted(null);
         }}
-        disabled={count == -1}
+        disabled={isVoted == "up"}
       >
         <Entypo
           name="plus"
           size={24}
-          color={count == -1 ? theme.bottomTabInactiveIcon : theme.header}
+          color={isVoted == "down" ? theme.bottomTabInactiveIcon : theme.header}
         />
       </TouchableOpacity>
       <StyledText style={{ color: theme.header, fontSize: 17 }} weight="Bold">
-        {details.upVotes - details.downVotes + count}
+        {count}
       </StyledText>
       <TouchableOpacity
         style={{ padding: 5 }}
         onPress={() => {
           vote(id, "downvote");
-          setCount(count == 0 ? -1 : 0);
+          if (isVoted == null) {
+            setCount((prev) => prev - 1);
+            setVoted("down");
+            return;
+          }
+          setCount((prev) => prev + 1);
+          setVoted(null);
         }}
-        disabled={count == 1}
+        disabled={isVoted == "up"}
       >
         <Entypo
           name="minus"
           size={24}
-          color={count == 1 ? theme.bottomTabInactiveIcon : theme.header}
+          color={isVoted == "up" ? theme.bottomTabInactiveIcon : theme.header}
         />
       </TouchableOpacity>
     </View>

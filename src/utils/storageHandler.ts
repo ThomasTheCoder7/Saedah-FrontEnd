@@ -22,7 +22,7 @@ export const store = async (item:storageItem, value:string|null)=> {
 export const load = async(item:storageItem) =>{
     try{
         const data = await AsyncStorage.getItem(item)
-        console.log('loaded:', item, data)
+        // console.log('loaded:', item, data)
         return data
     }catch(e){
         console.log("ERROR: ",e)

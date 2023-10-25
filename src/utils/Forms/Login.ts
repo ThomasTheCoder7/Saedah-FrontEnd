@@ -7,13 +7,11 @@ export type loginData = {
   password: string;
 };
 
-export const submitLogin = async (data: loginData, navigation:any) => {
-
-
+export const submitLogin = async (data: loginData, navigation: any) => {
   if (isEmpty(data.username) || isEmpty(data.password)) {
     showMessage({
       message: "Failed to Login",
-      description:"You must enter username or password",
+      description: "You must enter username or password",
       type: "danger",
     });
     return;
@@ -27,38 +25,33 @@ export const submitLogin = async (data: loginData, navigation:any) => {
 
   const response = await request.json();
   console.log(response);
-  if(response.error){
+  if (response.error) {
     showMessage({
-        message: "Failed to Login",
-        description:response.error,
-        type: "danger",
-      });
+      message: "Failed to Login",
+      description: response.error,
+      type: "danger",
+    });
     return;
   }
-  store('token', response.token);
+  store("token", response.token);
   navigation.reset({
     index: 0,
     routes: [{ name: "Main" }],
-  })
-  
+  });
 };
 
+export const checkToken = async () => {
+  const token = await load("token");
+  const authHeaders = { ...headers, Authorization: `Token ${token}` };
 
-export const checkToken = async ()=>{
-  const token = await load('token');
-  const authHeaders = {...headers, Authorization:`Token ${token}`}
-
-
-  const request = await fetch(`${URL}/home/`, {headers:authHeaders})
+  const request = await fetch(`${URL}/home/`, { headers: authHeaders });
 
   const response = await request.json();
 
-
-  if(response.detail == 'Invalid token' || request.status != 200){
-    store('token', null);
+  if (response.detail == "Invalid token" || request.status != 200) {
+    store("token", null);
     return null;
   }
 
   return token;
-  
-}
+};

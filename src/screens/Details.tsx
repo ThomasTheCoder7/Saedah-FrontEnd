@@ -2,7 +2,7 @@ import Bottom from "components/Details/Bottom";
 import Top from "components/Details/Top";
 import { useDetails } from "contexts/DetailsContext";
 import { useTheme } from "contexts/ThemeContexts";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ScrollView, View } from "react-native";
 import {
   widthPercentageToDP as wtdp
@@ -12,9 +12,11 @@ const Details = () => {
   const { details } = useDetails();
   const [pageIndex, setPageIndex] = useState(0);
   const [images, setImages] = useState(details.photos);
-
   const theme = useTheme();
   if (!details.photos) return;
+  // useEffect(()=>{
+  //   console.log('Hi Details!');
+  // },[])
   return (
     <View
       style={{
@@ -22,11 +24,12 @@ const Details = () => {
 
         backgroundColor: theme.backgroundColor,
         alignItems: "center",
+        direction:'ltr'
       }}
     >
 
 
-      <View style={{ paddingHorizontal: wtdp("2%") }}>
+      <View style={{ paddingHorizontal: wtdp("2%"), width:'100%' }}>
         <ScrollView
           bounces={false}
           showsVerticalScrollIndicator={false}

@@ -1,6 +1,8 @@
-export const URL = 'https://saedah.pythonanywhere.com';
+import { Platform } from "react-native";
 
-export const isEmpty = (str: string|any[]) => {
+export const URL = "https://saedah.pythonanywhere.com";
+
+export const isEmpty = (str: string | any[]) => {
   return str.length == 0;
 };
 
@@ -8,7 +10,6 @@ export const headers: Record<string, string> = {
   "Content-Type": "application/json",
   Accept: "application/json",
 };
-
 
 export const capitalizeString = (input: string): string => {
   // Check if the input string is empty
@@ -20,10 +21,9 @@ export const capitalizeString = (input: string): string => {
   const capitalized = input[0].toUpperCase() + input.slice(1);
 
   return capitalized;
-}
+};
 
-
-export const generateRandomToken = ()=>{
+export const generateRandomToken = () => {
   const min = 10000; // Minimum 5-digit number
   const max = 99999; // Maximum 5-digit number
 
@@ -31,31 +31,28 @@ export const generateRandomToken = ()=>{
   const randomToken = Math.floor(Math.random() * (max - min + 1)) + min;
 
   return randomToken;
-}
-
+};
 
 export const extractFileType = (filename: string): string => {
   // const match = /(?:\.([^.]+))?$/;
   // const extension = match.exec(filename)![1];
   // return extension!=null ? extension :''
-  const extension = filename.split('.').pop()?.toString();
+  const extension = filename.split(".").pop()?.toString();
 
-  if(!extension) return '';
-  if(extension == 'jpeg') return 'jpg'
+  if (!extension) return "";
+  if (extension == "jpeg") return "jpg";
   console.log(extension, filename);
-  
 
   return extension;
 };
 
-
 export const formatDate = (inputDate: string): string => {
   const date = new Date(inputDate);
-  date.setMonth(date.getMonth())
+  date.setMonth(date.getMonth());
   const options: Intl.DateTimeFormatOptions = {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   };
 
   return date.toLocaleDateString(undefined, options);

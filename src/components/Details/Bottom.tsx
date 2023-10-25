@@ -1,23 +1,20 @@
-import { View, Text, ScrollView, TextInput } from "react-native";
-import React, { useEffect, useState } from "react";
-import Field from "components/Fields/Field";
-import { onScroll } from "utils/ScrollHandler";
-import IndexIndicator from "components/IndexIndicator";
-import ImageField from "components/Fields/ImageField";
-import Page from "./Page";
-import { useTheme } from "contexts/ThemeContexts";
-import StyledText from "components/StyledText";
-import {
-  widthPercentageToDP as wtdp,
-  heightPercentageToDP as htdp,
-} from "react-native-responsive-screen";
-import MapField from "components/Fields/MapField";
-import AuthButton from "components/Fields/AuthButton";
-import { handleOpenMaps } from "utils/HandleOpenLocation";
-import Counter from "./Counter";
-import { useDetails } from "contexts/DetailsContext";
 import CommentsModal from "components/Comments/CommentsModal";
+import AuthButton from "components/Fields/AuthButton";
+import Field from "components/Fields/Field";
+import MapField from "components/Fields/MapField";
+import StyledText from "components/StyledText";
+import { useDetails } from "contexts/DetailsContext";
+import { useTheme } from "contexts/ThemeContexts";
+import React, { useEffect, useState } from "react";
+import { View } from "react-native";
+import {
+  heightPercentageToDP as htdp,
+  widthPercentageToDP as wtdp,
+} from "react-native-responsive-screen";
 import { getComments } from "utils/GetComments";
+import { handleOpenMaps } from "utils/HandleOpenLocation";
+import { formatDate } from "utils/logicUtils";
+import Counter from "./Counter";
 type props = {
   images: string[];
   index: number;
@@ -69,31 +66,31 @@ const Bottom = () => {
             borderRadius: 15,
             flexDirection: "row",
             justifyContent: "space-between",
-            alignItems: "center",
           }}
         >
           <View style={{ flex: 1, padding: 10 }}>
-            {/* <Field label="Price">
+            <Field label="Expiry Date">
               <StyledText
                 style={{
                   fontFamily: "Poppins-Regular",
                   color: theme.header,
                   fontSize: 20,
+                  justifyContent:'space-between',
                 }}
               >
-                350$
+                {formatDate(details.expiry_date)}
               </StyledText>
-            </Field> */}
-            <AuthButton
-              label="Comments"
-              onPress={() => {
-                setCommentsModalVisible(true);
-              }}
-              secondary
-            />
+            </Field>
           </View>
           <Counter />
         </View>
+        <AuthButton
+          label="Comments"
+          onPress={() => {
+            setCommentsModalVisible(true);
+          }}
+          secondary
+        />
         <CommentsModal
           setVisible={setCommentsModalVisible}
           visible={commentsModalVisible}

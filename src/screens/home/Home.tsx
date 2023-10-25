@@ -1,36 +1,32 @@
-import React, { useEffect, useState } from "react";
-import { useTheme } from "contexts/ThemeContexts";
-import {
-  widthPercentageToDP as wtdp,
-  heightPercentageToDP as htdp,
-} from "react-native-responsive-screen";
-import Filters from "components/Filters/Filters";
-import DealCard from "components/DealCard/DealCard";
-import { FlatList, RefreshControl, Text } from "react-native";
-import { View } from "react-native";
-import { getDealsHome } from "utils/GetDeals";
+import { useIsFocused } from "@react-navigation/native";
 import { FlashList } from "@shopify/flash-list";
+import DealCard from "components/DealCard/DealCard";
+import StyledText from "components/StyledText";
+import { useTheme } from "contexts/ThemeContexts";
+import React, { useEffect, useState } from "react";
+import { ActivityIndicator, RefreshControl, View } from "react-native";
+import { widthPercentageToDP as wtdp } from "react-native-responsive-screen";
+import { getDealsHome } from "utils/GetDeals";
 
-const DATA = [...new Array(10).map(() => 0)];
 
 const Home = () => {
   const [refreshing, setRefreshing] = useState(false); // State to manage the refreshing state
   const [deals, setDeals] = useState([]);
+  const [page, setPage] = useState(1);
+  const isFocused = useIsFocused()
 
-  useEffect(() => {
-    setRefreshing(true);
-    getDealsHome(setDeals, setRefreshing);
-  }, []);
+  useEffect(()=>{
+    if(!isFocused)return
+    onRefresh()
+  },[isFocused])
 
   const theme = useTheme();
 
   const onRefresh = () => {
-    // Put the logic here to refresh your data
-    // You may fetch new data or update the existing data
-    // After updating the data, set refreshing to false to stop the refresh indicator
     setRefreshing(true);
-    // Replace the below setTimeout with your actual data fetching or updating logic
-    getDealsHome(setDeals, setRefreshing);
+
+    getDealsHome(setDeals, setPage, 1, setRefreshing);
+
   };
 
   return (
@@ -38,7 +34,7 @@ const Home = () => {
       style={{
         backgroundColor: theme.backgroundColor,
         flex: 1,
-        paddingTop: htdp("5%"),
+        // paddingTop: htdp("5%"),
         alignItems: "center",
         justifyContent: "center",
         width: "100%",
@@ -73,12 +69,37 @@ const Home = () => {
                 UserProfile={false}
                 isDeletable={item.isDeletable}
                 created_at={item.created_at}
+                isUpvoted={item.isUpvoted}
+                isDownvoted={item.isDownvoted}
               />
             );
           }}
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }
+          ListFooterComponent={() => {
+            if(deals.length <= 0) return;
+            return deals.has_next_page ? (
+              <View style={{ padding: 10 }}>
+                <ActivityIndicator
+                  color={theme.bottomTabActiveIcon}
+                  size={"small"}
+                />
+              </View>
+            ) : (
+              <StyledText
+                poppins
+                style={{ color: theme.hr, textAlign: "center" }}
+              >
+                End Reached.
+              </StyledText>
+            );
+          }}
+          onEndReached={() => {
+            if (deals.has_next_page) {
+              getDealsHome(setDeals, setPage, page);
+            }
+          }}
         />
       </View>
     </View>

@@ -59,6 +59,8 @@ const MainStack = () => {
           width: wtdp("100%"),
           height: htdp("100%"),
           backgroundColor: theme.backgroundColor,
+          alignItems:'center',
+          justifyContent:'center',
         }}
       >
         <ActivityIndicator color={theme.bottomTabActiveIcon} size={"large"} />

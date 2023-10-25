@@ -18,7 +18,8 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/logo-no-background.png",
-        "backgroundColor": "#1a1b1d"
+        "backgroundColor": "#1a1b1d",
+        "usesCleartextTraffic": true
       },
       "package": "com.saedah.saedah"
     },
@@ -35,7 +36,7 @@
         "expo-image-picker",
         {
           "photosPermission": "The app accesses your photos to let you share them with your friends.",
-          "cameraPermission":"The app accesses your photos to let you share them with your friends."
+          "cameraPermission": "The app accesses your photos to let you share them with your friends."
         }
       ]
     ]
