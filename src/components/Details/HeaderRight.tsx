@@ -24,9 +24,11 @@ const Delete = () => {
       <AlertModal
         modalVisible={modalVisible}
         actionPress={() => {
-          deleteDeal(details.id);
-          navigation.goBack();
-          setModalVisible(false);
+          const runAfterDelete = () => {
+            setModalVisible(false);
+            navigation.goBack();
+          };
+          deleteDeal(details.id, runAfterDelete);
         }}
         setModalVisible={setModalVisible}
         actionMessage="Delete"

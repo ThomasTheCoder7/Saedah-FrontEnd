@@ -61,6 +61,7 @@ const Home = () => {
                 price={item.price}
                 latitude={item.latitude}
                 longitude={item.longitude}
+                link={item.link}
                 photos={item.photos}
                 username={item.username}
                 avatar={item.avatar}

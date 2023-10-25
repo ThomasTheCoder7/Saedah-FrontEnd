@@ -143,6 +143,7 @@ const Search = () => {
                   created_at={item.created_at}
                   isUpvoted={item.isUpvoted}
                   isDownvoted={item.isDownvoted}
+                  link={item.link}
                   path="SearchDealDetails"
                 />
               );

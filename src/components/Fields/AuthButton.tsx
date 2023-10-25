@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
 import React from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { useTheme } from "contexts/ThemeContexts";
@@ -9,14 +9,15 @@ import { useTranslation } from "react-i18next";
 type props = {
   label: string;
   secondary?: boolean;
+  loading?: boolean;
   onPress: Function;
 };
 
-const AuthButton = ({ label, secondary = false, onPress }: props) => {
+const AuthButton = ({ label, secondary = false, onPress, loading }: props) => {
   const theme = useTheme();
   const { t } = useTranslation();
   return (
-    <TouchableOpacity onPress={() => onPress()}>
+    <TouchableOpacity onPress={() => onPress()} disabled={loading}>
       <LinearGradient
         style={{ padding: 2, borderRadius: 12 }}
         locations={[0.1, 0.9]}
@@ -36,7 +37,7 @@ const AuthButton = ({ label, secondary = false, onPress }: props) => {
             style={{ color: theme.header, fontSize: 18, letterSpacing: 1 }}
             weight="SemiBold"
           >
-            {t(label)}
+            {t(label)} {loading && <ActivityIndicator color={secondary?theme.bottomTabActiveIcon:theme.backgroundColor}/>}
           </StyledText>
         </View>
       </LinearGradient>

@@ -68,6 +68,7 @@ const Create = () => {
   const setExpiryDate = (date: Date) => {
     setData({ ...data, expiryDate: date });
   };
+  const [submitting, setSubmitting] = useState(false);
   const [index, setIndex] = useState(0);
   const { t } = useTranslation();
   const [visible, setVisible] = useState(false);
@@ -175,7 +176,7 @@ const Create = () => {
               </Field>
             </View>
           </View>
-          <AuthButton label={t("Submit")} onPress={() => {submitCreate(data,navigation)}} />
+          <AuthButton label={t("Submit")} onPress={() => {submitCreate(data,navigation); setSubmitting(true)}} loading={submitting}/>
         </ScrollView>
       </KeyboardAvoidingView>
     </>

@@ -22,10 +22,12 @@ type props = {
   setLink: Function;
 };
 
+const initialVal = htdp('51%');
+
 const LocationField = ({ setData, setLink, setGeometry }: props) => {
   const theme = useTheme();
   const [activeTab, setActiveTab] = useState("Geographic");
-  const animatedHeight = useSharedValue(htdp("55%"));
+  const animatedHeight = useSharedValue(initialVal);
   const { t, i18n } = useTranslation();
   const isEnglish = i18n.language == "en";
   const [index, setIndex] = React.useState(isEnglish ? 0 : 1);
@@ -40,14 +42,15 @@ const LocationField = ({ setData, setLink, setGeometry }: props) => {
   });
 
   const [loading, setLoading] = useState(true);
-
   const handleLocationPress = (event: MapPressEvent) => {
     const { latitude, longitude } = event.nativeEvent.coordinate;
     setLocation({ latitude, longitude });
     setData(`latitude:${latitude},longitude:${longitude}`);
   };
   useEffect(() => {
+    
     if ((index == 0 && isEnglish)|| (index==1 && !isEnglish)) {
+      console.log('GEOGRAPHIC');
       setGeometry(true);
       return;
     }
@@ -168,12 +171,15 @@ const LocationField = ({ setData, setLink, setGeometry }: props) => {
         >
           <Field label="">
             <TextInput
+
               placeholder="example.com"
               placeholderTextColor={theme.hr}
               style={{ margin: 0 }}
               onChange={(value) => {
+                setGeometry({})
                 setLink(value.nativeEvent.text);
               }}
+              keyboardType="web-search"
             />
           </Field>
         </TabView.Item>

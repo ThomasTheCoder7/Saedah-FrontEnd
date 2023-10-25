@@ -28,29 +28,36 @@ const Bottom = () => {
   const [comments, setComments] = useState([]);
   useEffect(() => {
     getComments(details.id, setComments);
+    console.log(details);
   }, []);
   return (
     <>
       <View style={{ gap: 20, marginHorizontal: wtdp("2%") }}>
-        <View
-          style={{
-            marginTop: 10,
-            backgroundColor: theme.bottomTabBackground,
-            height: htdp("47%"),
-            borderRadius: 15,
+        {details.link == null ? (
+          <View
+            style={{
+              marginTop: 10,
+              backgroundColor: theme.bottomTabBackground,
+              height: htdp("47%"),
+              borderRadius: 15,
 
-            //   padding: 10,
-          }}
-        >
-          <MapField
-            preview
-            location={{
-              latitude: details.latitude,
-              longitude: details.longitude,
+              //   padding: 10,
             }}
-            handleLocationPress={() => {}}
-          />
-        </View>
+          >
+            <MapField
+              preview
+              location={{
+                latitude: details.latitude,
+                longitude: details.longitude,
+              }}
+              handleLocationPress={() => {}}
+            />
+          </View>
+        ) : (
+          <View style={{width:'100%', padding:20, backgroundColor:theme.bottomTabBackground, borderRadius:15, alignItems:'center'}}>
+            <StyledText style={{color:theme.header}}>{details.link}</StyledText>
+          </View>
+        )}
         <AuthButton
           label="Take Me There"
           onPress={() => {
@@ -75,7 +82,7 @@ const Bottom = () => {
                   fontFamily: "Poppins-Regular",
                   color: theme.header,
                   fontSize: 20,
-                  justifyContent:'space-between',
+                  justifyContent: "space-between",
                 }}
               >
                 {formatDate(details.expiry_date)}

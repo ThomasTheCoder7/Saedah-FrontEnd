@@ -9,7 +9,7 @@ import { Platform, View } from "react-native";
 import {
   CollapsibleRef,
   MaterialTabBar,
-  Tabs
+  Tabs,
 } from "react-native-collapsible-tab-view";
 
 import ModalImageLocation from "components/Fields/ModalImageLocation";
@@ -76,6 +76,7 @@ const Favorites = (label: string) => {
                   created_at={item.created_at}
                   isUpvoted={item.isUpvoted}
                   isDownvoted={item.isDownvoted}
+                  link={item.link}
                   UserProfile={true}
                 />
               );
@@ -116,7 +117,12 @@ const Deals = (label: string) => {
                   avatar={item.avatar}
                   profile_id={item.posted_by}
                   isFollowed={item.isFollowed}
+                  UserProfile={false}
                   isDeletable={item.isDeletable}
+                  created_at={item.created_at}
+                  isUpvoted={item.isUpvoted}
+                  isDownvoted={item.isDownvoted}
+                  link={item.link}
                   UserProfile={true}
                 />
               );
