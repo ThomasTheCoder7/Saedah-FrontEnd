@@ -30,6 +30,7 @@ const Card = ({ comment }: props) => {
         width: "94%",
         marginHorizontal: wtdp("3%"),
         borderRadius: 15,
+        marginVertical:10
       }}
     >
       <View style={{ justifyContent: "center", paddingVertical: 10 }}>

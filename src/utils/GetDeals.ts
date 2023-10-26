@@ -30,7 +30,7 @@ export const getDealsHome = async (
       setDeals((prev: any) => {
         if (!prev.deals || setRefreshing != undefined) return response.data;
         const deals = [...prev.deals,...response.data.deals];
-        return { ...prev, deals: deals };
+        return { ...response.data, deals: deals };
       });
       if (setRefreshing) setRefreshing(false);
     });

@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   Keyboard,
   KeyboardAvoidingView,
   Modal,
@@ -21,11 +22,16 @@ import {
 } from "react-native-responsive-screen";
 import { createComment } from "utils/Forms/CreateComment";
 import Card from "./CommentsCard/Card";
+import { FlashList } from "@shopify/flash-list";
+import { getComments } from "../../utils/GetComments";
 type props = {
   visible: boolean;
   setVisible: Function;
   comments: any[];
   setComments: Function;
+  setPage: Function;
+  page: number;
+  id: number;
 };
 
 const CommentsModal = ({
@@ -33,12 +39,16 @@ const CommentsModal = ({
   setVisible,
   comments,
   setComments,
+  setPage,
+  page,
+  id,
 }: props) => {
   const theme = useTheme();
   const { t, i18n } = useTranslation();
   const { details, setDetails } = useDetails();
-  const [text, setText] = useState('');
-  if(!comments) return;
+  const [text, setText] = useState("");
+
+  if (!comments) return;
   return (
     <>
       <Modal visible={visible} animationType="fade">
@@ -90,8 +100,15 @@ const CommentsModal = ({
               </StyledText>
             </View>
             <View style={{ height: "96%" }}>
-              <View style={{ marginTop: htdp("3%"), paddingBottom: 10 }}>
-                <ScrollView
+              <View
+                style={{
+                  marginTop: htdp("3%"),
+                  paddingBottom: htdp("10%"),
+                  width: wtdp("100%"),
+                  height: "96%",
+                }}
+              >
+                {/* <ScrollView
                   contentContainerStyle={{
                     gap: 20,
                     paddingBottom: htdp("10%"),
@@ -100,7 +117,40 @@ const CommentsModal = ({
                   {comments.map((comment: any, index: number) => {
                     return <Card comment={comment} key={index} />;
                   })}
-                </ScrollView>
+                </ScrollView> */}
+
+                <FlashList
+                  data={comments.comments}
+                  estimatedItemSize={25}
+                  renderItem={({ item, index }) => {
+                    return <Card comment={item} key={index} />;
+                  }}
+                  onEndReached={() => {
+                    if (comments.has_next_page) {
+                      console.log(comments);
+
+                      getComments(id, setComments, setPage, page);
+                    }
+                  }}
+                  ListFooterComponent={() => {
+                    if (comments.comments.length <= 0) return;
+                    return comments.has_next_page ? (
+                      <View style={{ padding: 10 }}>
+                        <ActivityIndicator
+                          color={theme.bottomTabActiveIcon}
+                          size={"small"}
+                        />
+                      </View>
+                    ) : (
+                      <StyledText
+                        poppins
+                        style={{ color: theme.hr, textAlign: "center" }}
+                      >
+                        End Reached.
+                      </StyledText>
+                    );
+                  }}
+                />
               </View>
               <View
                 style={{
@@ -120,19 +170,19 @@ const CommentsModal = ({
                     padding: 10,
                     textAlignVertical: "center",
                     fontSize: 20,
-                    color:theme.header
+                    color: theme.header,
                   }}
                   value={text}
-                  onChange={(val)=>{setText(val.nativeEvent.text)}}
+                  onChange={(val) => {
+                    setText(val.nativeEvent.text);
+                  }}
                   placeholder="Enter your comments"
                   placeholderTextColor={theme.bottomTabInactiveIcon}
-                  
                   returnKeyType="done"
-                  onSubmitEditing={()=>{
+                  onSubmitEditing={() => {
                     setText("");
                     createComment(details.id, text, setComments);
                   }}
-                  
                 />
                 <TouchableOpacity
                   style={{
@@ -146,9 +196,17 @@ const CommentsModal = ({
                     setText("");
                     Keyboard.dismiss();
                   }}
-                  disabled={text.length<0}
+                  disabled={text.length < 0}
                 >
-                  <Ionicons name="send" size={30} color={text.length>0?theme.bottomTabActiveIcon:theme.bottomTabInactiveIcon} />
+                  <Ionicons
+                    name="send"
+                    size={30}
+                    color={
+                      text.length > 0
+                        ? theme.bottomTabActiveIcon
+                        : theme.bottomTabInactiveIcon
+                    }
+                  />
                 </TouchableOpacity>
               </View>
             </View>

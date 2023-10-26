@@ -14,7 +14,7 @@ export const likeDeal = async (id: string) => {
   });
 
   const response = await request.json();
-  console.log(response);
+  // console.log(response);
 
   if (response.error) {
     showMessage({ message: response.error, type: "danger" });
@@ -41,7 +41,7 @@ export const vote = async (id: string, type: "upvote" | "downvote") => {
 export const follow = async (profile_id:string) => {
     const token = await load("token");
     const AuthHeaders = { ...headers, Authorization: `Token ${token}` };
-    console.log(profile_id);
+    // console.log(profile_id);
     
     const request = await fetch(`${URL}/profile/${profile_id}/follow/`, {
       headers: AuthHeaders,
@@ -49,7 +49,7 @@ export const follow = async (profile_id:string) => {
     }); 
 
     const response = await request.json();
-    console.log(response)
+    // console.log(response)
     if (response.error) {
       showMessage({ message: response.error, type: "danger" });
       return;

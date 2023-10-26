@@ -26,10 +26,11 @@ const Bottom = () => {
   const theme = useTheme();
   const [commentsModalVisible, setCommentsModalVisible] = useState(false);
   const [comments, setComments] = useState([]);
+  const [page, setPage] = useState(1);
   useEffect(() => {
-    getComments(details.id, setComments);
-    console.log(details);
+    getComments(details.id, setComments, setPage, 1);
   }, []);
+
   return (
     <>
       <View style={{ gap: 20, marginHorizontal: wtdp("2%") }}>
@@ -71,10 +72,8 @@ const Bottom = () => {
         <AuthButton
           label="Take Me There"
           onPress={async () => {
-            if (
-              details.link != null 
-            ) {
-              await Linking.openURL( details.link);
+            if (details.link != null) {
+              await Linking.openURL(details.link);
               return;
             }
             handleOpenMaps({
@@ -115,6 +114,9 @@ const Bottom = () => {
           secondary
         />
         <CommentsModal
+          id={details.id}
+          setPage={setPage}
+          page={page}
           setVisible={setCommentsModalVisible}
           visible={commentsModalVisible}
           comments={comments}

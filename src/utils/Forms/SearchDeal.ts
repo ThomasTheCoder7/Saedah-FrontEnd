@@ -28,7 +28,7 @@ export const searchDeal = async (
   setDeals((prev: any) => {
     if (!prev.deals || setRefreshing) return response;
     const deals = [...prev.deals, ...response.deals];
-    return { ...prev, deals: deals };
+    return { ...response.data, deals: deals };
   });
 
   if (setRefreshing) setRefreshing(false);

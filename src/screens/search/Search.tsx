@@ -43,7 +43,7 @@ const Search = () => {
     searchDeal(query, setDeals, setPage, null, setRefreshing);
   };
   {
-    console.log(deals);
+    // console.log(deals);
   }
 
   return (
