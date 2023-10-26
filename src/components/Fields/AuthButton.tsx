@@ -31,14 +31,17 @@ const AuthButton = ({ label, secondary = false, onPress, loading }: props) => {
             borderRadius: 10,
             alignItems: "center",
             backgroundColor: secondary ? theme.backgroundColor : "transparent",
+            flexDirection:'row',
+            justifyContent:'center'
           }}
         >
           <StyledText
-            style={{ color: theme.header, fontSize: 18, letterSpacing: 1 }}
+            style={{ color: theme.header, fontSize: 18, letterSpacing: 1, alignItems:'center' }}
             weight="SemiBold"
           >
-            {t(label)} {loading && <ActivityIndicator color={secondary?theme.bottomTabActiveIcon:theme.backgroundColor}/>}
+            {t(label)} 
           </StyledText>
+          {loading && <ActivityIndicator color={secondary?theme.bottomTabActiveIcon:theme.backgroundColor}/>}
         </View>
       </LinearGradient>
     </TouchableOpacity>

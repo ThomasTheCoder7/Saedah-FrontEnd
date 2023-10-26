@@ -30,6 +30,7 @@ const Login = () => {
   const theme = useTheme();
   const { t, i18n } = useTranslation();
   const keyboardVerticalOffset = Platform.OS === "ios" ? 40 : 0;
+  const [loading, setLoading] = useState(false)
   const [data, setData]: [loginData, Function] = useState({
     username: "",
     password: "",
@@ -133,8 +134,10 @@ const Login = () => {
           <AuthButton
             label="Login"
             onPress={() => {
-              submitLogin(data, navigation);
+              setLoading(true)
+              submitLogin(data, navigation, setLoading);
             }}
+            loading={loading}
           />
         </View>
       </ScrollView>

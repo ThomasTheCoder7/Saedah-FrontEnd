@@ -11,6 +11,7 @@ import { store } from "utils/storageHandler";
 import { CommonActions, StackActions, useNavigation } from "@react-navigation/native";
 import { useAuth } from "contexts/AuthContext";
 import { logout } from "utils/Forms/Logout";
+import { useOnBoarding } from "contexts/OnBoardingContext";
 
 type props = {
   onPress: Function;
@@ -66,6 +67,7 @@ const LogoutAlertAction = ({ onPress }: props) => {
   const navigation = useNavigation();
   const isAndroid = Platform.OS == 'android';
   const { setAuth } = useAuth();
+  const {setCurrentIndex} = useOnBoarding()
   return (
     <View
       style={{
@@ -84,6 +86,7 @@ const LogoutAlertAction = ({ onPress }: props) => {
           logout()
           store('token',null);
           setAuth(false);
+          setCurrentIndex(0)
           isAndroid ? navigation.reset({index:0, routes:[{name:'Start'}]}) : navigation.navigate("Start");
         }}
       />

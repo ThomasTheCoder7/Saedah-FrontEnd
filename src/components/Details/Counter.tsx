@@ -28,16 +28,16 @@ const Counter = () => {
       <TouchableOpacity
         style={{ padding: 5 }}
         onPress={() => {
-          vote(id, "downvote");
+          vote(details.id, "downvote");
           if (isVoted == null) {
             setCount((prev) => prev - 1);
             setVoted("down");
             return;
           }
-          setCount((prev) => prev + 1);
+          setCount((prev) => prev - 1);
           setVoted(null);
         }}
-        disabled={isVoted == "up"}
+        disabled={isVoted == "down"}
       >
         <Entypo
           name="plus"
@@ -51,7 +51,7 @@ const Counter = () => {
       <TouchableOpacity
         style={{ padding: 5 }}
         onPress={() => {
-          vote(id, "downvote");
+          vote(details.id, "downvote");
           if (isVoted == null) {
             setCount((prev) => prev - 1);
             setVoted("down");

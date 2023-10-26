@@ -3,7 +3,7 @@ import { useTheme } from "contexts/ThemeContexts";
 import * as Location from "expo-location";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { TextInput, TouchableNativeFeedback, View } from "react-native";
+import { ActivityIndicator, TextInput, TouchableNativeFeedback, View } from "react-native";
 import { MapPressEvent } from "react-native-maps";
 import Animated, {
   useAnimatedStyle,
@@ -20,11 +20,14 @@ type props = {
   setData: Function;
   setGeometry: Function;
   setLink: Function;
+  mapReady:boolean;
+  setMapReady:Function;
 };
 
-const initialVal = htdp('51%');
+const initialVal = htdp('51%')
 
-const LocationField = ({ setData, setLink, setGeometry }: props) => {
+const LocationField = ({ setData, setLink, setGeometry, setMapReady, mapReady }: props) => {
+  
   const theme = useTheme();
   const [activeTab, setActiveTab] = useState("Geographic");
   const animatedHeight = useSharedValue(initialVal);
@@ -36,6 +39,7 @@ const LocationField = ({ setData, setLink, setGeometry }: props) => {
   }));
 
   const [location, setLocation] = useState({ latitude: 0, longitude: 0 });
+
   const [Userlocation, setUserLocation] = useState({
     latitude: 0,
     longitude: 0,
@@ -54,6 +58,7 @@ const LocationField = ({ setData, setLink, setGeometry }: props) => {
       setGeometry(true);
       return;
     }
+    console.log('Link');
     setGeometry(false);
   }, [index]);
   useEffect(() => {
@@ -95,6 +100,8 @@ const LocationField = ({ setData, setLink, setGeometry }: props) => {
       // overshootClamping: true,
     });
   }, [index]);
+
+ 
 
   return (
     <Animated.View
@@ -141,7 +148,7 @@ const LocationField = ({ setData, setLink, setGeometry }: props) => {
         value={index}
         onChange={setIndex}
         disableSwipe={true}
-        animationConfig={{ bounciness: 0 }}
+
         containerStyle={{
           marginTop: 5,
           flexDirection: isEnglish ? "row" : "row-reverse",
@@ -161,7 +168,9 @@ const LocationField = ({ setData, setLink, setGeometry }: props) => {
             loading={loading}
             location={location}
             Userlocation={Userlocation}
+            setLoading={setMapReady}
             handleLocationPress={handleLocationPress}
+            preview={false}
           />
           </View>
         </TabView.Item>
@@ -173,13 +182,15 @@ const LocationField = ({ setData, setLink, setGeometry }: props) => {
         >
           <Field label="">
             <TextInput
-
+              defaultValue="https://"
               placeholder="example.com"
               placeholderTextColor={theme.hr}
               style={{ margin: 0 }}
               onChange={(value) => {
-                setGeometry({})
+                setData(value.nativeEvent.text);
                 setLink(value.nativeEvent.text);
+                console.log(value.nativeEvent.text);
+                
               }}
               keyboardType="web-search"
             />

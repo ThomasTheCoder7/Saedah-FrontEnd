@@ -7,13 +7,14 @@ export type loginData = {
   password: string;
 };
 
-export const submitLogin = async (data: loginData, navigation: any) => {
+export const submitLogin = async (data: loginData, navigation: any, setLoading:Function) => {
   if (isEmpty(data.username) || isEmpty(data.password)) {
     showMessage({
       message: "Failed to Login",
       description: "You must enter username or password",
       type: "danger",
     });
+    setLoading(false)
     return;
   }
 
@@ -31,9 +32,11 @@ export const submitLogin = async (data: loginData, navigation: any) => {
       description: response.error,
       type: "danger",
     });
+    setLoading(false)
     return;
   }
   store("token", response.token);
+  setLoading(false);
   navigation.reset({
     index: 0,
     routes: [{ name: "Main" }],

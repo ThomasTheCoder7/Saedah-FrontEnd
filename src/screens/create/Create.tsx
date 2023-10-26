@@ -10,13 +10,17 @@ import { useTheme } from "contexts/ThemeContexts";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
+  ActivityIndicator,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
   TextInput,
   View,
 } from "react-native";
-import { widthPercentageToDP as wtdp } from "react-native-responsive-screen";
+import {
+  widthPercentageToDP as wtdp,
+  heightPercentageToDP as htdp,
+} from "react-native-responsive-screen";
 import {
   getAppendImageFunction,
   getDeleteImageFunction,
@@ -29,14 +33,14 @@ const Create = () => {
   const [data, setData] = useState({
     images: [],
     location: "",
+    link: "",
     title: "",
     description: "",
     price: "",
     expiryDate: new Date(),
-    link: "",
     isGeographic: true,
   });
-  const navigation = useNavigation()
+  const navigation = useNavigation();
   const setImages = (obj: Image) => {
     setData({ ...data, images: [...data.images, obj] });
   };
@@ -73,10 +77,28 @@ const Create = () => {
   const { t } = useTranslation();
   const [visible, setVisible] = useState(false);
   const theme = useTheme();
+  const [loading, setLoading] = useState(true);
   const keyboardVerticalOffset = Platform.OS === "ios" ? 40 : 0;
 
   return (
     <>
+      {loading && (
+        <View
+          style={{
+            width: wtdp("100%"),
+            height: htdp("90%"),
+            backgroundColor: theme.backgroundColor,
+            alignItems: "center",
+            justifyContent: "center",
+            position:'absolute',
+            top:0,
+            left:0,
+            zIndex:1000
+          }}
+        >
+          <ActivityIndicator color={theme.bottomTabActiveIcon}/>
+        </View>
+      )}
       <ModalImageLocation
         visible={visible}
         setVisible={setVisible}
@@ -115,19 +137,30 @@ const Create = () => {
                   />
                 );
               })}
-              <ImageField
-                onPress={() => {
-                  setVisible(true);
-                }}
-              />
+              {data.images.length < 5 && (
+                <ImageField
+                  onPress={() => {
+                    setVisible(true);
+                  }}
+                />
+              )}
             </ScrollView>
             {data.images.length > 0 && (
-              <IndexIndicator index={index} len={data.images.length + 1} />
+              <IndexIndicator
+                index={index}
+                len={
+                  data.images.length < 5
+                    ? data.images.length + 1
+                    : data.images.length
+                }
+              />
             )}
           </Field>
           <View style={{ gap: 20 }}>
             <Field label="Location" disableStyles>
               <LocationField
+                setMapReady={setLoading}
+                mapReady={loading}
                 setData={setLocation}
                 setLink={setLink}
                 setGeometry={setGeometry}
@@ -162,7 +195,7 @@ const Create = () => {
               </Field>
               <Field label="Price">
                 <TextInput
-                  maxLength={30}
+                  maxLength={10}
                   placeholder="350"
                   placeholderTextColor={theme.hr}
                   keyboardType="decimal-pad"
@@ -176,7 +209,14 @@ const Create = () => {
               </Field>
             </View>
           </View>
-          <AuthButton label={t("Submit")} onPress={() => {submitCreate(data,navigation); setSubmitting(true)}} loading={submitting}/>
+          <AuthButton
+            label={t("Submit")}
+            onPress={() => {
+              submitCreate(data, navigation, setSubmitting);
+              setSubmitting(true);
+            }}
+            loading={submitting}
+          />
         </ScrollView>
       </KeyboardAvoidingView>
     </>

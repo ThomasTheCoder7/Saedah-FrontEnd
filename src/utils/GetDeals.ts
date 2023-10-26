@@ -24,9 +24,11 @@ export const getDealsHome = async (
       if (page != null && response.data.has_next_page) {
         setPage(page + 1);
       }
-      
+      if(setRefreshing != undefined){
+        setDeals([])
+      }
       setDeals((prev: any) => {
-        if (!prev.deals || setRefreshing) return response.data;
+        if (!prev.deals || setRefreshing != undefined) return response.data;
         const deals = [...prev.deals,...response.data.deals];
         return { ...prev, deals: deals };
       });

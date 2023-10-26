@@ -23,7 +23,7 @@ export const getProfile = async (
 
     if (!deepEqual(response.user, userDetails)) {
       // Update the userDetails only if they are different
-      setLoading(true);
+      // setLoading(true);
       setUserDetails(response.user);
     }
     

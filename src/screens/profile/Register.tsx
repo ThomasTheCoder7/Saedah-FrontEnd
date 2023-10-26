@@ -31,6 +31,7 @@ import Field from "components/Fields/Field";
 const Register = () => {
   const theme = useTheme();
   const { t } = useTranslation();
+  const [loading, setLoading] = useState(false);
   const keyboardVerticalOffset = Platform.OS === "ios" ? 70 : 0;
   const [data, setData]:[registerData, Function] = useState({fullname:'',email:'', username:'', password:''})
   const setFullName = (val:string)=>{
@@ -153,8 +154,9 @@ const Register = () => {
             </TouchableOpacity>
           </View>
           <AuthButton label="Register" onPress={()=>{
-            submitRegister(data, navigation);
-          }}/>
+            setLoading(true)
+            submitRegister(data, navigation, setLoading);
+          }} loading={loading}/>
         </View>
       </ScrollView>
     </KeyboardAvoidingView>

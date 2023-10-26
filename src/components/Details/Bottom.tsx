@@ -6,7 +6,7 @@ import StyledText from "components/StyledText";
 import { useDetails } from "contexts/DetailsContext";
 import { useTheme } from "contexts/ThemeContexts";
 import React, { useEffect, useState } from "react";
-import { View } from "react-native";
+import { Linking, View } from "react-native";
 import {
   heightPercentageToDP as htdp,
   widthPercentageToDP as wtdp,
@@ -54,13 +54,29 @@ const Bottom = () => {
             />
           </View>
         ) : (
-          <View style={{width:'100%', padding:20, backgroundColor:theme.bottomTabBackground, borderRadius:15, alignItems:'center'}}>
-            <StyledText style={{color:theme.header}}>{details.link}</StyledText>
+          <View
+            style={{
+              width: "100%",
+              padding: 20,
+              backgroundColor: theme.bottomTabBackground,
+              borderRadius: 15,
+              alignItems: "center",
+            }}
+          >
+            <StyledText style={{ color: theme.header }}>
+              {details.link}
+            </StyledText>
           </View>
         )}
         <AuthButton
           label="Take Me There"
-          onPress={() => {
+          onPress={async () => {
+            if (
+              details.link != null 
+            ) {
+              await Linking.openURL( details.link);
+              return;
+            }
             handleOpenMaps({
               latitude: details.latitude,
               longitude: details.longitude,
@@ -89,7 +105,7 @@ const Bottom = () => {
               </StyledText>
             </Field>
           </View>
-          <Counter />
+          {/* <Counter /> */}
         </View>
         <AuthButton
           label="Comments"

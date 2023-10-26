@@ -20,6 +20,7 @@ type OnBoarding = {
   scrollTo: Function;
   setScrollTo: Function;
   currentIndex: number;
+  setCurrentIndex:Function;
 };
 
 const OnBoardingContext = createContext<OnBoarding>({
@@ -28,6 +29,7 @@ const OnBoardingContext = createContext<OnBoarding>({
   scrollTo: () => {},
   setScrollTo: () => {},
   currentIndex: 0,
+  setCurrentIndex: () => {},
 });
 
 type props = {
@@ -74,6 +76,7 @@ export default ({ children }: props) => {
         scrollTo: scrollTo,
         setScrollTo: setScrollTo,
         currentIndex: currentIndex,
+        setCurrentIndex:setCurrentIndex
       }}
     >
       {children}

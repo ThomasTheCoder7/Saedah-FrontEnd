@@ -14,6 +14,7 @@ type props = {
   loading: boolean;
   location: any;
   Userlocation: any;
+  setLoading: Function;
   preview: boolean;
 };
 
@@ -22,29 +23,13 @@ const MapField = ({
   loading,
   location,
   Userlocation,
+  setLoading,
   preview = false,
 }: props) => {
   const theme = useTheme();
 
   const [latitudeDelta, setLatitudeDelta] = useState(0.0922);
   const [longitudeDelta, setLongitudeDelta] = useState(0.0421);
-
-  // if (loading)
-  //   return (
-  //     <View
-  //       style={{
-  //         justifyContent: "center",
-  //         alignSelf: "center",
-  //         height: "100%",
-  //         width: "100%",
-  //         backgroundColor: theme.bottomTabBackground,
-  //         borderRadius: 15,
-  //         overflow: "hidden",
-  //       }}
-  //     >
-  //       <ActivityIndicator color={theme.bottomTabActiveIcon} size={"small"} />
-  //     </View>
-  //   );
 
   if (preview) {
     return (
@@ -55,30 +40,28 @@ const MapField = ({
           overflow: "hidden",
         }}
       >
-        {!loading && (
-          <MapView
-            provider="google"
-            loadingEnabled={loading}
-            loadingBackgroundColor={theme.bottomTabBackground}
-            loadingIndicatorColor={theme.bottomTabActiveIcon}
-            style={{ width: "100%", height: "100%", zIndex: 0 }}
-            region={{
-              latitude: location.latitude?location.latitude:0,
-              longitude: location.longitude?location.longitude:0,
-              latitudeDelta: latitudeDelta,
-              longitudeDelta: longitudeDelta,
+        <MapView
+          provider="google"
+          loadingEnabled={loading}
+          loadingBackgroundColor={theme.bottomTabBackground}
+          loadingIndicatorColor={theme.bottomTabActiveIcon}
+          style={{ width: "100%", height: "100%", zIndex: 0 }}
+          region={{
+            latitude: location.latitude ? location.latitude : 0,
+            longitude: location.longitude ? location.longitude : 0,
+            latitudeDelta: latitudeDelta,
+            longitudeDelta: longitudeDelta,
+          }}
+          onPress={handleLocationPress}
+        >
+          <Marker
+            coordinate={{
+              latitude: location.latitude ? location.latitude : 0,
+              longitude: location.longitude ? location.longitude : 0,
             }}
-            onPress={handleLocationPress}
-          >
-            <Marker
-              coordinate={{
-                latitude: location.latitude?location.latitude:0,
-                longitude: location.longitude?location.longitude:0,
-              }}
-              draggable={false} // Marker is not draggable
-            />
-          </MapView>
-        )}
+            draggable={false} // Marker is not draggable
+          />
+        </MapView>
       </View>
     );
   }
@@ -93,6 +76,10 @@ const MapField = ({
     >
       {!loading && (
         <MapView
+          onMapReady={() => {
+            setLoading(false);
+            
+          }}
           provider="google"
           loadingEnabled
           loadingBackgroundColor={theme.bottomTabBackground}

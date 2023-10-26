@@ -16,16 +16,20 @@ const Home = () => {
   const isFocused = useIsFocused()
 
   useEffect(()=>{
-    if(!isFocused)return
-    onRefresh()
+    
+    // if(!isFocused && deals.deals.length > 0){
+    //   setDeals([]) 
+    // }
+    if(!isFocused) return;
+    getDealsHome(setDeals, setPage, null);
   },[isFocused])
 
   const theme = useTheme();
 
-  const onRefresh = () => {
+  const onRefresh = async () => {
     setRefreshing(true);
 
-    getDealsHome(setDeals, setPage, 1, setRefreshing);
+   await getDealsHome(setDeals, setPage, 1, setRefreshing);
 
   };
 

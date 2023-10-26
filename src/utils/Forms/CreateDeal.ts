@@ -1,7 +1,9 @@
 import { showMessage } from "react-native-flash-message";
-import { headers, isEmpty } from "utils/logicUtils";
+import { capitalizeString, headers, isEmpty } from "utils/logicUtils";
 import { load, store } from "utils/storageHandler";
 import axios, { AxiosError, AxiosResponse } from "axios";
+import { err } from "react-native-svg/lib/typescript/xml";
+import { Linking } from "react-native";
 export type Image = {
   uri: string;
   name: string;
@@ -22,22 +24,58 @@ export type createData = {
   images: Image[];
   location: string | Object;
   isGeographic: boolean;
+  link?: string;
   title: string;
   description: string;
   price: string;
   expiryDate: Date;
-  link?: string;
   longitude?: string;
   latitude?: string;
 };
 
-export const submitCreate = async (data: createData, navigation: any) => {
+export const submitCreate = async (
+  data: createData,
+  navigation: any,
+  setLoading: Function
+) => {
   const token = await load("token");
   const submitHeaders = {
     ...headers,
     Authorization: `Token ${token}`,
     "content-type": "multipart/form-data",
   };
+
+  if(isEmpty(data.link) && !data.isGeographic){
+    showMessage({message:`You must fill out the Link field`, type:'danger'});
+    setLoading(false);
+    return;
+  }
+
+  const errorMessages = [];
+
+  for (const [key, val] of Object.entries(data)) {
+    if (typeof val === "string" && isEmpty(val) && (key != 'location') && (key != 'link')) {
+        errorMessages.push(
+          `You must fill out the ${capitalizeString(key)} field`
+      );
+      break;
+    }
+  }
+
+  // Check if there are error messages, and if so, show them and return
+  if (errorMessages.length > 0) {
+    errorMessages.forEach((message) => {
+      showMessage({ message, type: "danger" });
+    });
+    setLoading(false);
+    return;
+  }
+
+  if (!data.isGeographic && isEmpty(data.link)) {
+    const valid = await Linking.canOpenURL(data.link);
+    if (!valid) showMessage({ message: "Invalid Link", type: "danger" });
+    return;
+  }
 
   const formData = new FormData();
   data.images.map((image, index) => {
@@ -48,9 +86,6 @@ export const submitCreate = async (data: createData, navigation: any) => {
       type: image.type,
     });
   });
-  // console.log(data.images);
-  // return;
-  // formData.append("photos", data.images);
   formData.append("title", data.title);
   formData.append("description", data.description);
   formData.append(
@@ -79,24 +114,23 @@ export const submitCreate = async (data: createData, navigation: any) => {
         routes: [{ name: "Main" }],
       });
     } else {
+      setLoading(false);
       showMessage({
         message: "Failed to post new Deal",
         type: "danger",
       });
     }
   } catch (error) {
-    // Handle Axios errors here
+    setLoading(false);
     if (axios.isAxiosError(error)) {
       const axiosError: AxiosError = error;
       if (axiosError.response) {
         // Handle the response error (e.g., status code 4xx, 5xx)
         console.log("Response Error:", axiosError.response.data);
-      } else if (axiosError.request) {
-        // Handle network error (e.g., no internet connection)
-        // console.error("Network Error:", axiosError.request);
-      } else {
-        // Handle other Axios errors (e.g., request setup error)
-        console.error("Axios Error:", axiosError.message);
+        showMessage({
+          message: "You must fill out all the fields",
+          type: "danger",
+        });
       }
     } else {
       // Handle non-Axios errors (e.g., other exceptions)
