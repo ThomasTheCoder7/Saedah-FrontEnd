@@ -26,7 +26,6 @@ import {
   getDeleteImageFunction,
 } from "utils/CreateFormHandlers";
 import { Image, createData, submitCreate } from "utils/Forms/CreateDeal";
-import { onScroll } from "utils/ScrollHandler";
 
 const Create = () => {
   // const [images, setImages]: [Image[], Function] = useState([]);
@@ -125,7 +124,17 @@ const Create = () => {
               showsHorizontalScrollIndicator={false}
               nestedScrollEnabled
               scrollEventThrottle={wtdp("65%")}
-              onScroll={(event: any) => onScroll(event, index, setIndex)}
+              onScroll={(event: any) => {
+
+                const { x } = event.nativeEvent.contentOffset;
+                const screenWidth = wtdp("94%");
+              
+                // Calculate the index based on the horizontal scroll position
+                const newIndex = Math.round(x / screenWidth);
+              
+                if (newIndex !== index) {
+                  setIndex(newIndex);
+                }}}
             >
               {data.images.map((image, index) => {
                 return (

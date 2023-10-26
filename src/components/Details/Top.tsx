@@ -1,7 +1,6 @@
 import { View, Text, ScrollView, TextInput } from "react-native";
 import React from "react";
 import Field from "components/Fields/Field";
-import { onScroll } from "utils/ScrollHandler";
 import IndexIndicator from "components/IndexIndicator";
 import ImageField from "components/Fields/ImageField";
 import Page from "./Page";
@@ -23,7 +22,6 @@ const Top = ({ index, setIndex }: props) => {
   const { details } = useDetails();
   const theme = useTheme();
 
-
   return (
     <>
       <View>
@@ -34,7 +32,17 @@ const Top = ({ index, setIndex }: props) => {
           showsHorizontalScrollIndicator={false}
           nestedScrollEnabled
           scrollEventThrottle={20}
-          onScroll={(event: any) => onScroll(event, index, setIndex)}
+          onScroll={(event: any) => {
+            const { x } = event.nativeEvent.contentOffset;
+            const screenWidth = wtdp("94%");
+
+            // Calculate the index based on the horizontal scroll position
+            const newIndex = Math.round(x / screenWidth);
+
+            if (newIndex !== index) {
+              setIndex(newIndex);
+            }
+          }}
         >
           {details.photos.map((image, index) => {
             return (
