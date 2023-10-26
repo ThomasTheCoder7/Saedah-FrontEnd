@@ -20,8 +20,12 @@ export const createComment = async (
     console.log(request.status);
 
     if (!request.ok) return;
-
-    appendComment((prev: any) => [...prev, response]);
+    console.log(response);
+    // return;
+    appendComment((prev: any) => {
+      const comments = [...prev.comments, response]
+      return {...prev, comments:comments} 
+    });
   } catch (err) {
     console.log(err);
   }

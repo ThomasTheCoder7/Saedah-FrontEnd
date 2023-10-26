@@ -36,7 +36,8 @@ export type createData = {
 export const submitCreate = async (
   data: createData,
   navigation: any,
-  setLoading: Function
+  setLoading: Function,
+  t: Function
 ) => {
   const token = await load("token");
   const submitHeaders = {
@@ -45,8 +46,11 @@ export const submitCreate = async (
     "content-type": "multipart/form-data",
   };
 
-  if(isEmpty(data.link) && !data.isGeographic){
-    showMessage({message:`You must fill out the Link field`, type:'danger'});
+  if (isEmpty(data.link) && !data.isGeographic) {
+    showMessage({
+      message: `${t("You must fill out the")} ${t("Link")} ${t("field")}`,
+      type: "danger",
+    });
     setLoading(false);
     return;
   }
@@ -54,9 +58,16 @@ export const submitCreate = async (
   const errorMessages = [];
 
   for (const [key, val] of Object.entries(data)) {
-    if (typeof val === "string" && isEmpty(val) && (key != 'location') && (key != 'link')) {
-        errorMessages.push(
-          `You must fill out the ${capitalizeString(key)} field`
+    if (
+      typeof val === "string" &&
+      isEmpty(val) &&
+      key != "location" &&
+      key != "link"
+    ) {
+      errorMessages.push(
+        `${t("You must fill out the")} ${t(capitalizeString(key))} ${t(
+          "field"
+        )}`
       );
       break;
     }
@@ -76,7 +87,8 @@ export const submitCreate = async (
     if (!valid) showMessage({ message: "Invalid Link", type: "danger" });
     return;
   }
-
+  let month = data.expiryDate.getMonth() < 9 ? `0${data.expiryDate.getMonth()+1}`:data.expiryDate.getMonth()+1
+  
   const formData = new FormData();
   data.images.map((image, index) => {
     //@ts-ignore
@@ -90,7 +102,7 @@ export const submitCreate = async (
   formData.append("description", data.description);
   formData.append(
     "expiry_date",
-    `${data.expiryDate.getFullYear()}-${data.expiryDate.getMonth()}-${data.expiryDate.getUTCDate()}`
+    `${data.expiryDate.getFullYear()}-${month}-${data.expiryDate.getUTCDate()}`
   );
   formData.append("price", data.price);
   if (data.isGeographic && !isEmpty(data.location)) {

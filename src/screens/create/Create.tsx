@@ -212,7 +212,7 @@ const Create = () => {
           <AuthButton
             label={t("Submit")}
             onPress={() => {
-              submitCreate(data, navigation, setSubmitting);
+              submitCreate(data, navigation, setSubmitting, t);
               setSubmitting(true);
             }}
             loading={submitting}

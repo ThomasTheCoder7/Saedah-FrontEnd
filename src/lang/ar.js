@@ -51,4 +51,14 @@ export default {
   Geographic: "جغرافي",
   Link: "رابط",
   Comments: "التعليقات",
+  "Take Me There":"انتقل الى الموقع",
+  "Submit":"ارسال",
+  "You must fill out the":"يجب عليك ان تملئ حقل",
+  "Title":"العنوان",
+  "Link":"الرابط",
+  "Description":"الوصف",
+  "Price":"السعر",
+  field:"",
+  "deleteDealMessage":"هل انت متاكد من حذف هذا العرض ؟",
+  "Delete":"حذف"
 };
