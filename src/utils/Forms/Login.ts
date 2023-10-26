@@ -36,7 +36,7 @@ export const submitLogin = async (data: loginData, navigation: any, setLoading:F
     return;
   }
   store("token", response.token);
-  setLoading(false);
+  if(setLoading) setLoading(false)
   navigation.reset({
     index: 0,
     routes: [{ name: "Main" }],

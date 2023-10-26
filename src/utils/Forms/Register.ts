@@ -27,14 +27,13 @@ export const submitRegister = async (
       type: "danger",
     });
     setLoading(false);
-
     return;
   }
 
-  if (data.username.length <= 5) {
+  if (data.username.length <= 4) {
     showMessage({
       message: "Failed to Register",
-      description: "Username must be at least 6 characters long",
+      description: "Username must be at least 5 characters long",
       type: "danger",
     });
     setLoading(false);
