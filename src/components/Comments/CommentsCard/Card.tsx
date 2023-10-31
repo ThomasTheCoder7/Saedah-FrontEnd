@@ -12,13 +12,14 @@ import {
 import { URL, formatDate } from "utils/logicUtils";
 
 import { follow } from "utils/Forms/DealUtils";
+import { useTheme } from "contexts/ThemeContexts";
 
 type props = {
   comment: any;
 };
 
 const Card = ({ comment }: props) => {
-  const theme = DarkTheme;
+  const theme = useTheme();
   const { i18n } = useTranslation();
   const [UIisFollowed, setFollow] = useState(false);
   const flexDirection = i18n.language == "en" ? "row" : "row-reverse";

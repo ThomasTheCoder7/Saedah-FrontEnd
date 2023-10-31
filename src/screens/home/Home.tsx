@@ -21,7 +21,7 @@ const Home = () => {
     //   setDeals([]) 
     // }
     if(!isFocused) return;
-    getDealsHome(setDeals, setPage, null);
+    onRefresh()
   },[isFocused])
 
   const theme = useTheme();
